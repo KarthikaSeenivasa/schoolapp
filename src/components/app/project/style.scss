@@ -1,0 +1,54 @@
+.proj {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+
+    .head {
+        background: #1890ff;
+        color: #fff;
+        height: 45px;
+        line-height: 45px;
+        display: flex;
+        justify-content: space-between;
+
+        .btns{
+            margin: 0 5px;
+        }
+    }
+    .con {
+        padding: 5px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+    }
+}
+
+.hls-form {
+    position: relative;
+    top: 20px;
+    padding-bottom: 5px;
+}
+
+.res-alloc {
+    padding: 10px;
+
+    .res-wrn {
+        position: relative;
+        top: 5px;
+        text-align: center;
+        color: red;
+    }
+
+    .weightage {
+        margin: 40px 0 0 0;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .label {
+        width: 39%;
+        align-self: flex-start;
+        margin: auto 0;
+    }
+}
+

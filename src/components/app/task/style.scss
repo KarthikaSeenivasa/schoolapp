@@ -1,0 +1,67 @@
+.tsk-mtr {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+
+    .hdr {
+        background: #1890ff;
+        color: #fff;
+        height: 45px;
+        line-height: 30px;
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 5px;
+
+    }
+    .con {
+        padding: 5px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+
+        .tab-con {
+            .ant-tree li .ant-tree-node-content-wrapper {
+                width: 95%;
+                height: 40px;
+                padding: 10px 0;
+            }
+
+            .ant-tree li span.ant-tree-switcher {
+                padding: 10px 0;
+                height: 40px;
+            }
+
+            .tree-node {
+                display: flex;
+                justify-content: space-between;   
+                cursor: default;     
+                margin: 0 10px;   
+            }
+        }
+
+        .form-container {
+            position: relative;
+            top: 10px;
+            padding: 5%;
+            display: flex;
+            flex-direction: column;
+
+            .tsk-inputs {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .btns {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+
+                .sbmt {
+                    margin-right: 10px;
+                }
+            }
+        }
+
+    }
+}

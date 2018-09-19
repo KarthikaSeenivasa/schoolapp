@@ -1,0 +1,11 @@
+{
+  "presets": ["env", "react", "es2015"],
+  "plugins": [
+    "transform-class-properties", 
+    "transform-object-rest-spread", 
+    "transform-object-assign",
+    "syntax-dynamic-import",
+    "transform-dynamic-import",
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+  ]
+}
