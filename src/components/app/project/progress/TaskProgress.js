@@ -73,7 +73,7 @@ class TaskProgress extends React.Component {
     }
 
     render() {
-        const columns = [
+        let columns = [
             {
                 title: 'Entered Date',
                 dataIndex: 'date',
@@ -83,13 +83,16 @@ class TaskProgress extends React.Component {
                 title: 'Progress',
                 dataIndex: 'progressPercentage',
                 render: this.renderProgress
-            },
-            {
+            }
+        ];
+
+        if (this.props.allowEdit) {
+            columns.push({
                 title: 'Actions',
                 dataIndex: 'id',
                 render: this.renderActions
-            }
-        ];
+            });
+        }
 
         return (
             <Modal visible={this.props.visible}

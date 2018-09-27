@@ -75,6 +75,7 @@ class ProgressModal extends React.Component {
             }
         ];
         const { visible, onCancel } = this.props;
+
         return (
             <Modal visible={visible}
                 title='Project Tasks and Progress'
@@ -101,6 +102,7 @@ class ProgressModal extends React.Component {
                         dataSource={this.state.selectedTask.progress}
                         onEditProgress={this.onEditProgress}
                         onAddProgress={this.onAddProgress}
+                        allowEdit={this.props.userRoles.includes('ROLE_MANAGEMENT')}
                     />
 
                 }
@@ -112,7 +114,8 @@ class ProgressModal extends React.Component {
 const mapStateToProps = (state) => {
     return {
         projectSpecificTasks: state.projects.projectSpecificTasks,
-        loading: state.projects.projectSpecificTasksLoading
+        loading: state.projects.projectSpecificTasksLoading,
+        userRoles: state.user.userRoles
     }
 }
 
