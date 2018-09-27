@@ -11,7 +11,7 @@ import { getTasks, addTask, deleteTask, updateTask } from '../../../actions/Task
 const { Header, Content } = Layout;
 const { confirm } = Modal;
 
-class TaskMaster extends React.Component {
+class TradesAndActivities extends React.Component {
 
     state = {
         showFormModal: false,
@@ -100,7 +100,7 @@ class TaskMaster extends React.Component {
         return (
             <Layout className="tsk-mtr">
                 <Header className="hdr">
-                    <span style={{ marginLeft: '10px' }}>Task Tree</span>
+                    <span style={{ marginLeft: '10px' }}>Trades And Activities</span>
                     <Button onClick={this.handleAdd} style={{ margin: '1px 10px 1px 0px', height: '25px' }}>Add Task</Button>
                 </Header>
                 <Content className="con">
@@ -148,4 +148,4 @@ const mapStateToProps = (state) => {
         loading: state.tasks.loading
     }
 }
-export default connect(mapStateToProps)(TaskMaster);
+export default connect(mapStateToProps)(TradesAndActivities);

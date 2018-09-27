@@ -46,8 +46,8 @@ class FormWrapper extends React.Component {
         const { getFieldDecorator } = form;
 
         const formLayout = {
-            labelCol: { span: 5 },
-            wrapperCol: { span: 15 }
+            labelCol: { span: 7 },
+            wrapperCol: { span: 12, offset : 2 }
         }
         return (
             <Modal visible={visible}

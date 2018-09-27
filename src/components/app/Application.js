@@ -10,7 +10,7 @@ import Client from './client/Client';
 import ProjectSetup from './project/setup/ProjectSetup';
 import NotFound from '../error/NotFound';
 import ProjectProgress from './project/progress/ProjectProgress';
-import TaskMaster from './task/TaskMaster';
+import TradesAndActivities from './task/TradesAndActivities';
 import TimeEntry from './timesheet/entry/TimeEntry';
 import TimeEntryApproval from './timesheet/approval/TimeEntryApproval';
 import PrivateRoute from '../../routes/PrivateRoute';
@@ -45,7 +45,7 @@ class Application extends React.Component {
                         }
                         {
                             !isEmployee &&
-                            <Menu.Item key="/app/task_master"><Link to="/app/task_master">Task Master</Link></Menu.Item>
+                            <Menu.Item key="/app/trades_and_activities"><Link to="/app/trades_and_activities">Trades & Activities</Link></Menu.Item>
                         }
                         <Menu.Item key="/app/time_entry"><Link to="/app/time_entry">Time Entry</Link></Menu.Item>
                         {
@@ -63,7 +63,7 @@ class Application extends React.Component {
                         <Redirect from="/app" exact to={this.getInitialRedirectURL()} />
                         <PrivateRoute path="/app/projects/setup" component={ProjectSetup} authenticated={isAuthenticated} />
                         <PrivateRoute path="/app/projects/progress" component={ProjectProgress} authenticated={isAuthenticated} />
-                        <PrivateRoute path="/app/task_master" component={TaskMaster} authenticated={isAuthenticated} />
+                        <PrivateRoute path="/app/trades_and_activities" component={TradesAndActivities} authenticated={isAuthenticated} />
                         <PrivateRoute path="/app/time_entry" component={TimeEntry} authenticated={isAuthenticated} />
                         <PrivateRoute path="/app/time_entry_approval" component={TimeEntryApproval} authenticated={isAuthenticated} />
                         <PrivateRoute path={`${this.props.match.url}/client`} component={Client} authenticated={isAuthenticated} />

@@ -45,7 +45,7 @@ class TableWrapper extends React.Component {
                 dataIndex: 'project.name'
             },
             {
-                title: 'Task',
+                title: 'Trade & Activity',
                 dataIndex: 'taskMaster.taskName'
             },
             {

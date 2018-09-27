@@ -7,7 +7,7 @@ const TaskSelect = (props) => {
     const { getFieldDecorator, formLayout, tasks, initialTaskIds } = props;
 
     return (
-        <FormItem label="Task Name" {...formLayout}>
+        <FormItem label="Trade & Activity" colon {...formLayout}>
             {getFieldDecorator('taskMasterId', {
                 initialValue: initialTaskIds,
             })(
