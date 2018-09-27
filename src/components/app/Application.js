@@ -7,7 +7,7 @@ import './style.scss';
 import { Layout, Menu, Spin } from 'antd';
 
 import Client from './client/Client';
-import ProjectSetup from './project/setup/ProjectSetup';
+import JobPlanning from './project/setup/JobPlanning';
 import NotFound from '../error/NotFound';
 import ProjectProgress from './project/progress/ProjectProgress';
 import TradesAndActivities from './task/TradesAndActivities';
@@ -39,7 +39,7 @@ class Application extends React.Component {
                         {
                             !isEmployee &&
                             <SubMenu key="/app/projects" title={<span>Projects</span>}>
-                                <Menu.Item key="/app/projects/setup"><Link to="/app/projects/setup">Project Setup</Link></Menu.Item>
+                                <Menu.Item key="/app/projects/job_planning"><Link to="/app/projects/job_planning">Job Planning</Link></Menu.Item>
                                 <Menu.Item key="/app/projects/progress"><Link to="/app/projects/progress">Progress</Link></Menu.Item>
                             </SubMenu>
                         }
@@ -61,7 +61,7 @@ class Application extends React.Component {
                 <Content className="in-app-content">
                     <Switch>
                         <Redirect from="/app" exact to={this.getInitialRedirectURL()} />
-                        <PrivateRoute path="/app/projects/setup" component={ProjectSetup} authenticated={isAuthenticated} />
+                        <PrivateRoute path="/app/projects/job_planning" component={JobPlanning} authenticated={isAuthenticated} />
                         <PrivateRoute path="/app/projects/progress" component={ProjectProgress} authenticated={isAuthenticated} />
                         <PrivateRoute path="/app/trades_and_activities" component={TradesAndActivities} authenticated={isAuthenticated} />
                         <PrivateRoute path="/app/time_entry" component={TimeEntry} authenticated={isAuthenticated} />
@@ -80,7 +80,7 @@ class Application extends React.Component {
             if (isEmployee) {
                 return '/app/time_entry';
             }
-            return "/app/projects/setup";
+            return "/app/projects/job_planning";
         } else {
             return this.props.location.pathname;
         }

@@ -99,7 +99,7 @@ class ProjectSetup extends React.Component {
         return (
             <Layout className="proj" >
                 <Header className="head">
-                    <span>Project Setup</span>
+                    <span>Job Planning</span>
                     <div>
                         <Button className="btns" onClick={this.handleAddAction}>Add Project</Button>
                     </div>
