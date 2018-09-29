@@ -5,7 +5,7 @@ const { Option } = Select;
 const FormItem = Form.Item;
 
 const LeadsSelect = (props) => {
-    const { getFieldDecorator, loading, leads, formLayout, initialLeadIds } = props;
+    const { getFieldDecorator, loading, leads, formLayout, initialLeadIds, disabled } = props;
     let initialValue = null, options = null;
 
     if (leads.length > 0) {
@@ -34,6 +34,7 @@ const LeadsSelect = (props) => {
                         'Not found'}
                     filterOption={true}
                     optionFilterProp="search"
+                    disabled={disabled}
                 >
                     {options}
                 </Select>

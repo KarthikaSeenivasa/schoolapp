@@ -7,7 +7,7 @@ const FormItem = Form.Item;
 
 const ClientSelect = (props) => {
 
-    const { getFieldDecorator, loading, clients, formLayout, initialClientId } = props;
+    const { getFieldDecorator, loading, clients, formLayout, initialClientId, disabled } = props;
     let initialValue = null, options = null;
 
     if (clients.length > 0) {
@@ -30,7 +30,9 @@ const ClientSelect = (props) => {
                     notFoundContent={loading ?
                         <div style={{ textAlign: 'center' }}><Spin size="small" /></div>
                         :
-                        null}>
+                        null}
+                    disabled={disabled}
+                >
                     {options}
                 </Select>
             )}

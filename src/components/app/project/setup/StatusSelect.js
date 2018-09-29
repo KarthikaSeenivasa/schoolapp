@@ -6,7 +6,7 @@ const { Option } = Select;
 const FormItem = Form.Item;
 
 const StatusSelect = (props) => {
-    const { getFieldDecorator, initialProjectStatus, formLayout } = props;
+    const { getFieldDecorator, initialProjectStatus, formLayout, disabled } = props;
     let options = statusCodes.map((status) => {
         return <Option value={status.value} key={status.value}>{status.name}</Option>
     });
@@ -15,7 +15,7 @@ const StatusSelect = (props) => {
             {getFieldDecorator('status', {
                 initialValue: initialProjectStatus ? initialProjectStatus : statusCodes[0].value
             })(
-                <Select size="default" name="status">
+                <Select size="default" name="status" disabled={disabled}>
                     {options}
                 </Select>
             )}

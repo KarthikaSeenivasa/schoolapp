@@ -15,7 +15,15 @@ import { getAllRoles } from '../../../../actions/UserActions';
 const { Header, Content } = Layout;
 const { confirm } = Modal;
 
-class ProjectSetup extends React.Component {
+class JobPlanning extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.allowEdit = props.userRoles.includes('ROLE_MANAGEMENT') ||
+                        props.userRoles.includes('ROLE_ADMIN') ||
+                        props.userRoles.includes('ROLE_COORDINATOR');
+    }
+
 
     state = {
         showFormModal: false,
@@ -48,6 +56,14 @@ class ProjectSetup extends React.Component {
         this.setState({
             showFormModal: true,
             formMode: 2,
+            recordToEdit: record
+        });
+    }
+
+    handleViewAction = (id, record) => {
+        this.setState({
+            showFormModal: true,
+            formMode: 3,
             recordToEdit: record
         });
     }
@@ -108,8 +124,11 @@ class ProjectSetup extends React.Component {
                     <div className="tab-con">
                         <TableWrapper handleDelete={this.handleDeleteAction}
                             handleEdit={this.handleEditAction}
+                            handleView={this.handleViewAction}
                             dataSource={this.props.projects}
-                            loading={this.props.loading} />
+                            loading={this.props.loading} 
+                            allowEdit={this.allowEdit}
+                            />
                     </div>
                     {
                         this.state.showFormModal &&
@@ -134,6 +153,7 @@ const mapStateToProps = (state) => {
     return {
         projects: state.projects.projects,
         loading: state.projects.loading,
+        userRoles: state.user.userRoles
     }
 }
-export default connect(mapStateToProps)(ProjectSetup);
+export default connect(mapStateToProps)(JobPlanning);

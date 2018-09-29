@@ -102,6 +102,7 @@ class SetupModal extends React.Component {
                     this.state.currentStep === 1 &&
                     <div className="hls-form">
                         <TaskResourceAllocation recordToEdit={this.props.recordToEdit}
+                                                allowEdit={this.props.formMode !== 3}
                         />
                     </div>
                 }

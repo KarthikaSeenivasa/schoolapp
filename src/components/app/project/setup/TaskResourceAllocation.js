@@ -7,6 +7,17 @@ import ResourceAllocation from './ResourceAllocation';
 
 class TaskResourceAllocation extends React.Component {
 
+    constructor(props) {
+        super(props);
+        if (props.allowEdit) {
+            this.columns.push({
+                title: "Actions",
+                render: this.renderActions,
+                width: 150
+            })
+        }
+    }
+
     state = {
         showModal: false,
         selectedTask: null
@@ -41,36 +52,38 @@ class TaskResourceAllocation extends React.Component {
     }
 
     handleEditProjectSpecificTask = (resourceAllocated, weightage) => {
-        let {selectedTask} =  this.state;
+        let { selectedTask } = this.state;
         this.props.dispatch(updateProjectSpecificTasks(selectedTask.id, selectedTask.project.id, selectedTask.taskMaster.id, resourceAllocated, weightage));
         this.handleCancel();
     }
 
+    columns = [
+        {
+            title: "Task Name",
+            dataIndex: "taskMaster.taskName",
+            width: 150
+        },
+        {
+            title: "Resource Allocated",
+            dataIndex: "resourceAllocated",
+            width: 150
+        },
+        {
+            title: "Weightage",
+            dataIndex: "weightage",
+            width: 150
+        }
+    ];
+
+
     render() {
-        const columns = [
-            {
-                title: "Task Name",
-                dataIndex: "taskMaster.taskName",
-                width: 150
-            },
-            {
-                title: "Resource Allocated",
-                dataIndex: "resourceAllocated",
-                width: 150
-            },
-            {
-                title: "Actions",
-                render: this.renderActions,
-                width: 150
-            }
-        ];
 
         return (
             <div className="hls-form">
                 <Table size="small"
                     loading={this.props.loading}
                     dataSource={this.props.projectSpecificTasks}
-                    columns={columns}
+                    columns={this.columns}
                     pagination={false}
                     rowKey="id"
                 />

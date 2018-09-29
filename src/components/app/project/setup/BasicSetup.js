@@ -48,7 +48,7 @@ class BasicSetup extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.formMode === 2) {
+        if (this.props.formMode === 2 || this.props.formMode === 3) {
             let newValues = { ...this.props.recordToEdit };
             newValues.startDate = newValues.startDate ? moment(new Date(newValues.startDate)) : undefined;
             newValues.endDate = newValues.endDate ? moment(new Date(newValues.endDate)) : undefined;
@@ -60,13 +60,15 @@ class BasicSetup extends React.Component {
 
 
     render() {
-        const { form } = this.props;
+        const { form, formMode } = this.props;
         const { getFieldDecorator } = form;
 
         const formLayout = {
             labelCol: { span: 5 },
             wrapperCol: { span: 15 }
         }
+
+        let disabled = (formMode === 3);
 
         return (
             <Form className="hls-form">
@@ -78,7 +80,9 @@ class BasicSetup extends React.Component {
                             addonBefore="Project Name"
                             size="default"
                             name="name"
-                            placeholder="Name of the Project" />
+                            placeholder="Name of the Project"
+                            disabled={disabled}
+                        />
                     )}
                 </FormItem>
 
@@ -87,6 +91,7 @@ class BasicSetup extends React.Component {
                     formLayout={formLayout}
                     getFieldDecorator={getFieldDecorator}
                     initialClientId={this.props.initialClientId}
+                    disabled={disabled}
                 />
 
                 <div className="row-flex" style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -96,6 +101,7 @@ class BasicSetup extends React.Component {
                                 format={DATE_FORMAT}
                                 onChange={this.onStartChange}
                                 disabledDate={this.disabledStartDate}
+                                disabled={disabled}
                             />
                         )}
                     </FormItem>
@@ -104,6 +110,7 @@ class BasicSetup extends React.Component {
                         {getFieldDecorator('endDate')(
                             <DatePicker
                                 format={DATE_FORMAT}
+                                disabled={disabled}
                             />
                         )}
                     </FormItem>
@@ -117,7 +124,9 @@ class BasicSetup extends React.Component {
                             addonBefore="Budget"
                             size="default"
                             name="budget"
-                            placeholder="Budget of the Project" />
+                            placeholder="Budget of the Project"
+                            disabled={disabled}
+                        />
                     )}
                 </FormItem>
 
@@ -126,11 +135,13 @@ class BasicSetup extends React.Component {
                     formLayout={formLayout}
                     getFieldDecorator={getFieldDecorator}
                     initialLeadIds={this.props.initialTeamLeadIds}
+                    disabled={disabled}
                 />
 
                 <StatusSelect getFieldDecorator={getFieldDecorator}
                     formLayout={formLayout}
                     initialProjectStatus={this.props.initialStatus}
+                    disabled={disabled}
                 />
 
                 <FormItem label="Date of Completion" name="dateOfCompletion">
@@ -138,6 +149,7 @@ class BasicSetup extends React.Component {
                         <DatePicker format={DATE_FORMAT}
                             onChange={this.onEndChange}
                             disabledDate={this.disabledDateOfCompletion}
+                            disabled={disabled}
                         />
                     )}
                 </FormItem>
