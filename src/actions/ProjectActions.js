@@ -34,8 +34,6 @@ export const statusCodes =
         }
     ];
 
-
-
 export function getProjects() {
     return (dispatch, getState) => {
         dispatch(setProjectsLoading(true));
@@ -178,7 +176,7 @@ export function addProjectTaskProgress(id, date, progressPercentage) {
             .then((response) => {
                 let projectSpecificTasks = getState().projects.projectSpecificTasks;
                 let index = findIndexOf(projectSpecificTasks, id);
-                if(index != -1){
+                if (index != -1) {
                     let test = projectSpecificTasks[index].project.id;
                     dispatch(getProjectSpecificTasks(projectSpecificTasks[index].project.id));
                 }
@@ -202,7 +200,7 @@ export function updateProjectTaskProgress(id, projectSpecificTaskId, date, progr
             .then((response) => {
                 let projectSpecificTasks = getState().projects.projectSpecificTasks;
                 let index = findIndexOf(projectSpecificTasks, projectSpecificTaskId);
-                if(index != -1){
+                if (index != -1) {
                     dispatch(getProjectSpecificTasks(projectSpecificTasks[index].project.id));
                 }
                 showSuccessNotification('Edited the project entry successfully')

@@ -23,6 +23,18 @@ const ROLES_API = DEV_SERVER + "/api/roles/all";
 
 import { ACCESS_TOKEN, showSuccessNotification, showFailureNotification } from '../utils/Util';
 
+export const workplaceCodes =
+    [
+        {
+            name: 'Chennai',
+            value: "CHENNAI"
+        },
+        {
+            name: 'Trichy',
+            value: "TRICHY"
+        }
+    ];
+
 export function getLoggedInUserDetailsIfAuthenticated() {
     return (dispatch, getState) => {
         if (!localStorage.getItem(ACCESS_TOKEN)) {

@@ -7,6 +7,7 @@ import { Form, Input, Button, Icon, Select, Spin, Checkbox } from 'antd';
 
 import { createUser, checkUsernameAvailability, checkEmailAvailability, getAllRoles } from '../actions/UserActions';
 import { validateNumberForForm } from '../utils/Util';
+import WorkplaceSelect from './WorkplaceSelect';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -124,7 +125,7 @@ class CreateUserForm extends React.Component {
                     )}
                 </FormItem>
 
-                <RoleSelect getFieldDecorator={getFieldDecorator} loading={this.props.loading} roles={this.props.roles} />
+                <RoleSelect getFieldDecorator={getFieldDecorator} formLayout={formLayout} loading={this.props.loading} roles={this.props.roles} />
 
                 <span style={{ display: 'flex' }}>
                     <FormItem>
@@ -152,7 +153,12 @@ class CreateUserForm extends React.Component {
                 </span>
                 {
                     this.state.isEmployee && (
-                        <ReportingTo getFieldDecorator={getFieldDecorator} loading={this.props.loading} users={this.props.users} />
+                        <ReportingToSelect getFieldDecorator={getFieldDecorator} formLayout={formLayout} loading={this.props.loading} users={this.props.users} />
+                    )
+                }
+                {
+                    this.state.isEmployee && (
+                        <WorkplaceSelect getFieldDecorator={getFieldDecorator}  formLayout={formLayout}/>
                     )
                 }
                 <FormItem>
@@ -164,12 +170,9 @@ class CreateUserForm extends React.Component {
 }
 
 const RoleSelect = (props) => {
-    const { getFieldDecorator, loading, roles, onChange } = props;
+    const { getFieldDecorator, loading, roles, formLayout } = props;
     let initialValue = null, options = null;
-    const formLayout = {
-        labelCol: { span: 5 },
-        wrapperCol: { span: 17 },
-    }
+
     if (roles.length > 0) {
         options = roles.map((role) => {
             return (
@@ -199,13 +202,9 @@ const RoleSelect = (props) => {
     );
 }
 
-const ReportingTo = (props) => {
-    const { getFieldDecorator, loading, users } = props;
+const ReportingToSelect = (props) => {
+    const { getFieldDecorator, loading, users, formLayout } = props;
     let initialValue = null, options = [(<Option value={null} key="-1" search="---" >---</Option>)];
-    const formLayout = {
-        labelCol: { span: 5 },
-        wrapperCol: { span: 17 },
-    }
     if (users.length > 0) {
         options = options.concat(users.map((user) => {
             return (
