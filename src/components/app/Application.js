@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Switch, withRouter, Route, Redirect } from 'react-router-dom';
+import { Switch, withRouter, Route, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './style.scss';
@@ -14,19 +14,45 @@ import TradesAndActivities from './task/TradesAndActivities';
 import TimeEntry from './timesheet/entry/TimeEntry';
 import TimeEntryApproval from './timesheet/approval/TimeEntryApproval';
 import PrivateRoute from '../../routes/PrivateRoute';
+import {
+    TradesAndActivitiesMenu,
+    TimeEntryMenu,
+    ClientMenu,
+    TimeEntryApprovalMenu
+} from './menu';
+import { arrayIncludesOneOf } from '../../utils/Util';
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
-const SubMenu = Menu.SubMenu;
 
 class Application extends React.Component {
 
     render() {
         let { isAuthenticated, userRoles, userLoading } = this.props.user;
+
         if (userLoading) {
-            return (<div className="in-app" style={{ width: '100%', height: '100%', position: 'relative', textAlign: 'center', top: '50%' }}><Spin size="large" /></div>);
+            return (
+                <div className="in-app" style={{ width: '100%', height: '100%', position: 'relative', textAlign: 'center', top: '50%' }}>
+                    <Spin size="large" />
+                </div>
+            );
         }
-        let isEmployee = userRoles.includes('ROLE_EMPLOYEE');
+
+        // ant.design does not support a react wrapper for SubMenu
+        let projectMenu = null;
+        if (arrayIncludesOneOf(userRoles, 'ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR', 'ROLE_LEADER')) {
+            projectMenu = (
+                <Menu.SubMenu key="/app/projects" title={<span>Projects</span>}>
+                    <Menu.Item key="/app/projects/job_planning">
+                        <Link to="/app/projects/job_planning">Job Planning</Link>
+                    </Menu.Item>
+                    <Menu.Item key="/app/projects/progress">
+                        <Link to="/app/projects/progress">Progress</Link>
+                    </Menu.Item>
+                </Menu.SubMenu>
+            );
+        }
+
         return (
             <Layout className="in-app" hasSider={true}>
                 <Sider>
@@ -36,26 +62,11 @@ class Application extends React.Component {
                         defaultSelectedKeys={[this.getInitialRedirectURL()]}
                         style={{ height: '100%' }}
                     >
-                        {
-                            !isEmployee &&
-                            <SubMenu key="/app/projects" title={<span>Projects</span>}>
-                                <Menu.Item key="/app/projects/job_planning"><Link to="/app/projects/job_planning">Job Planning</Link></Menu.Item>
-                                <Menu.Item key="/app/projects/progress"><Link to="/app/projects/progress">Progress</Link></Menu.Item>
-                            </SubMenu>
-                        }
-                        {
-                            !isEmployee &&
-                            <Menu.Item key="/app/trades_and_activities"><Link to="/app/trades_and_activities">Trades & Activities</Link></Menu.Item>
-                        }
-                        <Menu.Item key="/app/time_entry"><Link to="/app/time_entry">Time Entry</Link></Menu.Item>
-                        {
-                            !isEmployee &&
-                            <Menu.Item key="/app/time_entry_approval"><Link to="/app/time_entry_approval">Time Entry Approval</Link></Menu.Item>
-                        }
-                        {
-                            !isEmployee &&
-                            <Menu.Item key="/app/client"><Link to="/app/client">Client</Link></Menu.Item>
-                        }
+                        {projectMenu}
+                        <TradesAndActivitiesMenu userRoles={userRoles} />
+                        <TimeEntryMenu />
+                        <TimeEntryApprovalMenu userRoles={userRoles} />
+                        <ClientMenu userRoles={userRoles} />
                     </Menu>
                 </Sider>
                 <Content className="in-app-content">
@@ -84,9 +95,7 @@ class Application extends React.Component {
         } else {
             return this.props.location.pathname;
         }
-
     }
-
 }
 
 const mapStateToProps = (state) => {

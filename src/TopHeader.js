@@ -6,34 +6,31 @@ import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 
 import { handleLogout } from './actions/UserActions';
+import { arrayIncludesOneOf } from './utils/Util';
 
 const { Header } = Layout;
 
 class TopHeader extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onLogout = this.onLogout.bind(this);
-    }
 
-    onLogout(e) {
+    onLogout = (e) => {
         if (e.key === '/logout') {
             this.props.dispatch(handleLogout());
             this.props.history.push("/");
         }
     }
-    render() {
-        let menuItems = [];
-        if (!this.props.user.isAuthenticated) {
-            menuItems = [
+
+    componentWillMount() {
+        this.menuItems = [];
+        let { user } = this.props;
+
+        if (!user.isAuthenticated) {
+            this.menuItems = [
                 <Menu.Item key="/login">
                     <Link to="/login">Login</Link>
                 </Menu.Item>
             ]
         } else {
-            menuItems = [
-                <Menu.Item key="/create_user">
-                    <Link to="/create_user">Create User</Link>
-                </Menu.Item>,
+            this.menuItems = [
                 <Menu.Item key="/change_password">
                     <Link to="/change_password">Change Password</Link>
                 </Menu.Item>,
@@ -41,7 +38,19 @@ class TopHeader extends React.Component {
                     <span>Logout</span>
                 </Menu.Item>
             ];
+
+            if (arrayIncludesOneOf(user.userRoles, 'ROLE_MANAGEMENT', 'ROLE_ADMIN', 'ROLE_COORDINATOR')) {
+                this.menuItems.unshift(
+                    <Menu.Item key="/create_user">
+                        <Link to="/create_user">Create User</Link>
+                    </Menu.Item>
+                );
+            }
         }
+    }
+
+    render() {
+
         return (
             <Header className="app-header">
                 <div className="container">
@@ -53,7 +62,7 @@ class TopHeader extends React.Component {
                         mode="horizontal"
                         selectedKeys={[this.props.location.pathname]}
                     >
-                        {menuItems}
+                        {this.menuItems}
                     </Menu>
                 </div>
             </Header>

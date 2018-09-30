@@ -27,8 +27,7 @@ class Routes extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.user.isAuthenticated,
-        roles:state.user.userRoles
+        isAuthenticated: state.user.isAuthenticated
     }
 }
 

@@ -24,6 +24,15 @@ export function findIndexOf(array, id) {
     return index;
 }
 
+export function arrayIncludesOneOf(array) {
+    for (var i = 1; i < arguments.length; i++) {
+        if(array.includes(arguments[i])){
+            return true;
+        }
+    }
+    return false;
+}
+
 export function showFailureNotification(description) {
     notification.error({
         message: NOTIFICATION_MESSAGE,
@@ -48,7 +57,7 @@ export function renderDate(text, record) {
 export function getDateParam(date) {
     if (date !== undefined) {
         if (date !== null) {
-            return date.unix()*1000;
+            return date.unix() * 1000;
         }
         return null;
     }
@@ -56,9 +65,10 @@ export function getDateParam(date) {
 }
 
 export function validateNumberForForm(rule, value, callback) {
-    if(!value) {
+    if (!value) {
         callback();
         return;
     }
     isNaN(value) ? callback('This field should be a number') : callback();
 }
+
