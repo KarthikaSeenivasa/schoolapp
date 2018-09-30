@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './style.scss'
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 
 import { getLoggedInUserDetailsIfAuthenticated } from './actions/UserActions';
 
@@ -17,6 +17,14 @@ class App extends React.Component {
     }
 
     render() {
+        if (this.props.loading && this.props.isAuthenticated) {
+            return (
+                <div className="load-con">
+                    <Spin />
+                </div>
+            )
+        }
+
         return (
             <Layout className="app-container" hasSider={true}>
                 <TopHeader />
@@ -28,4 +36,11 @@ class App extends React.Component {
     }
 }
 
-export default withRouter(connect()(App));
+const mapStateToProps = (state) => {
+    return {
+        loading: state.user.userLoading,
+        userRoles: state.user.userRoles,
+        isAuthenticated: state.user.isAuthenticated
+    }
+}
+export default withRouter(connect(mapStateToProps)(App));
