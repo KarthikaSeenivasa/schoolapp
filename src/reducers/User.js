@@ -10,7 +10,7 @@ const INITIAL_STATE = {
     roles: [],
     rolesLoading: false,
     isLead: false,
-    userLoading: false
+    userLoading: true
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
