@@ -9,15 +9,17 @@ import Login from '../user/Login';
 import Application from '../components/app/Application';
 import ChangePassword from '../user/ChangePassword';
 import CreateUser from '../user/CreateUser';
+import { arrayIncludesOneOf } from '../utils/Util';
+import { allowedRoles } from '../actions/UserActions';
 
 class Routes extends React.Component {
     render() {
         return (
             <Switch>
                 <Route path="/login" component={Login} />
-                <PrivateRoute path="/app" component={Application} authenticated={this.props.isAuthenticated} />
-                <PrivateRoute path="/change_password" component={ChangePassword} authenticated={this.props.isAuthenticated} />
-                <PrivateRoute path="/create_user" component={CreateUser} authenticated={this.props.isAuthenticated} />
+                <PrivateRoute path="/app" component={Application} authenticated={this.props.isAuthenticated} authorized={true} />
+                <PrivateRoute path="/change_password" component={ChangePassword} authenticated={this.props.isAuthenticated} authorized={true} />
+                <PrivateRoute path="/create_user" component={CreateUser} authenticated={this.props.isAuthenticated} authorized={arrayIncludesOneOf(this.props.userRoles, allowedRoles.create_user)} />
                 <Redirect from="/" exact to="/login" />
                 <Route component={NotFound} />
             </Switch>
@@ -27,7 +29,8 @@ class Routes extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.user.isAuthenticated
+        isAuthenticated: state.user.isAuthenticated,
+        userRoles : state.user.userRoles
     }
 }
 

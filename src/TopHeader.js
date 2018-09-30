@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { Layout, Menu } from 'antd';
 
-import { handleLogout } from './actions/UserActions';
+import { handleLogout, allowedRoles } from './actions/UserActions';
 import { arrayIncludesOneOf } from './utils/Util';
 
 const { Header } = Layout;
@@ -39,7 +39,7 @@ class TopHeader extends React.Component {
                 </Menu.Item>
             ];
 
-            if (arrayIncludesOneOf(user.userRoles, 'ROLE_MANAGEMENT', 'ROLE_ADMIN', 'ROLE_COORDINATOR')) {
+            if (arrayIncludesOneOf(user.userRoles, allowedRoles.create_user)) {
                 this.menuItems.unshift(
                     <Menu.Item key="/create_user">
                         <Link to="/create_user">Create User</Link>

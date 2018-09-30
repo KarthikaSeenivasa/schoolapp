@@ -1,8 +1,9 @@
 import axios from "axios";
+import { ACCESS_TOKEN, showSuccessNotification, showFailureNotification } from '../utils/Util';
 
 export const SET_IS_AUTHENTICATED = "SET_IS_AUTHENTICATED";
 export const SET_USER_DETAILS = "SET_USER_DETAILS";
-export const SET_USER_LOADING="SET_USER_LOADING";
+export const SET_USER_LOADING = "SET_USER_LOADING";
 export const SET_ROLES = "SET_ROLES";
 export const SET_ROLES_LOADING = "SET_ROLES_LOADING";
 
@@ -14,15 +15,19 @@ const SIGN_UP_API = DEV_SERVER + "/api/auth/signup";
 
 const CHECK_USERNAME_AVAILABILITY_API = DEV_SERVER + "/api/user/checkUsernameAvailability";
 
-const CHECK_EMAIL_AVAILABILITY_API =  DEV_SERVER + "/api/user/checkEmailAvailability";
+const CHECK_EMAIL_AVAILABILITY_API = DEV_SERVER + "/api/user/checkEmailAvailability";
 
 const PROFILE_API = DEV_SERVER + "/api/user/profile";
 
 const ROLES_API = DEV_SERVER + "/api/roles/all";
 
-
-import { ACCESS_TOKEN, showSuccessNotification, showFailureNotification } from '../utils/Util';
-
+export const allowedRoles = {
+    "create_user" : ['ROLE_ADMIN','ROLE_MANAGEMENT', 'ROLE_COORDINATOR'],
+    "projects" : ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR', 'ROLE_LEADER'],
+    "trades_and_activities" : ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_LEADER'],
+    "time_entry_approval" : ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_LEADER'],
+    "client" : ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR']
+}
 export const workplaceCodes =
     [
         {
@@ -91,7 +96,7 @@ export function createUser(username, email, name, password, role, isEmployee, em
             email,
             name,
             password,
-            roles:[role],
+            roles: [role],
             isEmployee,
             employeeNumber,
             reportingTo
@@ -140,7 +145,7 @@ export function checkEmailAvailability(rule, email, callback) {
 
 export function getAllRoles() {
     return (dispatch, getState) => {
-        if(getState().user.roles.length > 0){
+        if (getState().user.roles.length > 0) {
             return;
         }
         dispatch(setRolesLoading(true));
@@ -161,7 +166,7 @@ function getLoggedInUser() {
                 let { id, username, email, name } = response.data;
                 let userRoles = response.data.roles;
                 let isLead = false;
-                if( userRoles.includes('ROLE_LEADER') || userRoles.includes('ROLE_MANAGEMENT')) {
+                if (userRoles.includes('ROLE_LEADER') || userRoles.includes('ROLE_MANAGEMENT')) {
                     isLead = true;
                 }
                 dispatch(setUserDetails(id, username, email, name, userRoles, isLead));
@@ -208,14 +213,14 @@ function setRolesLoading(rolesLoading) {
 }
 
 function setDisplayNameForRoles(roles) {
-    for(let role of roles) {
+    for (let role of roles) {
         role.displayName = role.name.split('_')[1].toLowerCase();
     }
 }
 
 function setUserLoading(loading) {
     return {
-        type : SET_USER_LOADING,
+        type: SET_USER_LOADING,
         loading
     }
 }

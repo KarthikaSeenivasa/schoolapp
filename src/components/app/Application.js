@@ -21,6 +21,7 @@ import {
     TimeEntryApprovalMenu
 } from './menu';
 import { arrayIncludesOneOf } from '../../utils/Util';
+import { allowedRoles } from '../../actions/UserActions';
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -40,7 +41,7 @@ class Application extends React.Component {
 
         // ant.design does not support a react wrapper for SubMenu
         let projectMenu = null;
-        if (arrayIncludesOneOf(userRoles, 'ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR', 'ROLE_LEADER')) {
+        if (arrayIncludesOneOf(userRoles, allowedRoles.projects)) {
             projectMenu = (
                 <Menu.SubMenu key="/app/projects" title={<span>Projects</span>}>
                     <Menu.Item key="/app/projects/job_planning">
@@ -72,12 +73,12 @@ class Application extends React.Component {
                 <Content className="in-app-content">
                     <Switch>
                         <Redirect from="/app" exact to={this.getInitialRedirectURL()} />
-                        <PrivateRoute path="/app/projects/job_planning" component={JobPlanning} authenticated={isAuthenticated} />
-                        <PrivateRoute path="/app/projects/progress" component={ProjectProgress} authenticated={isAuthenticated} />
-                        <PrivateRoute path="/app/trades_and_activities" component={TradesAndActivities} authenticated={isAuthenticated} />
-                        <PrivateRoute path="/app/time_entry" component={TimeEntry} authenticated={isAuthenticated} />
-                        <PrivateRoute path="/app/time_entry_approval" component={TimeEntryApproval} authenticated={isAuthenticated} />
-                        <PrivateRoute path={`${this.props.match.url}/client`} component={Client} authenticated={isAuthenticated} />
+                        <PrivateRoute path="/app/projects/job_planning" component={JobPlanning} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.projects)} />
+                        <PrivateRoute path="/app/projects/progress" component={ProjectProgress} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.projects)} />
+                        <PrivateRoute path="/app/trades_and_activities" component={TradesAndActivities} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.trades_and_activities)} />
+                        <PrivateRoute path="/app/time_entry" component={TimeEntry} authenticated={isAuthenticated} authorized={true} />
+                        <PrivateRoute path="/app/time_entry_approval" component={TimeEntryApproval} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.time_entry_approval)}  />
+                        <PrivateRoute path={`${this.props.match.url}/client`} component={Client} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.client)}  />
                         <Route component={NotFound} />
                     </Switch>
                 </Content>

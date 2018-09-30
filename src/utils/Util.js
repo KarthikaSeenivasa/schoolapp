@@ -24,9 +24,9 @@ export function findIndexOf(array, id) {
     return index;
 }
 
-export function arrayIncludesOneOf(array) {
-    for (var i = 1; i < arguments.length; i++) {
-        if(array.includes(arguments[i])){
+export function arrayIncludesOneOf(array, input) {
+    for (var i = 1; i < input.length; i++) {
+        if(array.includes(input[i])){
             return true;
         }
     }

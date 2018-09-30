@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Redirect } from "react-router-dom";
 
-const PrivateRoute = ({ component: Component, authenticated, ...rest }) => (
+const PrivateRoute = ({ component: Component, authenticated, authorized, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
-      if (authenticated) {
+      if (authenticated && authorized) {
         return (
           <Component {...rest} {...props} />
         )
