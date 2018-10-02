@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Layout, Button, Form, Modal } from 'antd';
 import './style.scss';
 
-import FormWrapper from './FormWrapper';
-import TableWrapper from './TableWrapper';
+import ClientModal from './ClientModal';
+import ClientsList from './ClientsList';
 
-import { getClients, addClient, updateClient, deleteClient } from '../../../actions/ClientActions';
+import { getClients, deleteClient } from '../../../actions/ClientActions';
 
 const { Header, Content } = Layout;
 const { confirm } = Modal;
@@ -48,29 +48,6 @@ class Client extends React.Component {
         });
     }
 
-    handleFormSubmit = () => {
-        const form = this.formRef.props.form;
-        form.validateFields((err, values) => {
-            if (!err) {
-                let { name, primaryEmail, secondaryEmail } = { ...values };
-                if (this.state.formMode === 1) {
-                    this.props.dispatch(addClient(name, primaryEmail, secondaryEmail));
-                } else {
-                    this.props.dispatch(updateClient(this.state.recordToEdit.id, name, primaryEmail, secondaryEmail));
-                }
-                form.resetFields();
-                this.setState({
-                    showFormModal: false
-                });
-            }
-        });
-    }
-
-
-    saveFormRef = (formRef) => {
-        this.formRef = formRef;
-    }
-
     handleCancel = () => {
         this.setState({
             showFormModal: false
@@ -99,19 +76,21 @@ class Client extends React.Component {
                 </Header>
                 <Content className="con">
                     <div className="tab-con">
-                        <TableWrapper handleDelete={this.handleDeleteAction}
+                        <ClientsList handleDelete={this.handleDeleteAction}
                             handleEdit={this.handleEditAction}
                             dataSource={this.props.clients}
                             loading={this.props.loading} />
                     </div>
                     <div className="frm-con">
-                        <FormWrapper wrappedComponentRef={this.saveFormRef}
-                            visible={this.state.showFormModal}
-                            onCancel={this.handleCancel}
-                            onSubmit={this.handleFormSubmit}
-                            formMode={this.state.formMode}
-                            recordToEdit={this.state.recordToEdit}
-                        />
+                        {
+                            this.state.showFormModal &&
+                            <ClientModal
+                                visible={this.state.showFormModal}
+                                onCancel={this.handleCancel}
+                                formMode={this.state.formMode}
+                                recordToEdit={this.state.recordToEdit}
+                            />
+                        }
                     </div>
                 </Content>
             </Layout>

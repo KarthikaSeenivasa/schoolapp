@@ -1,7 +1,8 @@
-import { SET_CLIENTS, SET_CLIENTS_LOADING } from '../actions/ClientActions';
+import { SET_CLIENTS, SET_CLIENTS_LOADING, SET_CLIENT_ACTION_LOADING } from '../actions/ClientActions';
 
 const INITIAL_STATE = {
     clients: [],
+    clientActionLoading: false,
     loading: false
 }
 
@@ -16,6 +17,11 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 loading: action.loading
+            }
+        case SET_CLIENT_ACTION_LOADING:
+            return {
+                ...state,
+                clientActionLoading: action.loading
             }
         default:
             return { ...state };
