@@ -5,11 +5,11 @@ import { Modal, Steps } from 'antd';
 import ClientDetails from './ClientDetails';
 
 import { addClient, updateClient } from '../../../actions/ClientActions';
-import ClientsContactsList from './ClientContactsList';
+import ContactsList from './ContactsList';
 
 const { Step } = Steps;
 
-class ClientModal extends React.Component {
+class ClientProcess extends React.Component {
 
     state = {
         currentStep: 0
@@ -87,7 +87,7 @@ class ClientModal extends React.Component {
                 }
                 {
                     this.state.currentStep === 1 &&
-                    <ClientsContactsList />
+                    <ContactsList recordToEdit={this.props.recordToEdit} />
                 }
             </Modal>
         );
@@ -100,4 +100,4 @@ const mapStateToProps = (state) => {
         clientActionLoading: state.clients.clientActionLoading
     }
 }
-export default connect(mapStateToProps)(ClientModal);
+export default connect(mapStateToProps)(ClientProcess);

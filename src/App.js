@@ -24,7 +24,6 @@ class App extends React.Component {
                 </div>
             )
         }
-
         return (
             <Layout className="app-container" hasSider={true}>
                 <TopHeader />

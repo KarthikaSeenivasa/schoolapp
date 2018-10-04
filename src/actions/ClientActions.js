@@ -4,6 +4,8 @@ import { findIndexOf, showFailureNotification, showSuccessNotification } from '.
 export const SET_CLIENTS = "SET_CLIENTS";
 export const SET_CLIENTS_LOADING = "SET_CLIENTS_LOADING";
 export const SET_CLIENT_ACTION_LOADING = "SET_CLIENT_ACTION_LOADING";
+export const SET_CONTACTS = "SET_CONTACTS";
+export const SET_CONTACTS_LOADING = "SET_CONTACTS_LOADING";
 
 const DEV_SERVER = "http://kira:8080";
 
@@ -98,22 +100,34 @@ export function deleteClient(id) {
     }
 }
 
+export function getContacts(clientId) {
+    return (dispatch, getState) => {
+        dispatch(setContactsLoading(true));
+        axios.get(CONTACT_API + "/client/" + clientId)
+            .then((response) => {
+                dispatch(setContacts(response.data.payload));
+                dispatch(setContactsLoading(false));
+            }).catch((err) => {
+                if (err.response.status === 500) {
+                    showFailureNotification('Unable to fetch clients');
+                }
+            });
+    }
+}
+
 export function addContact(clientId, name, phone, designation, primaryEmail, secondaryEmail) {
     return (dispatch, getState) => {
-        const data = {
+        const data = [{
             name,
             phone,
             designation,
             primaryEmail,
             secondaryEmail
-        };
+        }];
         dispatch(setClientActionLoading(true));
-        axios.post(CONTACT_API + "client/" + clientId + "/add", data)
+        axios.post(CONTACT_API + "/add/client/" + clientId, data)
             .then((response) => {
-                let clients = getState().clients.clients;
-                clients.push(response.data.payload);
-
-                dispatch(setClients(clients));
+                dispatch(getContacts(clientId));
 
                 showSuccessNotification('Added the contact successfully');
 
@@ -126,7 +140,46 @@ export function addContact(clientId, name, phone, designation, primaryEmail, sec
     }
 }
 
+export function updateContact(id, name, phone, designation, primaryEmail, secondaryEmail, clientId) {
+    return (dispatch, getState) => {
+        const data = {
+            name,
+            phone,
+            designation,
+            primaryEmail,
+            secondaryEmail
+        };
+        dispatch(setClientActionLoading(true));
+        axios.put(CONTACT_API + "/" + id, data)
+            .then((response) => {
+               
+                dispatch(getContacts(clientId));
 
+                showSuccessNotification('Edited the contact successfully');
+
+                dispatch(setClientActionLoading(false));
+            }).catch((err) => {
+                if (err.response.status === 500) {
+                    showFailureNotification('Could not edit the contact');
+                }
+            });
+    }
+}
+
+export function deleteContact(id, clientId) {
+    return (dispatch, getState) => {
+        axios.delete(CONTACT_API + "/" + id)
+            .then((response) => {
+                dispatch(getContacts(clientId));
+
+                showSuccessNotification('Deleted the contact successfully');
+            }).catch((err) => {
+                if (err.response.status === 500) {
+                    showFailureNotification('Could not delete the contact');
+                }
+            });
+    }
+}
 
 function setClients(clients) {
     return {
@@ -145,6 +198,20 @@ function setClientLoading(loading) {
 function setClientActionLoading(loading) {
     return {
         type: SET_CLIENT_ACTION_LOADING,
+        loading
+    }
+}
+
+function setContacts(contacts) {
+    return {
+        type: SET_CONTACTS,
+        contacts
+    }
+}
+
+function setContactsLoading(loading) {
+    return {
+        type: SET_CONTACTS_LOADING,
         loading
     }
 }

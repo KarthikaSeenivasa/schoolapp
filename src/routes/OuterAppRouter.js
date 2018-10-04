@@ -14,7 +14,7 @@ import { allowedRoles } from '../actions/UserActions';
 
 const OuterAppRouter = (props) => {
 
-    if (props.userRoles.length === 0) {
+    if (props.userRoles.length === 0 && props.isAuthenticated) {
         return null;
     }
 

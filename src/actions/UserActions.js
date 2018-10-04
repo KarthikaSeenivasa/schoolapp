@@ -43,6 +43,7 @@ export const workplaceCodes =
 export function getLoggedInUserDetailsIfAuthenticated() {
     return (dispatch, getState) => {
         if (!localStorage.getItem(ACCESS_TOKEN)) {
+            dispatch(setUserLoading(false));
             return;
         } else {
             dispatch(setIsAuthenticated(true));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Modal } from 'antd';
+import { Form, Input } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -29,7 +29,7 @@ class ClientDetails extends React.Component {
 
                 <FormItem>
                     {getFieldDecorator('email', {
-                        rules: [{ required: true, type: "email", message: 'Client\'s primary email is invalid/empty' }],
+                        rules: [{ required: true, type: "email", message: 'Client\'s email is invalid' }],
                     })(
                         <Input
                             addonBefore="Email"

@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Layout, Button, Form, Modal } from 'antd';
+import { Layout, Button, Modal } from 'antd';
 import './style.scss';
 
-import ClientModal from './ClientModal';
+import ClientProcess from './ClientProcess';
 import ClientsList from './ClientsList';
 
 import { getClients, deleteClient } from '../../../actions/ClientActions';
@@ -84,7 +84,7 @@ class Client extends React.Component {
                     <div className="frm-con">
                         {
                             this.state.showFormModal &&
-                            <ClientModal
+                            <ClientProcess
                                 visible={this.state.showFormModal}
                                 onCancel={this.handleCancel}
                                 formMode={this.state.formMode}
