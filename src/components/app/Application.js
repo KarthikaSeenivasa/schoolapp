@@ -14,12 +14,6 @@ import TradesAndActivities from './task/TradesAndActivities';
 import TimeEntry from './timesheet/entry/TimeEntry';
 import TimeEntryApproval from './timesheet/approval/TimeEntryApproval';
 import PrivateRoute from '../../routes/PrivateRoute';
-import {
-    TradesAndActivitiesMenu,
-    TimeEntryMenu,
-    ClientMenu,
-    TimeEntryApprovalMenu
-} from './menu';
 import { arrayIncludesOneOf } from '../../utils/Util';
 import { allowedRoles } from '../../actions/UserActions';
 
@@ -54,6 +48,39 @@ class Application extends React.Component {
             );
         }
 
+        let tradesAndActivitiesMenu = null;
+        if (arrayIncludesOneOf(userRoles, allowedRoles.trades_and_activities)) {
+            tradesAndActivitiesMenu = (
+                <Menu.Item key="/app/trades_and_activities">
+                    <Link to="/app/trades_and_activities">Trades & Activities</Link>
+                </Menu.Item>
+            );
+        }
+
+        let timeEntryMenu = (
+            <Menu.Item key="/app/time_entry">
+                <Link to="/app/time_entry">Time Entry</Link>
+            </Menu.Item>
+        );
+
+        let timeEntryApprovalMenu = null;
+        if (arrayIncludesOneOf(userRoles, allowedRoles.time_entry_approval)) {
+            timeEntryApprovalMenu = (
+                <Menu.Item key="/app/time_entry_approval">
+                    <Link to="/app/time_entry_approval">Time Entry Approval</Link>
+                </Menu.Item>
+            );
+        }
+
+        let clientMenu = null;
+        if (arrayIncludesOneOf(userRoles, allowedRoles.client)) {
+            clientMenu = (
+                <Menu.Item key="/app/client">
+                    <Link to="/app/client">Client</Link>
+                </Menu.Item>
+            );
+        }
+
         return (
             <Layout className="in-app" hasSider={true}>
                 <Sider>
@@ -64,10 +91,10 @@ class Application extends React.Component {
                         style={{ height: '100%' }}
                     >
                         {projectMenu}
-                        <TradesAndActivitiesMenu userRoles={userRoles} />
-                        <TimeEntryMenu />
-                        <TimeEntryApprovalMenu userRoles={userRoles} />
-                        <ClientMenu userRoles={userRoles} />
+                        {tradesAndActivitiesMenu}
+                        {timeEntryMenu}
+                        {timeEntryApprovalMenu}
+                        {clientMenu}
                     </Menu>
                 </Sider>
                 <Content className="in-app-content">
@@ -77,8 +104,8 @@ class Application extends React.Component {
                         <PrivateRoute path="/app/projects/progress" component={ProjectProgress} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.projects)} />
                         <PrivateRoute path="/app/trades_and_activities" component={TradesAndActivities} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.trades_and_activities)} />
                         <PrivateRoute path="/app/time_entry" component={TimeEntry} authenticated={isAuthenticated} authorized={true} />
-                        <PrivateRoute path="/app/time_entry_approval" component={TimeEntryApproval} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.time_entry_approval)}  />
-                        <PrivateRoute path={`${this.props.match.url}/client`} component={Client} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.client)}  />
+                        <PrivateRoute path="/app/time_entry_approval" component={TimeEntryApproval} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.time_entry_approval)} />
+                        <PrivateRoute path={`${this.props.match.url}/client`} component={Client} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.client)} />
                         <Route component={NotFound} />
                     </Switch>
                 </Content>
