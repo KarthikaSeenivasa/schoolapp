@@ -27,7 +27,7 @@ export function getClients() {
     }
 }
 
-export function addClient(name, email) {
+export function addClient(name, email, callback) {
     return (dispatch, getState) => {
         const data = {
             name,
@@ -44,6 +44,10 @@ export function addClient(name, email) {
                 showSuccessNotification('Added client successfully');
 
                 dispatch(setClientActionLoading(false));
+
+                if(callback){
+                    callback(response.data.payload);
+                }
             }).catch((err) => {
                 if (err.response.status === 500) {
                     showFailureNotification('Could not add the client');
@@ -52,7 +56,7 @@ export function addClient(name, email) {
     }
 }
 
-export function updateClient(id, name, email) {
+export function updateClient(id, name, email, callback) {
     return (dispatch, getState) => {
         const data = {
             name,
@@ -72,6 +76,10 @@ export function updateClient(id, name, email) {
                 showSuccessNotification('Edited client details successfully');
 
                 dispatch(setClientActionLoading(false));
+
+                if(callback){
+                    callback();
+                }
             }).catch((err) => {
                 if (err.response.status === 500) {
                     showFailureNotification('Could not edit the client details');

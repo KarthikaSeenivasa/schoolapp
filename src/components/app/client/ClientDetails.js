@@ -13,26 +13,27 @@ class ClientDetails extends React.Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
-
+        const formLayout = {
+            labelCol: { span: 7 },
+            wrapperCol: { span: 10 }
+        }
         return (
             <Form className="cls-frm">
-                <FormItem>
+                <FormItem label="Client Name" {...formLayout}>
                     {getFieldDecorator('name', {
                         rules: [{ required: true, message: 'Client\'s name cannot be empty' }],
                     })(
                         <Input
-                            addonBefore="Name"
                             name="name"
                             placeholder="Name" />
                     )}
                 </FormItem>
 
-                <FormItem>
+                <FormItem label="Client Email Address" {...formLayout}>
                     {getFieldDecorator('email', {
                         rules: [{ required: true, type: "email", message: 'Client\'s email is invalid' }],
                     })(
                         <Input
-                            addonBefore="Email"
                             name="email"
                             placeholder="Email Address" />
                     )}

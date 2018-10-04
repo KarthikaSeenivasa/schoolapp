@@ -12,7 +12,8 @@ const { Step } = Steps;
 class ClientProcess extends React.Component {
 
     state = {
-        currentStep: 0
+        currentStep: 0,
+        addedRecord: null
     }
 
     saveFormRef = (formRef) => {
@@ -37,27 +38,45 @@ class ClientProcess extends React.Component {
                 let { name, email } = { ...values };
 
                 if (this.props.formMode === 1) {
-                    this.props.dispatch(addClient(name, email));
+                    this.props.dispatch(addClient(name, email, this.performAddCallback));
                 } else {
-                    this.props.dispatch(updateClient(this.props.recordToEdit.id, name, email));
+                    if (name !== this.props.recordToEdit.name || email !== this.props.recordToEdit.email) {
+                        this.props.dispatch(updateClient(this.props.recordToEdit.id, name, email, () => {
+                            this.setState({
+                                currentStep: 1
+                            });
+                        })
+                        );
+                    } else {
+                        this.setState({
+                            currentStep: 1
+                        });
+                    }
+
                 }
 
                 form.resetFields();
-
-                if (this.state.currentStep === 0) {
-                    this.setState({
-                        currentStep: 1
-                    });
-                } else {
-                    this.props.onCancel();
-                }
-
             }
         });
     }
 
+    performAddCallback = (addedRecord) => {
+        this.setState({
+            addedRecord,
+            currentStep: 1
+        })
+    }
+
     saveFormRef = (formRef) => {
         this.formRef = formRef;
+    }
+
+    getOkText = () => {
+        if (this.props.clientActionLoading) {
+            return "Processing";
+        }
+
+        return this.state.currentStep === 0 ? "Next" : "Finish";
     }
 
     render() {
@@ -65,7 +84,7 @@ class ClientProcess extends React.Component {
         return (
             <Modal visible={this.props.visible}
                 title={(this.props.formMode === 1) ? 'Add New Client' : 'Edit Client Information'}
-                okText={this.state.currentStep === 0 ? "Next" : "Finish"}
+                okText={this.getOkText()}
                 onCancel={this.props.onCancel}
                 onOk={this.onOk}
                 centered
@@ -73,6 +92,7 @@ class ClientProcess extends React.Component {
                     loading: this.props.clientActionLoading,
                     disabled: this.props.clientActionLoading
                 }}
+                width="calc(50vw)"
                 destroyOnClose
             >
                 <Steps current={this.state.currentStep}>
@@ -81,13 +101,13 @@ class ClientProcess extends React.Component {
                 </Steps>
                 {
                     this.state.currentStep === 0 &&
-                    <ClientDetails wrappedComponentRef={this.saveFormRef} 
-                                   formMode={this.props.formMode}
-                                   recordToEdit={this.props.recordToEdit} />
+                    <ClientDetails wrappedComponentRef={this.saveFormRef}
+                        formMode={this.props.formMode}
+                        recordToEdit={this.props.recordToEdit} />
                 }
                 {
                     this.state.currentStep === 1 &&
-                    <ContactsList recordToEdit={this.props.recordToEdit} />
+                    <ContactsList recordToEdit={this.state.addedRecord ? this.state.addedRecord : this.props.recordToEdit} />
                 }
             </Modal>
         );
