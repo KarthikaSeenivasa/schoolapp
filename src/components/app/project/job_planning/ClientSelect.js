@@ -31,7 +31,9 @@ const ClientSelect = (props) => {
                         <div style={{ textAlign: 'center' }}><Spin size="small" /></div>
                         :
                         null}
+                    onChange={props.onChange}
                     disabled={disabled}
+                    width={250}
                 >
                     {options}
                 </Select>

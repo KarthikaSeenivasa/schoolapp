@@ -7,7 +7,7 @@ import './style.scss';
 import { Layout, Menu, Spin } from 'antd';
 
 import Client from './client';
-import JobPlanning from './project/setup/JobPlanning';
+import JobPlanning from './project/job_planning';
 import NotFound from '../error/NotFound';
 import ProjectProgress from './project/progress/ProjectProgress';
 import TradesAndActivities from './task/TradesAndActivities';

@@ -3,7 +3,7 @@ import React from 'react';
 import { Table, Divider } from 'antd';
 import { renderDate } from '../../../../utils/Util';
 
-class TableWrapper extends React.Component {
+class ProjectsList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -91,4 +91,4 @@ class TableWrapper extends React.Component {
 
 }
 
-export default TableWrapper;
+export default ProjectsList;

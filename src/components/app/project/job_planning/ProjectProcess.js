@@ -2,15 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Steps } from 'antd';
 
-import { addProject, updateProject } from '../../../../actions/ProjectActions';
-
-
-import BasicSetup from './BasicSetup';
+import ProjectDetails from './ProjectDetails';
 import TaskResourceAllocation from './TaskResourceAllocation';
+
+import { addProject, updateProject } from '../../../../actions/ProjectActions';
 
 const { Step } = Steps;
 
-class SetupModal extends React.Component {
+class ProjectProcess extends React.Component {
 
     state = {
         currentStep: 0
@@ -75,10 +74,13 @@ class SetupModal extends React.Component {
                 okText={this.getOkText()}
                 onCancel={onCancel}
                 onOk={this.onOk}
+                width='calc(70vw)'
+                centered
                 okButtonProps={{
                     loading: this.props.projectActionLoading,
                     disabled: this.props.projectActionLoading
                 }}
+                destroyOnClose
             >
                 <Steps current={this.state.currentStep}>
                     <Step title="Basic Setup" />
@@ -86,7 +88,7 @@ class SetupModal extends React.Component {
                 </Steps>
                 {
                     this.state.currentStep === 0 &&
-                    <BasicSetup wrappedComponentRef={this.saveFormRef}
+                    <ProjectDetails wrappedComponentRef={this.saveFormRef}
                         recordToEdit={this.props.recordToEdit}
                         formMode={this.props.formMode}
                         initialClientId={this.props.initialClientId}
@@ -130,4 +132,4 @@ const mapStateToProps = (state) => {
         projectActionLoading: state.projects.projectActionLoading
     }
 }
-export default connect(mapStateToProps)(SetupModal);
+export default connect(mapStateToProps)(ProjectProcess);

@@ -254,11 +254,5 @@ function setProjectSpecificTasksLoading(loading) {
     }
 }
 
-function setProgressLoading(loading) {
-    return {
-        type: SET_PROGRESS_LOADINGs,
-        loading
-    }
-}
 
 

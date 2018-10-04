@@ -35,6 +35,7 @@ const LeadsSelect = (props) => {
                     filterOption={true}
                     optionFilterProp="search"
                     disabled={disabled}
+                    style={{width:250}}
                 >
                     {options}
                 </Select>

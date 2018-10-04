@@ -1,19 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Layout, Button, Modal } from 'antd';
+
 import '../style.scss';
 
-import TableWrapper from './TableWrapper';
-import SetupModal from './SetupModal';
+import ProjectsList from './ProjectsList';
+import ProjectProcess from './ProjectProcess';
 
 import { getProjects, deleteProject } from '../../../../actions/ProjectActions';
-
 import { getClients } from '../../../../actions/ClientActions';
-
 import { getAllRoles } from '../../../../actions/UserActions';
 
 const { Header, Content } = Layout;
-const { confirm } = Modal;
 
 class JobPlanning extends React.Component {
 
@@ -24,7 +22,6 @@ class JobPlanning extends React.Component {
                         props.userRoles.includes('ROLE_COORDINATOR');
     }
 
-
     state = {
         showFormModal: false,
         formMode: -1, //1 for Add, 2 for Edit
@@ -33,7 +30,7 @@ class JobPlanning extends React.Component {
 
     showDeleteConfirm = (id) => {
         let self = this;
-        confirm({
+        Modal.confirm({
             title: 'Are you sure you want to delete this project?',
             okText: 'Yes',
             okType: 'danger',
@@ -122,7 +119,7 @@ class JobPlanning extends React.Component {
                 </Header>
                 <Content className="con">
                     <div className="tab-con">
-                        <TableWrapper handleDelete={this.handleDeleteAction}
+                        <ProjectsList handleDelete={this.handleDeleteAction}
                             handleEdit={this.handleEditAction}
                             handleView={this.handleViewAction}
                             dataSource={this.props.projects}
@@ -134,7 +131,7 @@ class JobPlanning extends React.Component {
                         this.state.showFormModal &&
 
                         <div className="form-con">
-                            <SetupModal visible={this.state.showFormModal}
+                            <ProjectProcess visible={this.state.showFormModal}
                                 onCancel={this.handleCancel}
                                 formMode={this.state.formMode}
                                 recordToEdit={this.state.recordToEdit}

@@ -27,6 +27,11 @@
     position: relative;
     top: 20px;
     padding-bottom: 5px;
+
+    .row-flex {
+        display: flex;
+        justify-content: center;
+    }
 }
 
 .res-alloc {
