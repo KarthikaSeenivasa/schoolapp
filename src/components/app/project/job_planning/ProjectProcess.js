@@ -74,7 +74,7 @@ class ProjectProcess extends React.Component {
                 okText={this.getOkText()}
                 onCancel={onCancel}
                 onOk={this.onOk}
-                width='calc(70vw)'
+                width='calc(60vw)'
                 centered
                 okButtonProps={{
                     loading: this.props.projectActionLoading,

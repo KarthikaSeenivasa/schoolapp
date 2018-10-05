@@ -26,11 +26,12 @@ class ContactsSelect extends React.Component {
         }
         return (
             <FormItem label="Contacts" {...formLayout}>
-                {getFieldDecorator('contacts', {
+                {getFieldDecorator('contactIds', {
+                    rules:[{required: true, message: "Atleast one contact must be selected"}],
                     initialValue: initialValue
                 })(
                     <Select size="default"
-                        name="contacts"
+                        name="contactIds"
                         mode="multiple"
                         placeholder="Contacts of the Client"
                         notFoundContent={loading ?
@@ -40,7 +41,6 @@ class ContactsSelect extends React.Component {
                         filterOption={true}
                         optionFilterProp="search"
                         disabled={disabled}
-                        style={{ width: 200 }}
                     >
                         {options}
                     </Select>

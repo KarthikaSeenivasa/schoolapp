@@ -21,7 +21,7 @@ const ClientSelect = (props) => {
     }
 
     return (
-        <FormItem label="Client Name" {...formLayout}>
+        <FormItem label="Client Name" {...formLayout} >
             {getFieldDecorator('clientName', {
                 initialValue: initialValue
             })(
@@ -33,7 +33,6 @@ const ClientSelect = (props) => {
                         null}
                     onChange={props.onChange}
                     disabled={disabled}
-                    width={250}
                 >
                     {options}
                 </Select>

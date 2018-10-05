@@ -44,7 +44,7 @@ class ContactsPicker extends React.Component {
             initialValue = this.props.initialContactIds ? this.props.initialContactIds : this.state.initialContactIds;
         }
         return (
-            <div className="row-flex">
+            <div>
                 <ClientSelect loading={this.props.clientsLoading}
                     clients={this.props.clients}
                     formLayout={this.props.formLayout}
