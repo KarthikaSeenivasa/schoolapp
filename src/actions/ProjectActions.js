@@ -57,17 +57,23 @@ export function getProjects() {
     }
 }
 
-export function addProject(name, clientId, startDate, endDate, budget, teamLeadIds, status, dateOfCompletion) {
+export function addProject(name, esskayJN, clientJN, clientId, contactId, headEmployee, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF) {
     return (dispatch, getState) => {
         const data = {
             name,
+            esskayJN,
+            clientJN,
             clientId,
-            startDate: startDate ? startDate.unix() : undefined,
-            endDate: endDate ? endDate.unix() : undefined,
-            budget,
-            headEmployee: teamLeadIds,
+            contactId,
+            headEmployee,
             status,
-            dateOfCompletion: dateOfCompletion ? dateOfCompletion.unix() : undefined
+            description,
+            startDate: startDate ? startDate.unix() : undefined,
+            plannedIFA: plannedIFA ? plannedIFA.unix() : undefined,
+            budget,
+            receivingDate: receivingDate ? receivingDate.unix() : undefined,
+            actualIFA: actualIFA ? actualIFA.unix() : undefined,
+            actualIFF: actualIFF ? actualIFF.unix() : undefined
         };
         dispatch(setProjectActionLoading(true));
         axios.post(PROJECTS_API + "/add", data)
@@ -85,17 +91,23 @@ export function addProject(name, clientId, startDate, endDate, budget, teamLeadI
     }
 }
 
-export function updateProject(id, name, clientId, startDate, endDate, budget, teamLeadIds, status, dateOfCompletion) {
+export function updateProject(id, name, esskayJN, clientJN, clientId, contactId, headEmployee, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF) {
     return (dispatch, getState) => {
         const data = {
             name,
+            esskayJN,
+            clientJN,
             clientId,
-            startDate: getDateParam(startDate),
-            endDate: getDateParam(endDate),
-            budget,
-            headEmployee: teamLeadIds,
+            contactId,
+            headEmployee,
             status,
-            dateOfCompletion: getDateParam(dateOfCompletion)
+            description,
+            startDate: startDate ? startDate.unix() : undefined,
+            plannedIFA: plannedIFA ? plannedIFA.unix() : undefined,
+            budget,
+            receivingDate: receivingDate ? receivingDate.unix() : undefined,
+            actualIFA: actualIFA ? actualIFA.unix() : undefined,
+            actualIFF: actualIFF ? actualIFF.unix() : undefined
         };
         dispatch(setProjectActionLoading(true));
         axios.put(PROJECTS_API + "/" + id, data)
@@ -103,7 +115,7 @@ export function updateProject(id, name, clientId, startDate, endDate, budget, te
                 let projects = getState().projects.projects;
                 let index = findIndexOf(projects, id);
                 if (index !== -1) {
-                    projects[index] = { id, name, clientId, startDate, endDate, budget, teamLeadIds, status, dateOfCompletion };
+                    projects[index] = response.data.payload;
                 }
                 dispatch(setProjects(projects));
                 dispatch(setProjectActionLoading(false));

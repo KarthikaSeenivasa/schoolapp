@@ -30,9 +30,10 @@ class ProjectProcess extends React.Component {
         const form = this.formRef.props.form;
         form.validateFields((err, values) => {
             if (!err) {
-                let { name, clientName, startDate, endDate, budget, teamLeads, status, dateOfCompletion } = { ...values };
+                debugger;
+                let { name, esskayJN, clientJN, clientId, contactId, headEmployee, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF } = { ...values };
                 if (this.props.formMode === 1) {
-                    this.props.dispatch(addProject(name, clientName, startDate, endDate, budget, teamLeads, status, dateOfCompletion));
+                    this.props.dispatch(addProject(name, esskayJN, clientJN, clientId, contactId, headEmployee, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF));
                 } else {
                     this.props.dispatch(updateProject(this.props.recordToEdit.id, name, clientName, startDate, endDate, budget, teamLeads, status, dateOfCompletion));
                 }

@@ -22,11 +22,11 @@ const ClientSelect = (props) => {
 
     return (
         <FormItem label="Client Name" {...formLayout} >
-            {getFieldDecorator('clientName', {
+            {getFieldDecorator('clientId', {
                 initialValue: initialValue
             })(
                 <Select size="default"
-                    name="clientName"
+                    name="clientId"
                     notFoundContent={loading ?
                         <div style={{ textAlign: 'center' }}><Spin size="small" /></div>
                         :
