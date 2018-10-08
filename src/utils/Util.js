@@ -1,5 +1,6 @@
 import { notification } from 'antd';
 import axios from 'axios';
+import { statusCodes } from '../actions/ProjectActions';
 
 export const ACCESS_TOKEN = "accessToken";
 
@@ -26,7 +27,7 @@ export function findIndexOf(array, id) {
 
 export function arrayIncludesOneOf(array, input) {
     for (var i = 1; i < input.length; i++) {
-        if(array.includes(input[i])){
+        if (array.includes(input[i])) {
             return true;
         }
     }
@@ -50,6 +51,17 @@ export function showSuccessNotification(description) {
 export function renderDate(text, record) {
     if (text) {
         return new Date(text).toLocaleDateString();
+    }
+    return '-';
+}
+
+export function renderStatus(text, record) {
+    if (text) {
+        for(const statusCode of statusCodes) {
+            if(statusCode.value === text){
+                return statusCode.name;
+            }
+        }
     }
     return '-';
 }

@@ -16,9 +16,11 @@ class ProjectDetails extends React.Component {
     componentDidMount() {
         if (this.props.formMode === 2 || this.props.formMode === 3) {
             let newValues = { ...this.props.recordToEdit };
+            newValues.receivingDate = newValues.receivingDate ? moment(new Date(newValues.receivingDate)) : undefined;
             newValues.startDate = newValues.startDate ? moment(new Date(newValues.startDate)) : undefined;
-            newValues.endDate = newValues.endDate ? moment(new Date(newValues.endDate)) : undefined;
-            newValues.dateOfCompletion = newValues.dateOfCompletion ? moment(new Date(newValues.endDate)) : undefined;
+            newValues.plannedIFA = newValues.plannedIFA ? moment(new Date(newValues.plannedIFA)) : undefined;
+            newValues.actualIFA = newValues.actualIFA ? moment(new Date(newValues.actualIFA)) : undefined;
+            newValues.actualIFF = newValues.actualIFF ? moment(new Date(newValues.actualIFF)) : undefined;
 
             this.props.form.setFieldsValue(newValues);
         }

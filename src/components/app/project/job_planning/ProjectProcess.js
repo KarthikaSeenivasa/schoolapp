@@ -30,12 +30,11 @@ class ProjectProcess extends React.Component {
         const form = this.formRef.props.form;
         form.validateFields((err, values) => {
             if (!err) {
-                debugger;
-                let { name, esskayJN, clientJN, clientId, contactId, headEmployee, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF } = { ...values };
+                let { name, esskayJN, clientJN, clientId, contactId, headEmployeeIds, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF } = { ...values };
                 if (this.props.formMode === 1) {
-                    this.props.dispatch(addProject(name, esskayJN, clientJN, clientId, contactId, headEmployee, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF));
+                    this.props.dispatch(addProject(name, esskayJN, clientJN, clientId, contactId, headEmployeeIds, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF));
                 } else {
-                    this.props.dispatch(updateProject(this.props.recordToEdit.id, name, clientName, startDate, endDate, budget, teamLeads, status, dateOfCompletion));
+                    this.props.dispatch(updateProject(this.props.recordToEdit.id, name, esskayJN, clientJN, clientId, contactId, headEmployeeIds, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF));
                 }
                 form.resetFields();
                 if (this.state.currentStep === 0) {
@@ -93,6 +92,7 @@ class ProjectProcess extends React.Component {
                         recordToEdit={this.props.recordToEdit}
                         formMode={this.props.formMode}
                         initialClientId={this.props.initialClientId}
+                        initialContactIds={this.props.initialContactIds}
                         initialTeamLeadIds={this.props.initialTeamLeadIds}
                         initialStatus={this.props.initialStatus}
                         clients={this.props.clients}

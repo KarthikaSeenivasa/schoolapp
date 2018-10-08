@@ -1,5 +1,5 @@
 import React from 'react';
-import  moment  from 'moment';
+import moment from 'moment';
 import { Form, DatePicker, Input } from 'antd';
 
 import { DATE_FORMAT, validateNumberForForm } from '../../../../utils/Util';
@@ -9,28 +9,40 @@ const FormItem = Form.Item;
 class IFADatePicker extends React.Component {
 
     onTimeFrameChange = (e) => {
-        if(!isNaN(e.target.value) && e.target.value !== ""){
+        if (!isNaN(e.target.value) && e.target.value !== "") {
             let valueInSeconds = e.target.value * 7 * 24 * 60 * 60;
             let startDate = this.props.form.getFieldValue('startDate');
-            if(startDate) {
+            if (startDate) {
                 let startDateUnix = startDate.unix();
                 let plannedIFAUnix = startDateUnix + valueInSeconds;
                 this.props.form.setFieldsValue({
-                    plannedIFA : moment(new Date(plannedIFAUnix*1000))
-                })
+                    plannedIFA: moment(new Date(plannedIFAUnix * 1000))
+                });
             }
+        }
+    }
+
+    onStartDateChange = (date, dateString) => {
+        let timeframe = this.props.form.getFieldValue('timeframe');
+        if (!isNaN(timeframe) && timeframe !== '') {
+            let valueInSeconds = timeframe * 7 * 24 * 60 * 60;
+            let startDateUnix = date.unix();
+            let plannedIFAUnix = startDateUnix + valueInSeconds;
+            this.props.form.setFieldsValue({
+                plannedIFA: moment(new Date(plannedIFAUnix * 1000))
+            });
         }
     }
 
     componentDidMount() {
         if (this.props.formMode === 2 || this.props.formMode === 3) {
-            let plannedIFAUnix = this.props.recordToEdit.plannedIFA.unix();
-            let startDateUnix = this.props.recordToEdit.startDate.unix();
-            if(plannedIFAUnix && startDateUnix){
-                let timeframeInMillis = plannedIFAUnix - startDateUnix;
+            let plannedIFAUnix = this.props.recordToEdit.plannedIFA;
+            let startDateUnix = this.props.recordToEdit.startDate;
+            if (plannedIFAUnix && startDateUnix) {
+                let timeframeInSeconds = plannedIFAUnix - startDateUnix;
 
                 this.props.form.setFieldsValue({
-                    timeframe : timeframeInMillis/(7 * 24 * 60 * 60)
+                    timeframe: timeframeInSeconds / (7 * 24 * 60 * 60)
                 });
             }
         }
@@ -46,6 +58,7 @@ class IFADatePicker extends React.Component {
                         <DatePicker
                             format={DATE_FORMAT}
                             disabled={disabled}
+                            onChange={this.onStartDateChange}
                         />
                     )}
                 </FormItem>

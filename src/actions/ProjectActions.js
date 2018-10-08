@@ -68,12 +68,12 @@ export function addProject(name, esskayJN, clientJN, clientId, contactId, headEm
             headEmployee,
             status,
             description,
-            startDate: startDate ? startDate.unix() : undefined,
-            plannedIFA: plannedIFA ? plannedIFA.unix() : undefined,
+            startDate: startDate ? getDateParam(startDate) : undefined,
+            plannedIFA: plannedIFA ? getDateParam(plannedIFA) : undefined,
             budget,
-            receivingDate: receivingDate ? receivingDate.unix() : undefined,
-            actualIFA: actualIFA ? actualIFA.unix() : undefined,
-            actualIFF: actualIFF ? actualIFF.unix() : undefined
+            receivingDate: receivingDate ? getDateParam(receivingDate) : undefined,
+            actualIFA: actualIFA ? getDateParam(actualIFA) : undefined,
+            actualIFF: actualIFF ? getDateParam(actualIFF) : undefined
         };
         dispatch(setProjectActionLoading(true));
         axios.post(PROJECTS_API + "/add", data)
@@ -102,12 +102,12 @@ export function updateProject(id, name, esskayJN, clientJN, clientId, contactId,
             headEmployee,
             status,
             description,
-            startDate: startDate ? startDate.unix() : undefined,
-            plannedIFA: plannedIFA ? plannedIFA.unix() : undefined,
+            startDate: startDate ?  getDateParam(startDate)  : undefined,
+            plannedIFA: plannedIFA ? getDateParam(plannedIFA)  : undefined,
             budget,
-            receivingDate: receivingDate ? receivingDate.unix() : undefined,
-            actualIFA: actualIFA ? actualIFA.unix() : undefined,
-            actualIFF: actualIFF ? actualIFF.unix() : undefined
+            receivingDate: receivingDate ?  getDateParam(receivingDate)  : undefined,
+            actualIFA: actualIFA ? getDateParam(actualIFA) : undefined,
+            actualIFF: actualIFF ?  getDateParam(actualIFF)  : undefined
         };
         dispatch(setProjectActionLoading(true));
         axios.put(PROJECTS_API + "/" + id, data)

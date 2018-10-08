@@ -21,12 +21,12 @@ const LeadsSelect = (props) => {
 
     return (
         <FormItem label="Team Leads" {...formLayout}>
-            {getFieldDecorator('headEmployee', {
+            {getFieldDecorator('headEmployeeIds', {
                 rules: [{required: true, message: 'Atleast one lead must be selected'}],
                 initialValue: initialValue
             })(
                 <Select size="default"
-                    name="headEmployee"
+                    name="headEmployeeIds"
                     mode="multiple"
                     placeholder="Team leads of the project"
                     notFoundContent={loading ?

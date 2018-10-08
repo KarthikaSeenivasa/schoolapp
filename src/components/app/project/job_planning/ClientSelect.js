@@ -7,8 +7,8 @@ const FormItem = Form.Item;
 
 const ClientSelect = (props) => {
 
-    const { getFieldDecorator, loading, clients, formLayout, initialClientId, disabled } = props;
-    let initialValue = null, options = null;
+    const { getFieldDecorator, loading, clients, formLayout, initialValue, disabled } = props;
+    let options = null;
 
     if (clients.length > 0) {
         options = clients.map((client) => {
@@ -17,7 +17,6 @@ const ClientSelect = (props) => {
                     <span style={{ textTransform: 'capitalize' }}>{client.name}</span>
                 </Option>)
         });
-        initialValue = initialClientId ? initialClientId : clients[0].id;
     }
 
     return (

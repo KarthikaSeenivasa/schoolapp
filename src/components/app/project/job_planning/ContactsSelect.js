@@ -7,8 +7,9 @@ class ContactsSelect extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if(this.props.initialValue !== nextProps.initialValue) {
+            debugger;
             nextProps.setFieldsValue({
-                contacts: nextProps.initialValue
+                contactId: nextProps.initialValue
             })
         }
     }

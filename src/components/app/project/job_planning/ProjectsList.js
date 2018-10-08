@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Table, Divider } from 'antd';
-import { renderDate } from '../../../../utils/Util';
+import { renderDate, renderStatus } from '../../../../utils/Util';
 
 class ProjectsList extends React.Component {
 
@@ -50,6 +50,7 @@ class ProjectsList extends React.Component {
             </span>
         );
     }
+
     columns = [
         {
             title: 'Project Name',
@@ -57,23 +58,19 @@ class ProjectsList extends React.Component {
             width: 200
         },
         {
-            title: 'Client',
-            dataIndex: 'client.name',
+            title: 'Esskay Job Number',
+            dataIndex: 'esskayJN',
             width: 200
         },
         {
-            title: 'Start Date',
-            dataIndex: 'startDate',
-            render: renderDate
-        },
-        {
-            title: 'Date of Completion',
-            dataIndex: 'dateOfCompletion',
+            title: 'Order Receiving Date',
+            dataIndex: 'receivingDate',
             render: renderDate
         },
         {
             title: 'Status',
-            dataIndex: 'status'
+            dataIndex: 'status',
+            render: renderStatus
         }
     ];
 

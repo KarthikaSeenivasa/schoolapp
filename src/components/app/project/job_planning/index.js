@@ -108,6 +108,16 @@ class JobPlanning extends React.Component {
         return undefined;
     }
 
+    getInitialContactIds = () => {
+        if (this.state.formMode === 2 && this.state.recordToEdit.contact) {
+            return this.state.recordToEdit.contact.map((contact) => {
+                return contact.id;
+            });
+
+        }
+        return undefined;
+    }
+
     render() {
         return (
             <Layout className="proj" >
@@ -138,6 +148,7 @@ class JobPlanning extends React.Component {
                                 initialClientId={this.getInitialClientId()}
                                 initialTeamLeadIds={this.getInitialTeamLeadIds()}
                                 initialStatus={this.getInitialStatus()}
+                                initialContactIds={this.getInitialContactIds()}
                             />
                         </div>
                     }
