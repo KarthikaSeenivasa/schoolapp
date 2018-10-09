@@ -26,7 +26,7 @@ export function findIndexOf(array, id) {
 }
 
 export function arrayIncludesOneOf(array, input) {
-    for (var i = 1; i < input.length; i++) {
+    for (var i = 0; i < input.length; i++) {
         if (array.includes(input[i])) {
             return true;
         }
