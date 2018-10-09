@@ -19,10 +19,22 @@ class TopHeader extends React.Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props.user.isAuthenticated !== nextProps.user.isAuthenticated){
+            if(!nextProps.user.isAuthenticated){
+                this.menuItems = [
+                    <Menu.Item key="/login">
+                        <Link to="/login">Login</Link>
+                    </Menu.Item>
+                ]
+            }
+        }
+    }
+
     componentWillMount() {
         this.menuItems = [];
         let { user } = this.props;
-
+        
         if (!user.isAuthenticated) {
             this.menuItems = [
                 <Menu.Item key="/login">
