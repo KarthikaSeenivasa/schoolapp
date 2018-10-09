@@ -31,7 +31,10 @@ class ClientDetails extends React.Component {
 
                 <FormItem label="Client Email Address" {...formLayout}>
                     {getFieldDecorator('email', {
-                        rules: [{ required: true, type: "email", message: 'Client\'s email is invalid' }],
+                        rules: [
+                            { required: true, message: 'Client\'s email should not be empty' },
+                            {type: "email", message: 'Client\'s email is invalid'}
+                        ],
                     })(
                         <Input
                             name="email"

@@ -97,7 +97,8 @@ class CreateUserForm extends React.Component {
                 </FormItem>
                 <FormItem>
                     {getFieldDecorator('email', {
-                        rules: [{ required: true, type: "email", message: 'Email should be valid' },
+                        rules: [{ required: true, message: 'Email should not be empty' },
+                        { type: "email", message: "Please enter a valid email" },
                         { validator: checkEmailAvailability }
                         ],
                     })(
@@ -120,6 +121,7 @@ class CreateUserForm extends React.Component {
                             addonBefore="Password"
                             prefix={<Icon type="lock" />}
                             size="large"
+                            type="password"
                             name="password"
                             placeholder="Password" />
                     )}
@@ -158,7 +160,7 @@ class CreateUserForm extends React.Component {
                 }
                 {
                     this.state.isEmployee && (
-                        <WorkplaceSelect getFieldDecorator={getFieldDecorator}  formLayout={formLayout}/>
+                        <WorkplaceSelect getFieldDecorator={getFieldDecorator} formLayout={formLayout} />
                     )
                 }
                 <FormItem>

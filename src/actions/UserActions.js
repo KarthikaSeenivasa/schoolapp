@@ -13,6 +13,8 @@ const SIGN_IN_API = DEV_SERVER + "/api/auth/signin";
 
 const SIGN_UP_API = DEV_SERVER + "/api/auth/signup";
 
+const CHANGE_PASSWORD_API = DEV_SERVER + "/api/auth/change-password";
+
 const CHECK_USERNAME_AVAILABILITY_API = DEV_SERVER + "/api/user/checkUsernameAvailability";
 
 const CHECK_EMAIL_AVAILABILITY_API = DEV_SERVER + "/api/user/checkEmailAvailability";
@@ -22,11 +24,11 @@ const PROFILE_API = DEV_SERVER + "/api/user/profile";
 const ROLES_API = DEV_SERVER + "/api/roles/all";
 
 export const allowedRoles = {
-    "create_user" : ['ROLE_ADMIN','ROLE_MANAGEMENT', 'ROLE_COORDINATOR'],
-    "projects" : ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR', 'ROLE_LEADER'],
-    "trades_and_activities" : ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_LEADER'],
-    "time_entry_approval" : ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_LEADER'],
-    "client" : ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR']
+    "create_user": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR'],
+    "projects": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR', 'ROLE_LEADER'],
+    "trades_and_activities": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_LEADER'],
+    "time_entry_approval": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_LEADER'],
+    "client": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR']
 }
 export const workplaceCodes =
     [
@@ -89,6 +91,31 @@ export function handleLogout() {
         showSuccessNotification("You're successfully logged out");
     }
 }
+
+export function handleChangePassword(oldPassword, newPassword) {
+
+    return (dispatch, getState) => {
+        const params = {
+            oldPassword,
+            newPassword
+        }
+
+        axios.put(CHANGE_PASSWORD_API, params).then((response) => {
+            if(response.data.success){
+                showSuccessNotification('Changed password successfully');
+            } else {
+                showFailureNotification(response.data.message);
+            }
+
+        }).catch((err) => {
+            if (err.response.status === 401) {
+                showFailureNotification('Your username or password is wrong');
+            }
+
+        });
+    }
+}
+
 
 export function createUser(username, email, name, password, role, isEmployee, employeeNumber, reportingTo) {
     return (dispatch, getState) => {
