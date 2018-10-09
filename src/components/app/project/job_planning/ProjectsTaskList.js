@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Table } from 'antd';
 import { getProjectSpecificTasks, updateProjectSpecificTasks } from '../../../../actions/ProjectActions';
 
-import ResourceAllocation from './ResourceAllocation';
+import ProjectsTaskDetails from './ProjectsTaskDetails';
 
-class TaskResourceAllocation extends React.Component {
+class ProjectsTaskList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -89,7 +89,7 @@ class TaskResourceAllocation extends React.Component {
                 />
                 {
                     this.state.showModal &&
-                    <ResourceAllocation visible={this.state.showModal}
+                    <ProjectsTaskDetails visible={this.state.showModal}
                         onOk={this.handleEditProjectSpecificTask}
                         onCancel={this.handleCancel}
                         selectedTask={this.state.selectedTask}
@@ -108,4 +108,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(TaskResourceAllocation);
+export default connect(mapStateToProps)(ProjectsTaskList);

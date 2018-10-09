@@ -102,10 +102,10 @@ class ProjectDetails extends React.Component {
                 />
 
                 <FormItem label="Current Status Description" {...this.formLayout}>
-                    {getFieldDecorator('description')(
+                    {getFieldDecorator('statusDescription')(
                         <Input
                             size="default"
-                            name="description"
+                            name="statusDescription"
                             placeholder="Status Description"
                             disabled={disabled}
                         />

@@ -99,7 +99,7 @@ export function deleteClient(id) {
                 }
                 dispatch(setClients(clients));
 
-                showSuccessNotification('Deleted client successfully');
+                showSuccessNotification('Deleted the client successfully');
             }).catch((err) => {
                 if (err.response.status === 500) {
                     showFailureNotification('Could not delete the client');

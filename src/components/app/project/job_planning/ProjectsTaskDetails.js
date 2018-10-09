@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Input, Slider, Icon } from 'antd';
 
-class ResourceAllocation extends React.Component {
+class ProjectsTaskDetails extends React.Component {
 
     state = {
         resourceAllocated: 0,
@@ -117,4 +117,4 @@ class ResourceAllocation extends React.Component {
     }
 }
 
-export default ResourceAllocation;
+export default ProjectsTaskDetails;

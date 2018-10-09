@@ -1,5 +1,4 @@
 import React from 'react';
-import { Select } from 'antd';
 
 import ClientSelect from './ClientSelect';
 import ContactsSelect from './ContactsSelect';

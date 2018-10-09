@@ -39,10 +39,10 @@ class IFADatePicker extends React.Component {
             let plannedIFAUnix = this.props.recordToEdit.plannedIFA;
             let startDateUnix = this.props.recordToEdit.startDate;
             if (plannedIFAUnix && startDateUnix) {
-                let timeframeInSeconds = plannedIFAUnix - startDateUnix;
+                let timeframeInMillis = plannedIFAUnix - startDateUnix;
 
                 this.props.form.setFieldsValue({
-                    timeframe: timeframeInSeconds / (7 * 24 * 60 * 60)
+                    timeframe: timeframeInMillis / (7 * 24 * 60 * 60 * 1000)
                 });
             }
         }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Modal, Steps } from 'antd';
+import { Modal, Steps, Spin } from 'antd';
 
 import ClientDetails from './ClientDetails';
 
@@ -52,7 +52,6 @@ class ClientProcess extends React.Component {
                             currentStep: 1
                         });
                     }
-
                 }
 
                 form.resetFields();
@@ -71,25 +70,19 @@ class ClientProcess extends React.Component {
         this.formRef = formRef;
     }
 
-    getOkText = () => {
-        if (this.props.clientActionLoading) {
-            return "Processing";
-        }
-
-        return this.state.currentStep === 0 ? "Next" : "Finish";
-    }
-
     render() {
 
         return (
             <Modal visible={this.props.visible}
                 title={(this.props.formMode === 1) ? 'Add New Client' : 'Edit Client Information'}
-                okText={this.getOkText()}
+                okText={this.state.currentStep === 0 ? "Next" : "Finish"}
                 onCancel={this.props.onCancel}
                 onOk={this.onOk}
                 centered
                 okButtonProps={{
-                    loading: this.props.clientActionLoading,
+                    disabled: this.props.clientActionLoading
+                }}
+                cancelButtonProps={{
                     disabled: this.props.clientActionLoading
                 }}
                 width="calc(50vw)"
@@ -99,16 +92,18 @@ class ClientProcess extends React.Component {
                     <Step title="Client Details" />
                     <Step title="Contacts" />
                 </Steps>
-                {
-                    this.state.currentStep === 0 &&
-                    <ClientDetails wrappedComponentRef={this.saveFormRef}
-                        formMode={this.props.formMode}
-                        recordToEdit={this.props.recordToEdit} />
-                }
-                {
-                    this.state.currentStep === 1 &&
-                    <ContactsList recordToEdit={this.state.addedRecord ? this.state.addedRecord : this.props.recordToEdit} />
-                }
+                <Spin spinning={this.props.clientActionLoading}>
+                    {
+                        this.state.currentStep === 0 &&
+                        <ClientDetails wrappedComponentRef={this.saveFormRef}
+                            formMode={this.props.formMode}
+                            recordToEdit={this.props.recordToEdit} />
+                    }
+                    {
+                        this.state.currentStep === 1 &&
+                        <ContactsList recordToEdit={this.state.addedRecord ? this.state.addedRecord : this.props.recordToEdit} />
+                    }
+                </Spin>
             </Modal>
         );
     }

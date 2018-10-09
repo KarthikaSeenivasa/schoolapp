@@ -57,7 +57,7 @@ export function getProjects() {
     }
 }
 
-export function addProject(name, esskayJN, clientJN, clientId, contactId, headEmployee, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF) {
+export function addProject(name, esskayJN, clientJN, clientId, contactId, headEmployee, status, statusDescription, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF, callback) {
     return (dispatch, getState) => {
         const data = {
             name,
@@ -67,7 +67,7 @@ export function addProject(name, esskayJN, clientJN, clientId, contactId, headEm
             contactId,
             headEmployee,
             status,
-            description,
+            statusDescription,
             startDate: startDate ? getDateParam(startDate) : undefined,
             plannedIFA: plannedIFA ? getDateParam(plannedIFA) : undefined,
             budget,
@@ -80,9 +80,17 @@ export function addProject(name, esskayJN, clientJN, clientId, contactId, headEm
             .then((response) => {
                 let projects = getState().projects.projects;
                 projects.push(response.data.payload);
+
                 dispatch(setProjects(projects));
+
+                if(callback){
+                    callback(response.data.payload);
+                }
+
                 dispatch(setProjectActionLoading(false));
+
                 showSuccessNotification('Added project successfully');
+                
             }).catch((err) => {
                 if (err.response.status === 500) {
                     showFailureNotification('Could not add the project');
@@ -91,7 +99,7 @@ export function addProject(name, esskayJN, clientJN, clientId, contactId, headEm
     }
 }
 
-export function updateProject(id, name, esskayJN, clientJN, clientId, contactId, headEmployee, status, description, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF) {
+export function updateProject(id, name, esskayJN, clientJN, clientId, contactId, headEmployee, status, statusDescription, startDate, plannedIFA, budget, receivingDate, actualIFA, actualIFF, callback) {
     return (dispatch, getState) => {
         const data = {
             name,
@@ -101,28 +109,36 @@ export function updateProject(id, name, esskayJN, clientJN, clientId, contactId,
             contactId,
             headEmployee,
             status,
-            description,
-            startDate: startDate ?  getDateParam(startDate)  : undefined,
-            plannedIFA: plannedIFA ? getDateParam(plannedIFA)  : undefined,
+            statusDescription,
+            startDate: startDate ? getDateParam(startDate) : undefined,
+            plannedIFA: plannedIFA ? getDateParam(plannedIFA) : undefined,
             budget,
-            receivingDate: receivingDate ?  getDateParam(receivingDate)  : undefined,
+            receivingDate: receivingDate ? getDateParam(receivingDate) : undefined,
             actualIFA: actualIFA ? getDateParam(actualIFA) : undefined,
-            actualIFF: actualIFF ?  getDateParam(actualIFF)  : undefined
+            actualIFF: actualIFF ? getDateParam(actualIFF) : undefined
         };
         dispatch(setProjectActionLoading(true));
         axios.put(PROJECTS_API + "/" + id, data)
             .then((response) => {
                 let projects = getState().projects.projects;
+               
                 let index = findIndexOf(projects, id);
                 if (index !== -1) {
-                    projects[index] = response.data.payload;
+                    projects[index] = { ...response.data.payload };
                 }
+
                 dispatch(setProjects(projects));
+
                 dispatch(setProjectActionLoading(false));
+
                 showSuccessNotification('Edited the project successfully');
+
+                if(callback) {
+                    callback(response.data.payload);
+                }
             }).catch((err) => {
                 if (err.response.status === 500) {
-                    showFailureNotification('Could not update the project');
+                    showFailureNotification('Could not edit the project');
                 }
             });
     }

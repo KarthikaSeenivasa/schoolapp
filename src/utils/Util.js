@@ -84,3 +84,22 @@ export function validateNumberForForm(rule, value, callback) {
     isNaN(value) ? callback('This field should be a number') : callback();
 }
 
+export function isEqual(value1, value2) {
+    return value1 === value2;
+}
+
+export function compareDates(momentValue, value){
+    if(momentValue){
+        if(value){
+            return (getDateParam(momentValue) === value);
+        } else {
+            return false;
+        }
+    } else if(value){
+        return false;
+    } else {
+        return true;
+    }
+    
+}
+
