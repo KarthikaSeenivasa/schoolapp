@@ -1,0 +1,53 @@
+.rep {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+
+    .hdr {
+        height: 40px;
+        background: #1890ff;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        padding: 4px;
+    }
+
+    .met {
+        height: 32px;
+        line-height: 32px;
+        margin: 0 7px;
+        padding: 0px 5px;
+        border-radius: 5px;
+    }
+
+    .con {
+        margin: 5px 0;
+        border: 1px solid #ccc;
+
+        .cht-con {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            height: 250px;
+
+            .cht {
+                width: 70%;
+            }
+
+            .prj-val {
+                background: #1890ff;
+                margin: 10px 0px;
+                color: #fff;
+                padding: 5px;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+.cls-frm {
+    position: relative;
+    top: 20px;
+    padding-bottom: 5px;
+}

@@ -42,13 +42,16 @@ export const statusCodes =
         }
     ];
 
-export function getProjects() {
+export function getProjects(callback) {
     return (dispatch, getState) => {
         dispatch(setProjectsLoading(true));
         axios.get(PROJECTS_API + "/all")
             .then((response) => {
                 dispatch(setProjects(response.data.payload));
                 dispatch(setProjectsLoading(false));
+                if(callback){
+                    callback();
+                }
             }).catch((err) => {
                 if (err.response.status === 500) {
                     showFailureNotification('Could not fetch projects');

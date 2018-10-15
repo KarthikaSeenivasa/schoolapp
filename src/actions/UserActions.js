@@ -28,7 +28,8 @@ export const allowedRoles = {
     "projects": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR', 'ROLE_LEADER'],
     "trades_and_activities": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_LEADER'],
     "time_entry_approval": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_LEADER'],
-    "client": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR']
+    "client": ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR'],
+    "reports" : ['ROLE_ADMIN', 'ROLE_MANAGEMENT', 'ROLE_COORDINATOR', 'ROLE_LEADER']
 }
 export const workplaceCodes =
     [

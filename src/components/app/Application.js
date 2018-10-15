@@ -13,7 +13,10 @@ import ProjectProgress from './project/progress/ProjectProgress';
 import TradesAndActivities from './task/TradesAndActivities';
 import TimeEntry from './timesheet/entry/TimeEntry';
 import TimeEntryApproval from './timesheet/approval/TimeEntryApproval';
+import BudgetVsActual from './reports/budget_vs_actual';
+
 import PrivateRoute from '../../routes/PrivateRoute';
+
 import { arrayIncludesOneOf } from '../../utils/Util';
 import { allowedRoles } from '../../actions/UserActions';
 
@@ -33,7 +36,7 @@ class Application extends React.Component {
             );
         }
 
-        // ant.design does not support a react wrapper for SubMenu
+        // ant.design does not support a react wrapper for Menu
         let projectMenu = null;
         if (arrayIncludesOneOf(userRoles, allowedRoles.projects)) {
             projectMenu = (
@@ -81,12 +84,26 @@ class Application extends React.Component {
             );
         }
 
+        let reportsMenu = null;
+        if (arrayIncludesOneOf(userRoles, allowedRoles.projects)) {
+            reportsMenu = (
+                <Menu.SubMenu key="/app/reports" title={<span>Reports</span>}>
+                    <Menu.Item key="/app/reports/budget_vs_actual">
+                        <Link to="/app/reports/budget_vs_actual">Budget Vs Actual</Link>
+                    </Menu.Item>
+                    <Menu.Item key="/app/reports/report2">
+                        <Link to="/app/reports/report2">Report2</Link>
+                    </Menu.Item>
+                </Menu.SubMenu>
+            );
+        }
+
         return (
             <Layout className="in-app" hasSider={true}>
                 <Sider>
                     <Menu
                         mode="inline"
-                        defaultOpenKeys={['/app/projects']}
+                        defaultOpenKeys={['/app/projects', '/app/reports']}
                         defaultSelectedKeys={[this.getInitialRedirectURL()]}
                         style={{ height: '100%' }}
                     >
@@ -95,6 +112,7 @@ class Application extends React.Component {
                         {timeEntryMenu}
                         {timeEntryApprovalMenu}
                         {clientMenu}
+                        {reportsMenu}
                     </Menu>
                 </Sider>
                 <Content className="in-app-content">
@@ -106,6 +124,8 @@ class Application extends React.Component {
                         <PrivateRoute path="/app/time_entry" component={TimeEntry} authenticated={isAuthenticated} authorized={true} />
                         <PrivateRoute path="/app/time_entry_approval" component={TimeEntryApproval} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.time_entry_approval)} />
                         <PrivateRoute path={`${this.props.match.url}/client`} component={Client} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.client)} />
+                        <PrivateRoute path="/app/reports/budget_vs_actual" component={BudgetVsActual} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.reports)} />
+                        <PrivateRoute path="/app/reports/report2" component={ProjectProgress} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.reports)} />
                         <Route component={NotFound} />
                     </Switch>
                 </Content>
