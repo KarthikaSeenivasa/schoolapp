@@ -24,7 +24,7 @@ class JobPlanning extends React.Component {
 
     state = {
         showFormModal: false,
-        formMode: -1, //1 for Add, 2 for Edit
+        formMode: -1, //1 for Add, 2 for Edit, 3 for view
         recordToEdit: null
     }
 
@@ -85,14 +85,14 @@ class JobPlanning extends React.Component {
     }
 
     getInitialClientId = () => {
-        if (this.state.formMode === 2 && this.state.recordToEdit.client) {
+        if (this.state.formMode !== 1 && this.state.recordToEdit.client) {
             return this.state.recordToEdit.client.id;
         }
         return undefined;
     }
 
     getInitialTeamLeadIds = () => {
-        if (this.state.formMode === 2 && this.state.recordToEdit.headEmployee) {
+        if (this.state.formMode !== 1 && this.state.recordToEdit.headEmployee) {
             return this.state.recordToEdit.headEmployee.map((emp) => {
                 return emp.user.id;
             });
@@ -102,14 +102,14 @@ class JobPlanning extends React.Component {
     }
 
     getInitialStatus = () => {
-        if (this.state.formMode === 2 && this.state.recordToEdit.status) {
+        if (this.state.formMode !== 1 && this.state.recordToEdit.status) {
             return this.state.recordToEdit.status;
         }
         return undefined;
     }
 
     getInitialContactIds = () => {
-        if (this.state.formMode === 2 && this.state.recordToEdit.contact) {
+        if (this.state.formMode !== 1 && this.state.recordToEdit.contact) {
             return this.state.recordToEdit.contact.map((contact) => {
                 return contact.id;
             });
