@@ -57,6 +57,7 @@ class BudgetVsActualTable extends React.Component {
                 columns={this.columns}
                 size="small"
                 key="tradeName"
+                rowKey="tradeName"
                 pagination={false}
             />
         )

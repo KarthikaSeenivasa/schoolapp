@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { findIndexOf, showFailureNotification, showSuccessNotification, getDateParam } from '../utils/Util';
+import {  showFailureNotification } from '../utils/Util';
 
 export const SET_REPORTS = "SET_REPORTS";
 export const SET_REPORT_LOADING = "SET_REPORT_LOADING";
@@ -13,15 +13,30 @@ export function getBudgetVsActual(projectId) {
         dispatch(setReportsLoading(true));
         axios.get(REPORTS_API + "/project/" + projectId)
             .then((response) => {
-                debugger;
-                dispatch(setReports(response.data.payload));
+                let reports = { ...response.data.payload };
+                reports.chartData = constructChartData(response.data.payload);
+                dispatch(setReports(reports));
+
                 dispatch(setReportsLoading(false));
             }).catch((err) => {
+                debugger;
                 if (err.response.status === 500) {
                     showFailureNotification('Could not fetch budget vs actual reports');
                 }
             });
     }
+}
+
+function constructChartData(response) {
+    let labels = [], series = [], budgets = [], actuals = [];
+    for (let row of response.rows) {
+        labels.push(row.tradeName);
+        budgets.push(row.budget);
+        actuals.push(row.actualUtilised);
+    }
+
+    series.push({ name: 'Budget', data: budgets }, { name: 'Actuals', data: actuals });
+    return { labels, series };
 }
 
 function setReportsLoading(loading) {
@@ -33,7 +48,7 @@ function setReportsLoading(loading) {
 
 function setReports(reports) {
     return {
-        type : SET_REPORTS,
+        type: SET_REPORTS,
         reports
     }
 }
