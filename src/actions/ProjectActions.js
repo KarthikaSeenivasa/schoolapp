@@ -45,7 +45,12 @@ export const statusCodes =
 export function getProjects(callback) {
     return (dispatch, getState) => {
         dispatch(setProjectsLoading(true));
-        axios.get(PROJECTS_API + "/all")
+        let resource = "/all";
+        let roles = getState().user.userRoles;
+        if(roles.includes('ROLE_LEADER')){
+            resource = "/employee";
+        }
+        axios.get(PROJECTS_API + resource)
             .then((response) => {
                 dispatch(setProjects(response.data.payload));
                 dispatch(setProjectsLoading(false));
