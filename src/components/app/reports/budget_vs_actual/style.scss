@@ -37,12 +37,18 @@
 
             }
 
-            .prj-val {
-                background: #1890ff;
-                margin: 10px 0px;
-                color: #fff;
-                padding: 5px;
-                border-radius: 5px;
+            .prj-dta {
+                display: flex;
+                width: 30%;
+                flex-direction: column;
+                justify-content: space-evenly;
+
+                .prj-val {
+                    margin: 10px;
+                    padding: 5px;
+                    border-radius: 5px;
+                    border: 1px solid #ccc;
+                }
             }
         }
     }

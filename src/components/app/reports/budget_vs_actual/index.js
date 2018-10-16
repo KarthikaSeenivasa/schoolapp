@@ -9,6 +9,7 @@ import { getProjects } from '../../../../actions/ProjectActions';
 import BudgetVsActualTable from './BudgetVsActualTable';
 import { getBudgetVsActual } from '../../../../actions/ReportsActions';
 import BudgetVsActualGraph from './BudgetVsActualGraph';
+import ProjectDetails from './ProjectDetails';
 
 const { Content } = Layout;
 
@@ -52,27 +53,7 @@ class BudgetVsActual extends React.Component {
                         <div className="cht-con">
                             <BudgetVsActualGraph reports={this.props.reports} />
                             <Divider type="vertical" style={{ height: '100%' }} />
-                            {
-                                this.props.reports &&
-                                <div className="prj-dta">
-                                    <div className="prj-val">
-                                        Esskay Job Number: {this.props.reports.esskayJN}
-                                    </div>
-                                    <div className="prj-val">
-                                        Client Job Number: {this.props.reports.clientJN}
-                                    </div>
-                                    <div className="prj-val">
-                                        Client: {this.props.reports.client}
-                                    </div>
-                                    <div className="prj-val">
-                                        Team Leads: {this.props.reports.teamLeader.toString()}
-                                    </div>
-                                    <div className="prj-val">
-                                        Job Name: {this.props.reports.jobName}
-                                    </div>
-                                </div>
-                            }
-
+                            <ProjectDetails reports={this.props.reports} />
                         </div>
                         <BudgetVsActualTable dataSource={this.props.reports ? this.props.reports.rows : []} />
                     </Spin>
