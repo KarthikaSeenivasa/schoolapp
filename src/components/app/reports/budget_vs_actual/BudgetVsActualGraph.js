@@ -3,6 +3,8 @@ import ChartistGraph from 'react-chartist';
 import Legend from "chartist-plugin-legend";
 
 const chartOptions = {
+    width: '100%', 
+    height: '260px',
     plugins: [
         Legend({
             position: 'bottom'
@@ -35,7 +37,6 @@ const BudgetVsActualGraph = (props) => {
         <div className="cht">
             <ChartistGraph type="Bar"
                 data={props.reports.chartData}
-                style={{ width: '100%', height: '100%' }}
                 options={chartOptions}
                 listener={listener}
             />

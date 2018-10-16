@@ -29,6 +29,7 @@
             display: flex;
             width: 100%;
             justify-content: center;
+            height: 300px;
 
             .cht {
                 width: 70%;
@@ -57,7 +58,6 @@
 .ct-legend {
     position: relative;
     z-index: 10;
-    height: 20px;
     list-style: none;
     text-align: center;
 }
