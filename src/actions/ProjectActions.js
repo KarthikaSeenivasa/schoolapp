@@ -17,7 +17,7 @@ const PROGRESS_API = DEV_SERVER + "/api/progress";
 export const statusCodes =
     [
         {
-            name: 'IFA In Progress',
+            name: 'IFA Progress',
             value: "IFA_PROGRESS"
         },
         {
@@ -25,11 +25,11 @@ export const statusCodes =
             value: "AWAITING_RFA"
         },
         {
-            name: 'Resubmission In Progress',
+            name: 'Resubmission Progress',
             value: "RESUBMISSION_PROGRESS"
         },
         {
-            name: 'IFF In Progress',
+            name: 'IFF Progress',
             value: "IFF_PROGRESS"
         },
         {
@@ -37,7 +37,7 @@ export const statusCodes =
             value: "IFF_COMPLETED"
         },
         {
-            name: 'Placed On Hold Or Cancelled',
+            name: 'Hold Or Cancelled',
             value: "HOLD_OR_CANCELLED"
         }
     ];
