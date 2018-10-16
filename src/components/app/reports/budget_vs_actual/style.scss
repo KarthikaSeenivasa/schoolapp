@@ -29,10 +29,11 @@
             display: flex;
             width: 100%;
             justify-content: center;
-            height: 300px;
 
             .cht {
                 width: 70%;
+                height: 100%;
+
             }
 
             .prj-val {
@@ -52,7 +53,7 @@
     padding-bottom: 5px;
 }
 
-//Imported Chart Legend Plugin style
+//Imported Chart Legend Plugin styles
 .ct-legend {
     position: relative;
     z-index: 10;
@@ -91,12 +92,12 @@
     margin: 0;
 }
 .ct-legend .ct-series-0:before {
-    background-color: #d70206;
-    border-color: #d70206;
+    background-color: red;
+    border-color: red;
 }
 .ct-legend .ct-series-1:before {
-    background-color: #f05b4f;
-    border-color: #f05b4f;
+    background-color: green;
+    border-color: green;
 }
 .ct-legend .ct-series-2:before {
     background-color: #f4c63d;
@@ -110,3 +111,12 @@
     background-color: #453d3f;
     border-color: #453d3f;
 }
+
+//Imported Chartist styles
+.ct-series-a .ct-bar {
+    stroke: red;
+  }
+
+.ct-series-b .ct-bar {
+    stroke: green;
+  }

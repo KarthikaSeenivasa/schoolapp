@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ChartistGraph from 'react-chartist';
-import Legend from "chartist-plugin-legend";
 import { Layout, Spin, Divider } from 'antd';
 
 import HeaderContainer from './HeaderContainer';
@@ -10,6 +8,7 @@ import './style.scss';
 import { getProjects } from '../../../../actions/ProjectActions';
 import BudgetVsActualTable from './BudgetVsActualTable';
 import { getBudgetVsActual } from '../../../../actions/ReportsActions';
+import BudgetVsActualGraph from './BudgetVsActualGraph';
 
 const { Content } = Layout;
 
@@ -42,27 +41,6 @@ class BudgetVsActual extends React.Component {
     }
 
     render() {
-        let chartOptions = {
-            plugins: [
-                Legend({})
-            ]
-        }
-
-        let animation = {
-            draw: function (data) {
-                if (data.type === "bar") {
-                    data.element.animate({
-                        opacity: {
-                            begin: (data.index + 1) * 80,
-                            dur: 500,
-                            from: 0,
-                            to: 1,
-                            easing: "ease"
-                        }
-                    });
-                }
-            }
-        }
         return (
             <Layout className="rep" >
                 <HeaderContainer onProjectChange={this.onProjectChange}
@@ -72,17 +50,7 @@ class BudgetVsActual extends React.Component {
                 <Content className="con">
                     <Spin spinning={this.props.loading}>
                         <div className="cht-con">
-                            {
-                                this.props.reports &&
-                                <div className="cht">
-                                    <ChartistGraph type="Bar"
-                                        data={this.props.reports ? this.props.reports.chartData : null}
-                                        style={{ width: '100%', height: '100%' }}
-                                        options={chartOptions}
-                                        listener={animation}
-                                    />
-                                </div>
-                            }
+                            <BudgetVsActualGraph reports={this.props.reports} />
                             <Divider type="vertical" style={{ height: '100%' }} />
                             {
                                 this.props.reports &&

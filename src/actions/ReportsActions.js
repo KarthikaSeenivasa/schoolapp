@@ -35,7 +35,7 @@ function constructChartData(response) {
         actuals.push(row.actualUtilised);
     }
 
-    series.push({ name: 'Budget', data: budgets }, { name: 'Actuals', data: actuals });
+    series.push({ name: 'Planned', data: budgets }, { name: 'Actuals', data: actuals });
     return { labels, series };
 }
 
