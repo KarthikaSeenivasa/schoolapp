@@ -91,12 +91,13 @@ class ProjectProcess extends React.Component {
         this.formRef = formRef;
     }
 
-    isProjectAssignedToUser = () => {
-        let recordToEdit = this.state.projectRow ? this.state.projectRow : this.props.recordToEdit;
-        for(let emp of recordToEdit.headEmployee) {
-            if(emp.user.id === this.props.user.id){
-                return true;
-            }
+    isRoleAllowedToEdit = () => {
+        let userRoles = this.props.user.userRoles;
+        
+        if (userRoles.includes('ROLE_ADMIN') ||
+            userRoles.includes('ROLE_MANAGEMENT') ||
+            userRoles.includes('ROLE_COORDINATOR')) {
+            return true;
         }
         return false;
     }
@@ -142,7 +143,7 @@ class ProjectProcess extends React.Component {
                         this.state.currentStep === 1 &&
                         <div className="hls-form">
                             <ProjectsTaskList recordToEdit={this.state.projectRow ? this.state.projectRow : this.props.recordToEdit}
-                                allowEdit={this.props.formMode !== 3 && this.isProjectAssignedToUser()}
+                                allowEdit={this.props.formMode !== 3 && this.isRoleAllowedToEdit()}
                             />
                         </div>
                     }

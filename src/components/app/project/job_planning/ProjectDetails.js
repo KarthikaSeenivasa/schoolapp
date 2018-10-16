@@ -85,7 +85,7 @@ class ProjectDetails extends React.Component {
                     </FormItem>
                 </div>
 
-                <ContactsPicker formLayout={this.formLayout} {...this.props} />
+                <ContactsPicker formLayout={this.formLayout} disabled={disabled} {...this.props} />
 
                 <LeadsSelect loading={this.props.leadsLoading}
                     leads={this.props.leads}
@@ -136,7 +136,7 @@ class ProjectDetails extends React.Component {
                     </FormItem>
                 </div>
 
-                <IFADatePicker formLayout={this.partFormLayout} {...this.props} /> 
+                <IFADatePicker formLayout={this.partFormLayout} disabled={disabled} {...this.props} /> 
 
                 <div className="row-flex">
                     <FormItem label="Actual IFA Date" {...this.partFormLayout}>
