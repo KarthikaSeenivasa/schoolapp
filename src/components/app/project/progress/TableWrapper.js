@@ -27,8 +27,8 @@ class TableWrapper extends React.Component {
                 width: 200
             },
             {
-                title: 'Budget',
-                dataIndex: 'budget',
+                title: 'Esskay Job Number',
+                dataIndex: 'esskayJN',
                 width: 200
             },
             {

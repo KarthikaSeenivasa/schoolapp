@@ -12,8 +12,8 @@ const ProjectsSelect = (props) => {
     if (projects.length > 0) {
         options = projects.map((project) => {
             return (
-                <Option value={project.id} key={project.id}>
-                    <span style={{ textTransform: 'capitalize' }}>{project.name}</span>
+                <Option value={project.id} key={project.id} search={project.esskayJN}>
+                    <span style={{ textTransform: 'capitalize' }}>{project.esskayJN + '(' + project.name + ')'}</span>
                 </Option>)
         });
 
@@ -29,8 +29,11 @@ const ProjectsSelect = (props) => {
                     notFoundContent={loading ?
                         <div style={{ textAlign: 'center' }}><Spin size="small" /></div>
                         :
-                        null}
+                        "Not found"}
                     onChange={onChange}
+                    showSearch
+                    filterOption
+                    optionFilterProp="search"
                 >
                     {options}
                 </Select>

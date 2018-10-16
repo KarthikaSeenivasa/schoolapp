@@ -19,8 +19,8 @@ const ProjectsSelect = (props) => {
     if (projects.length > 0) {
         options = projects.map((project) => {
             return (
-                <Option value={project.id} key={project.id}>
-                    <span style={{ textTransform: 'capitalize' }}>{project.name}</span>
+                <Option value={project.id} key={project.id} search={project.esskayJN}>
+                    <span style={{ textTransform: 'capitalize' }}>{project.esskayJN + '(' + project.name + ')'}</span>
                 </Option>)
         });
         defaultValue = projects[0].id;
@@ -34,7 +34,11 @@ const ProjectsSelect = (props) => {
                 null}
             defaultValue={defaultValue}
             onChange={onChange}
-            style={{ width: '150px' }}
+            style={{ width: '300px' }}
+            filterOption={true}
+            optionFilterProp="search"
+            showSearch
+            notFoundContent='Not Found'
         >
             {options}
         </Select>
