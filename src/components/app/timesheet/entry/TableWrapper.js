@@ -26,39 +26,48 @@ class TableWrapper extends React.Component {
 
     renderTitle = (currentPageData) => {
         let numberOfHours = 0;
-        for (let row of currentPageData) {
+        for (let row of this.props.dataSource) {
             numberOfHours += row.hours;
         }
         return (
             <TableHeader onDatePickerChange={(date) => {
                 this.props.handleDateFilterChange(date);
             }}
-            numberOfHours = {numberOfHours}
+                numberOfHours={numberOfHours}
             />
         )
+    }
+
+    onPageChange = (page, pageSize) => {
+        this.props.onPageChange(page, pageSize);
     }
 
     render() {
         const columns = [
             {
                 title: 'Project Name',
-                dataIndex: 'project.name'
+                dataIndex: 'project.name',
+                width: 150
             },
             {
                 title: 'Trade & Activity',
-                dataIndex: 'taskMaster.taskName'
+                dataIndex: 'taskMaster.taskName',
+                width: 150
             },
             {
                 title: 'Number of Hours',
-                dataIndex: 'hours'
+                dataIndex: 'hours',
+                width: 150
             },
             {
                 title: 'Approver',
-                dataIndex: 'headEmployee.user.name'
+                dataIndex: 'headEmployee.user.name',
+                width: 150
             },
             {
                 title: "Approval Status",
-                dataIndex: "approval"
+                dataIndex: "approval",
+                width: 150
             },
             {
                 title: 'Actions',
@@ -72,10 +81,16 @@ class TableWrapper extends React.Component {
         return (
             <Table columns={columns}
                 dataSource={this.props.dataSource}
-                pagination={false}
                 loading={this.props.loading}
+                pagination={{
+                    defaultPageSize: 10,
+                    showQuickJumper: true,
+                    onChange: this.onPageChange,
+                    total: this.props.numberOfRows
+                }}
                 title={this.renderTitle}
-                size="medium"
+                size="small"
+                scroll={{ y: 300 }}
                 rowKey="id" />
         )
     }

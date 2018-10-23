@@ -26,18 +26,22 @@ export const statusCodes =
         }
     ];
 
-export function getTimeEntries(date) {
+export function getTimeEntries(date, page = 1, size = 10) {
     return (dispatch, getState) => {
         dispatch(setTimeEntriesLoading(true));
         let startDate = date ? getDateParam(date) : undefined;
         let endDate = startDate ? startDate + (24 * 60 * 60 * 1000) : undefined;
         const params = {
             startDate,
-            endDate
+            endDate,
+            page: page-1,
+            size
         }
         axios.get(TIME_ENTRIES_API + "/employee", { params })
             .then((response) => {
-                dispatch(setTimeEntries(response.data.payload));
+                if (response.data.payload.content) {
+                    dispatch(setTimeEntries(response.data.payload.content, response.data.total));
+                }
                 dispatch(setTimeEntriesLoading(false));
             }).catch((err) => {
                 if (err.response.status === 500) {
@@ -162,10 +166,11 @@ export function updateTimeEntryApproval(id, approval, remarks) {
 }
 
 
-function setTimeEntries(timeEntries) {
+function setTimeEntries(timeEntries, numberOfRows) {
     return {
         type: SET_TIME_ENTRIES,
-        timeEntries
+        timeEntries,
+        numberOfRows
     }
 }
 

@@ -3,6 +3,7 @@ import { SET_TIME_ENTRIES, SET_TIME_ENTRIES_LOADING, SET_TIME_ENTRY_APPROVALS, S
 
 const INITIAL_STATE = {
     timeEntries: [],
+    numberOfRows: 0,
     loading: false,
     timeEntryApprovals: [],
     approvalsLoading: false
@@ -12,7 +13,8 @@ export default function reducer(state = INITIAL_STATE, action) {
         case SET_TIME_ENTRIES:
             return {
                 ...state,
-                timeEntries: action.timeEntries
+                timeEntries: action.timeEntries,
+                numberOfRows: action.numberOfRows
             }
         case SET_TIME_ENTRIES_LOADING:
             return {
@@ -22,12 +24,12 @@ export default function reducer(state = INITIAL_STATE, action) {
         case SET_TIME_ENTRY_APPROVALS:
             return {
                 ...state,
-                timeEntryApprovals:action.timeEntryApprovals
+                timeEntryApprovals: action.timeEntryApprovals
             }
         case SET_TIME_ENTRY_APPROVALS_LOADING:
             return {
                 ...state,
-                approvalsLoading:action.loading
+                approvalsLoading: action.loading
             }
         default:
             return state;

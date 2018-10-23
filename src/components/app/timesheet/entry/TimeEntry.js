@@ -19,7 +19,8 @@ class TimeEntry extends React.Component {
     state = {
         showFormModal: false,
         formMode: -1, //1 for Add, 2 for Edit
-        recordToEdit: null
+        recordToEdit: null,
+        date: moment()
     }
 
     getInitialProjectId = () => {
@@ -136,7 +137,14 @@ class TimeEntry extends React.Component {
     }
 
     handleDateFilterChange = (date) => {
+        this.setState({
+            date
+        });
         this.props.dispatch(getTimeEntries(date));
+    }
+
+    onPageChange = (page, pageSize) => {
+        this.props.dispatch(getTimeEntries(this.state.date, page, pageSize));
     }
 
     render() {
@@ -155,6 +163,8 @@ class TimeEntry extends React.Component {
                             handleDateFilterChange={this.handleDateFilterChange}
                             dataSource={this.props.timeEntries}
                             loading={this.props.timeEntriesLoading}
+                            onPageChange={this.onPageChange}
+                            numberOfRows={this.props.numberOfRows}
                         />
                     </div>
                     {this.state.showFormModal &&
@@ -183,6 +193,7 @@ class TimeEntry extends React.Component {
 const mapStateToProps = (state) => {
     return {
         timeEntries: state.timeEntries.timeEntries,
+        numberOfRows: state.timeEntries.numberOfRows,
         projects: state.projects.projects,
         tasks: state.tasks.cascaderOptions,
         timeEntriesLoading: state.timeEntries.loading,
