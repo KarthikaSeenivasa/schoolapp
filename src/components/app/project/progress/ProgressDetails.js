@@ -3,7 +3,7 @@ import { Input, Modal, DatePicker } from 'antd';
 import { DATE_FORMAT } from '../../../../utils/Util';
 import moment from 'moment';
 
-class ProgressInputs extends React.Component {
+class ProgressDetails extends React.Component {
     state = {
         date: null,
         progressPercentage: null,
@@ -106,4 +106,4 @@ class ProgressInputs extends React.Component {
     }
 }
 
-export default ProgressInputs;
+export default ProgressDetails;

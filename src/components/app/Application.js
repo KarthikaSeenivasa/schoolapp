@@ -9,7 +9,7 @@ import { Layout, Menu, Spin } from 'antd';
 import Client from './client';
 import JobPlanning from './project/job_planning';
 import NotFound from '../error/NotFound';
-import ProjectProgress from './project/progress/ProjectProgress';
+import ProjectProgress from './project/progress';
 import TradesAndActivities from './task/TradesAndActivities';
 import TimeEntry from './timesheet/entry/TimeEntry';
 import TimeEntryApproval from './timesheet/approval/TimeEntryApproval';

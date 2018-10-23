@@ -5,7 +5,7 @@ import { getProjectSpecificTasks, updateProjectSpecificTasks, addProjectTaskProg
 import { findIndexOf } from '../../../../utils/Util';
 import TaskProgress from './TaskProgress';
 
-class ProgressModal extends React.Component {
+class TaskList extends React.Component {
 
     state = {
         showProgressTable: false,
@@ -119,4 +119,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ProgressModal);
+export default connect(mapStateToProps)(TaskList);

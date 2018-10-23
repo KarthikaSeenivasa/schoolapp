@@ -3,7 +3,7 @@ import React from 'react';
 import { Table, Progress, Button, Modal } from 'antd';
 import { renderDate } from '../../../../utils/Util';
 
-import ProgressInputs from './ProgressInputs';
+import ProgressDetails from './ProgressDetails';
 
 class TaskProgress extends React.Component {
 
@@ -112,7 +112,7 @@ class TaskProgress extends React.Component {
                 />
 
                 {this.state.showModal &&
-                    <ProgressInputs visible={this.state.showModal}
+                    <ProgressDetails visible={this.state.showModal}
                         editMode={this.state.editMode}
                         recordToEdit={this.state.recordToEdit}
                         handleCancel={this.handleCancel}

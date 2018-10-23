@@ -2,7 +2,7 @@
 import React from 'react';
 import { Table, Progress } from 'antd';
 
-class TableWrapper extends React.Component {
+class ProjectsList extends React.Component {
 
     renderActions = (text, record) => {
         return (
@@ -58,4 +58,4 @@ class TableWrapper extends React.Component {
 
 }
 
-export default TableWrapper;
+export default ProjectsList;

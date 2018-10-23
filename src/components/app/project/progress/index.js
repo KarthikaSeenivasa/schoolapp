@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import '../style.scss';
 
-import TableWrapper from './TableWrapper';
-import ProgressModal from './ProgressModal';
+import ProjectsList from './ProjectsList';
+import TaskList from './TaskList';
 
 import { getProjects } from '../../../../actions/ProjectActions';
 
@@ -55,13 +55,13 @@ class ProjectProgress extends React.Component {
                 </Header>
                 <Content className="con">
                     <div className="tab-con">
-                        <TableWrapper handleEdit={this.handleEditAction}
+                        <ProjectsList handleEdit={this.handleEditAction}
                             dataSource={this.props.projects}
                             loading={this.props.loading} />
                     </div>
                     {this.state.showModal &&
                         <div className="frm-con">
-                            <ProgressModal visible={this.state.showModal}
+                            <TaskList visible={this.state.showModal}
                                 onCancel={this.handleCancel}
                                 recordToEdit={this.state.recordToEdit}
                             />
