@@ -83,7 +83,6 @@ export function handleLogin(usernameOrEmail, password) {
 
 export function handleLogout() {
     return (dispatch, getState) => {
-
         localStorage.removeItem(ACCESS_TOKEN);
         axios.defaults.headers.common['Authorization'] = '';
 
@@ -202,6 +201,10 @@ function getLoggedInUser() {
                 showSuccessNotification("Welcome " + name);
                 dispatch(setUserLoading(false));
             }).catch((err) => {
+                if(err.response.status === 401) {
+                    dispatch(handleLogout());
+                    return;
+                }
                 showFailureNotification('Unable to fetch user details');
             });
     }
