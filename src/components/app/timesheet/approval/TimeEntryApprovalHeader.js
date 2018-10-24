@@ -1,7 +1,7 @@
 import React from 'react';
 import StatusSelect from './StatusSelect';
 
-class TableHeader extends React.Component {
+class TimeEntryApprovalHeader extends React.Component {
 
     state = {
         filterValue: 'PENDING'
@@ -51,4 +51,4 @@ class TableHeader extends React.Component {
     }
 }
 
-export default TableHeader;
+export default TimeEntryApprovalHeader;

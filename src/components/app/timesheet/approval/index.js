@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import './style.scss';
 
-import TableWrapper from './TableWrapper';
-import FormWrapper from './FormWrapper';
+import TimeEntryApprovalList from './TimeEntryApprovalList';
+import TimeEntryApprovalDetails from './TimeEntryApprovalDetails';
 
 import { getTimeEntryApprovals, updateTimeEntryApproval } from '../../../../actions/TimeEntryActions';
 
@@ -77,7 +77,7 @@ class TimeEntryApproval extends React.Component {
                 </Header>
                 <Content className="con">
                     <div className="tab-con">
-                        <TableWrapper handleDelete={this.handleDeleteAction}
+                        <TimeEntryApprovalList handleDelete={this.handleDeleteAction}
                             handleEdit={this.handleEditAction}
                             handleStatusChange={this.handleStatusChange}
                             handleStatusFilterChange={this.handleStatusFilterChange}
@@ -89,7 +89,7 @@ class TimeEntryApproval extends React.Component {
                     </div>
                     <div className="frm-con">
                         {this.state.showFormModal &&
-                            < FormWrapper wrappedComponentRef={this.saveFormRef}
+                            < TimeEntryApprovalDetails wrappedComponentRef={this.saveFormRef}
                                 visible={this.state.showFormModal}
                                 onCancel={this.handleCancel}
                                 onSubmit={this.handleFormSubmit}

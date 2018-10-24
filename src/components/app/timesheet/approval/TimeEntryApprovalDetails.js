@@ -4,7 +4,7 @@ import { Input, Form, Modal } from 'antd';
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
-class FormWrapper extends React.Component {
+class TimeEntryApprovalDetails extends React.Component {
 
     render() {
         const { visible, onCancel, onSubmit, form, recordToEdit } = this.props;
@@ -38,4 +38,4 @@ class FormWrapper extends React.Component {
     }
 }
 
-export default Form.create()(FormWrapper);
+export default Form.create()(TimeEntryApprovalDetails);

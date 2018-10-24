@@ -2,10 +2,10 @@
 import React from 'react';
 import { Table } from 'antd';
 
-import TableHeader from './TableHeader';
+import TimeEntryApprovalHeader from './TimeEntryApprovalHeader';
 import StatusSelect from './StatusSelect';
 
-class TableWrapper extends React.Component {
+class TimeEntryApprovalList extends React.Component {
 
     renderActions = (text, record) => {
         return (
@@ -29,7 +29,7 @@ class TableWrapper extends React.Component {
 
     renderTitle = (currentPageData) => {
         return (
-            <TableHeader onStatusChange={(value, option) => {
+            <TimeEntryApprovalHeader onStatusChange={(value, option) => {
                 this.props.handleStatusFilterChange(value, option);
             }} />
         )
@@ -96,4 +96,4 @@ class TableWrapper extends React.Component {
     }
 }
 
-export default TableWrapper;
+export default TimeEntryApprovalList;

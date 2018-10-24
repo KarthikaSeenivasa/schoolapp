@@ -12,7 +12,7 @@ import NotFound from '../error/NotFound';
 import ProjectProgress from './project/progress';
 import TradesAndActivities from './task/TradesAndActivities';
 import TimeEntry from './timesheet/entry';
-import TimeEntryApproval from './timesheet/approval/TimeEntryApproval';
+import TimeEntryApproval from './timesheet/approval';
 import BudgetVsActual from './reports/budget_vs_actual';
 
 import PrivateRoute from '../../routes/PrivateRoute';
