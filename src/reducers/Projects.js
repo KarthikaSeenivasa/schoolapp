@@ -8,6 +8,7 @@ import {
 
 const INITIAL_STATE = {
     projects: [],
+    numberOfRows: 0,
     projectSpecificTasks: [],
     loading: false,
     projectSpecificTasksLoading: false,
@@ -19,7 +20,8 @@ export default function reducer(state = INITIAL_STATE, action) {
         case SET_PROJECTS:
             return {
                 ...state,
-                projects: action.projects
+                projects: action.projects,
+                numberOfRows: action.numberOfRows
             }
         case SET_PROJECTS_LOADING:
             return {

@@ -19,6 +19,10 @@ class ProjectsList extends React.Component {
         )
     }
 
+    onPageChange = (page, pageSize) => {
+        this.props.onPageChange(page, pageSize);
+    }
+
     render() {
         const columns = [
             {
@@ -49,10 +53,17 @@ class ProjectsList extends React.Component {
         return (
             <Table columns={columns}
                 dataSource={this.props.dataSource}
-                pagination={false}
+                pagination={{
+                    defaultPageSize: 10,
+                    showQuickJumper: true,
+                    onChange: this.onPageChange,
+                    total: this.props.numberOfRows
+                }}
                 loading={this.props.loading}
-                size="medium"
-                rowKey="id" />
+                size="small"
+                rowKey="id"
+                onPageChange={this.onPageChange}
+            />
         )
     }
 

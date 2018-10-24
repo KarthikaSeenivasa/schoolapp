@@ -90,7 +90,6 @@ class TimeEntryApprovalList extends React.Component {
                 loading={this.props.loading}
                 rowKey="id"
                 onPageChange={this.onPageChange}
-                numberOfRows={this.props.numberOfRows}
             />
         )
     }

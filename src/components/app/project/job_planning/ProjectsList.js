@@ -65,24 +65,37 @@ class ProjectsList extends React.Component {
         {
             title: 'Order Receiving Date',
             dataIndex: 'receivingDate',
-            render: renderDate
+            render: renderDate,
+            width: 200
         },
         {
             title: 'Status',
             dataIndex: 'status',
-            render: renderStatus
+            render: renderStatus,
+            width: 150
         }
     ];
+
+    onPageChange = (page, pageSize) => {
+        this.props.onPageChange(page, pageSize);
+    }
 
     render() {
 
         return (
             <Table columns={this.columns}
                 dataSource={this.props.dataSource}
-                pagination={false}
+                pagination={{
+                    defaultPageSize: 10,
+                    showQuickJumper: true,
+                    onChange: this.onPageChange,
+                    total: this.props.numberOfRows
+                }}
                 loading={this.props.loading}
-                size="medium"
-                rowKey="id" />
+                size="small"
+                rowKey="id"
+                onPageChange={this.onPageChange}
+            />
         )
     }
 

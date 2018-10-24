@@ -47,6 +47,10 @@ class ProjectProgress extends React.Component {
         this.props.dispatch(getProjects());
     }
 
+    onPageChange = (page, pageSize) => {
+        this.props.dispatch(getProjects(undefined, page, pageSize));
+    }
+
     render() {
         return (
             <Layout className="proj" >
@@ -57,7 +61,10 @@ class ProjectProgress extends React.Component {
                     <div className="tab-con">
                         <ProjectsList handleEdit={this.handleEditAction}
                             dataSource={this.props.projects}
-                            loading={this.props.loading} />
+                            loading={this.props.loading}
+                            onPageChange={this.onPageChange}
+                            numberOfRows={this.props.numberOfRows}
+                        />
                     </div>
                     {this.state.showModal &&
                         <div className="frm-con">
@@ -86,6 +93,7 @@ const mapStateToProps = (state) => {
 
     return {
         projects: state.projects.projects,
+        numberOfRows: state.projects.numberOfRows,
         loading: state.projects.loading,
         clients: state.clients.clients,
         clientsLoading: state.clients.loading,

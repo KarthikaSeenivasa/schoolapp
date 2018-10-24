@@ -42,19 +42,25 @@ export const statusCodes =
         }
     ];
 
-export function getProjects(callback) {
+export function getProjects(callback, page = 1, size = 10) {
     return (dispatch, getState) => {
         dispatch(setProjectsLoading(true));
         let resource = "/all";
         let roles = getState().user.userRoles;
-        if(roles.includes('ROLE_LEADER')){
+        if (roles.includes('ROLE_LEADER')) {
             resource = "/employee";
         }
-        axios.get(PROJECTS_API + resource)
+        let params = {
+            page: page === -1 ? undefined : page - 1,
+            size
+        }
+        axios.get(PROJECTS_API + resource, { params })
             .then((response) => {
-                dispatch(setProjects(response.data.payload));
+                if(response.data.payload.content){
+                    dispatch(setProjects(response.data.payload.content));
+                }
                 dispatch(setProjectsLoading(false));
-                if(callback){
+                if (callback) {
                     callback();
                 }
             }).catch((err) => {
@@ -91,14 +97,14 @@ export function addProject(name, esskayJN, clientJN, clientId, contactId, headEm
 
                 dispatch(setProjects(projects));
 
-                if(callback){
+                if (callback) {
                     callback(response.data.payload);
                 }
 
                 dispatch(setProjectActionLoading(false));
 
                 showSuccessNotification('Added project successfully');
-                
+
             }).catch((err) => {
                 if (err.response.status === 500) {
                     showFailureNotification('Could not add the project');
@@ -129,7 +135,7 @@ export function updateProject(id, name, esskayJN, clientJN, clientId, contactId,
         axios.put(PROJECTS_API + "/" + id, data)
             .then((response) => {
                 let projects = getState().projects.projects;
-               
+
                 let index = findIndexOf(projects, id);
                 if (index !== -1) {
                     projects[index] = { ...response.data.payload };
@@ -141,7 +147,7 @@ export function updateProject(id, name, esskayJN, clientJN, clientId, contactId,
 
                 showSuccessNotification('Edited the project successfully');
 
-                if(callback) {
+                if (callback) {
                     callback(response.data.payload);
                 }
             }).catch((err) => {

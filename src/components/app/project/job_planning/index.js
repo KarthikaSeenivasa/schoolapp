@@ -18,8 +18,8 @@ class JobPlanning extends React.Component {
     constructor(props) {
         super(props);
         this.allowEdit = props.userRoles.includes('ROLE_MANAGEMENT') ||
-                        props.userRoles.includes('ROLE_ADMIN') ||
-                        props.userRoles.includes('ROLE_COORDINATOR');
+            props.userRoles.includes('ROLE_ADMIN') ||
+            props.userRoles.includes('ROLE_COORDINATOR');
     }
 
     state = {
@@ -84,6 +84,10 @@ class JobPlanning extends React.Component {
         this.props.dispatch(getAllRoles());
     }
 
+    onPageChange = (page, pageSize) => {
+        this.props.dispatch(getProjects(undefined, page, pageSize));
+    }
+
     getInitialClientId = () => {
         if (this.state.formMode !== 1 && this.state.recordToEdit.client) {
             return this.state.recordToEdit.client.id;
@@ -133,9 +137,11 @@ class JobPlanning extends React.Component {
                             handleEdit={this.handleEditAction}
                             handleView={this.handleViewAction}
                             dataSource={this.props.projects}
-                            loading={this.props.loading} 
+                            loading={this.props.loading}
                             allowEdit={this.allowEdit}
-                            />
+                            onPageChange={this.onPageChange}
+                            numberOfRows={this.props.numberOfRows}
+                        />
                     </div>
                     {
                         this.state.showFormModal &&
@@ -160,6 +166,7 @@ class JobPlanning extends React.Component {
 const mapStateToProps = (state) => {
     return {
         projects: state.projects.projects,
+        numberOfRows: state.projects.numberOfRows,
         loading: state.projects.loading,
         userRoles: state.user.userRoles
     }

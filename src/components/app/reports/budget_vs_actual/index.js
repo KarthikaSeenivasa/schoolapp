@@ -38,7 +38,7 @@ class BudgetVsActual extends React.Component {
     componentWillMount() {
         this.props.dispatch(getProjects(()=>{
             this.changeProject(this.props.projects[0]);
-        }));
+        }, -1, -1));
     }
 
     render() {
