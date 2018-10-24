@@ -53,7 +53,7 @@ class ProjectsList extends React.Component {
 
     columns = [
         {
-            title: 'Project Name',
+            title: 'Job Name',
             dataIndex: 'name',
             width: 200
         },

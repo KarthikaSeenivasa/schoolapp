@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 
-class TreeNodeData extends React.Component {
+class TradesAndActivitiesActions extends React.Component {
 
     state = {
         isMouseOver: false
@@ -32,4 +32,4 @@ class TreeNodeData extends React.Component {
     }
 }
 
-export default TreeNodeData;
+export default TradesAndActivitiesActions;

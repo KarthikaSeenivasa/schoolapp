@@ -5,7 +5,7 @@ import ParentTaskSelect from './ParentTaskSelect';
 
 const FormItem = Form.Item;
 
-class FormWrapper extends React.Component {
+class TradesAndActivitiesDetails extends React.Component {
 
     componentDidMount() {
         if (this.props.formMode !== 1) {
@@ -44,4 +44,4 @@ class FormWrapper extends React.Component {
     }
 }
 
-export default Form.create()(FormWrapper);
+export default Form.create()(TradesAndActivitiesDetails);

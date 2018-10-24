@@ -10,7 +10,7 @@ import Client from './client';
 import JobPlanning from './project/job_planning';
 import NotFound from '../error/NotFound';
 import ProjectProgress from './project/progress';
-import TradesAndActivities from './task/TradesAndActivities';
+import TradesAndActivities from './task';
 import TimeEntry from './timesheet/entry';
 import TimeEntryApproval from './timesheet/approval';
 import BudgetVsActual from './reports/budget_vs_actual';
@@ -40,9 +40,9 @@ class Application extends React.Component {
         let projectMenu = null;
         if (arrayIncludesOneOf(userRoles, allowedRoles.projects)) {
             projectMenu = (
-                <Menu.SubMenu key="/app/projects" title={<span>Projects</span>}>
+                <Menu.SubMenu key="/app/projects" title={<span>Jobs</span>}>
                     <Menu.Item key="/app/projects/job_planning">
-                        <Link to="/app/projects/job_planning">Job Planning</Link>
+                        <Link to="/app/projects/job_planning">Planning</Link>
                     </Menu.Item>
                     <Menu.Item key="/app/projects/progress">
                         <Link to="/app/projects/progress">Progress</Link>

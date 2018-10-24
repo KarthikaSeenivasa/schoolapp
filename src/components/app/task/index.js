@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Layout, Button, Spin, Modal } from 'antd';
 import './style.scss';
 
-import TreeWrapper from './TreeWrapper';
-import FormWrapper from './FormWrapper';
+import TradesAndActivitiesList from './TradesAndActivitiesList';
+import TradesAndActivitiesDetails from './TradesAndActivitiesDetails';
 
 import { getTasks, addTask, deleteTask, updateTask } from '../../../actions/TaskActions';
 
@@ -94,14 +94,14 @@ class TradesAndActivities extends React.Component {
     render() {
         let taskTreeContainer = this.props.tasks.length === 0
             ? <div style={{ textAlign: 'center' }}>No Tasks</div> :
-            <TreeWrapper tasks={this.props.tasks}
+            <TradesAndActivitiesList tasks={this.props.tasks}
                 onDelete={this.handleDeleteAction}
                 onEdit={this.handleEditAction} />;
         return (
             <Layout className="tsk-mtr">
                 <Header className="hdr">
                     <span style={{ marginLeft: '10px' }}>Trades And Activities</span>
-                    <Button onClick={this.handleAdd} style={{ margin: '1px 10px 1px 0px', height: '25px' }}>Add Task</Button>
+                    <Button onClick={this.handleAdd} style={{ margin: '1px 10px 1px 0px', height: '25px' }}>Add Trade</Button>
                 </Header>
                 <Content className="con">
                     <Spin spinning={this.props.loading}>
@@ -109,7 +109,7 @@ class TradesAndActivities extends React.Component {
                             {taskTreeContainer}
                         </div>
                     </Spin>
-                    <FormWrapper wrappedComponentRef={this.saveFormRef}
+                    <TradesAndActivitiesDetails wrappedComponentRef={this.saveFormRef}
                         visible={this.state.showFormModal}
                         onCancel={this.handleCancel}
                         onSubmit={this.handleFormSubmit}

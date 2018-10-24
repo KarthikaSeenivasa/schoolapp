@@ -1,15 +1,15 @@
 import React from 'react';
 import { Tree } from 'antd';
 
-import TreeNodeData from './TreeNodeData';
+import TradesAndActivitiesActions from './TradesAndActivitiesActions';
 
 const { TreeNode } = Tree;
 
-class TreeWrapper extends React.Component {
+class TradesAndActivitiesList extends React.Component {
 
     renderTreeNodes = (tasks, onDeleteHandler, onEditHandler) => {
         return tasks.map((task) => {
-            let nodeData = (<TreeNodeData task={task} onDelete={onDeleteHandler} onEdit={onEditHandler} />);
+            let nodeData = (<TradesAndActivitiesActions task={task} onDelete={onDeleteHandler} onEdit={onEditHandler} />);
             if (task.subtasks) {
                 return (
                     <TreeNode title={nodeData} key={task.id} dataRef={task} selectable={false}>
@@ -33,4 +33,4 @@ class TreeWrapper extends React.Component {
     }
 }
 
-export default TreeWrapper;
+export default TradesAndActivitiesList;
