@@ -35,28 +35,37 @@ class TableWrapper extends React.Component {
         )
     }
 
+    onPageChange = (page, pageSize) => {
+        this.props.onPageChange(page, pageSize);
+    }
+
     render() {
         const columns = [
             {
                 title: 'Project Name',
-                dataIndex: 'project.name'
+                dataIndex: 'project.name',
+                width: 150
             },
             {
                 title: 'Task',
-                dataIndex: 'taskMaster.taskName'
+                dataIndex: 'taskMaster.taskName',
+                width: 150
             },
             {
                 title: 'Number of Hours',
-                dataIndex: 'hours'
+                dataIndex: 'hours',
+                width: 150
             },
             {
                 title: 'Requested By',
-                dataIndex: 'employee.user.name'
+                dataIndex: 'employee.user.name',
+                width: 150
             },
             {
                 title: 'Approval Status',
                 dataIndex: 'approval',
-                render: this.renderApprovalStatusSelect
+                render: this.renderApprovalStatusSelect,
+                width: 150
             },
             {
                 title: 'Actions',
@@ -70,11 +79,19 @@ class TableWrapper extends React.Component {
         return (
             <Table columns={columns}
                 dataSource={this.props.dataSource}
-                pagination={false}
-                size="medium"
+                pagination={{
+                    defaultPageSize: 10,
+                    showQuickJumper: true,
+                    onChange: this.onPageChange,
+                    total: this.props.numberOfRows
+                }}
+                size="small"
                 title={this.renderTitle}
                 loading={this.props.loading}
-                rowKey="id" />
+                rowKey="id"
+                onPageChange={this.onPageChange}
+                numberOfRows={this.props.numberOfRows}
+            />
         )
     }
 }

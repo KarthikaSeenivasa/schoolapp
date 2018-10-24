@@ -8,8 +8,8 @@ import { getTimeEntries, addTimeEntry, deleteTimeEntry, updateTimeEntry } from '
 import { getProjects } from '../../../../actions/ProjectActions';
 import { getTasks } from '../../../../actions/TaskActions';
 
-import TableWrapper from './TableWrapper';
-import FormWrapper from './FormWrapper';
+import TimeEntryList from './TimeEntryList';
+import TimeEntryDetails from './TimeEntryDetails';
 
 const { Header, Content } = Layout;
 const { confirm } = Modal;
@@ -158,7 +158,7 @@ class TimeEntry extends React.Component {
                 </Header>
                 <Content className="con">
                     <div className="tab-con">
-                        <TableWrapper handleDelete={this.handleDeleteAction}
+                        <TimeEntryList handleDelete={this.handleDeleteAction}
                             handleEdit={this.handleEditAction}
                             handleDateFilterChange={this.handleDateFilterChange}
                             dataSource={this.props.timeEntries}
@@ -169,7 +169,7 @@ class TimeEntry extends React.Component {
                     </div>
                     {this.state.showFormModal &&
                         <div className="frm-con">
-                            <FormWrapper wrappedComponentRef={this.saveFormRef}
+                            <TimeEntryDetails wrappedComponentRef={this.saveFormRef}
                                 visible={this.state.showFormModal}
                                 onCancel={this.handleCancel}
                                 onSubmit={this.handleFormSubmit}

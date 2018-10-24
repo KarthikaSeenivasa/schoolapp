@@ -24,7 +24,8 @@ export default function reducer(state = INITIAL_STATE, action) {
         case SET_TIME_ENTRY_APPROVALS:
             return {
                 ...state,
-                timeEntryApprovals: action.timeEntryApprovals
+                timeEntryApprovals: action.timeEntryApprovals,
+                numberOfRows: action.numberOfRows
             }
         case SET_TIME_ENTRY_APPROVALS_LOADING:
             return {

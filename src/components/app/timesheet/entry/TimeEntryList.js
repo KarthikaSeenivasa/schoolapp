@@ -1,9 +1,9 @@
 
 import React from 'react';
-import TableHeader from './TableHeader';
+import TimeEntryHeader from './TimeEntryHeader';
 import { Table, Divider } from 'antd';
 
-class TableWrapper extends React.Component {
+class TimeEntryList extends React.Component {
 
     renderActions = (text, record) => {
         if (record.approval === "APPROVED") {
@@ -30,7 +30,7 @@ class TableWrapper extends React.Component {
             numberOfHours += row.hours;
         }
         return (
-            <TableHeader onDatePickerChange={(date) => {
+            <TimeEntryHeader onDatePickerChange={(date) => {
                 this.props.handleDateFilterChange(date);
             }}
                 numberOfHours={numberOfHours}
@@ -91,10 +91,11 @@ class TableWrapper extends React.Component {
                 title={this.renderTitle}
                 size="small"
                 scroll={{ y: 300 }}
-                rowKey="id" />
+                rowKey="id"
+            />
         )
     }
 
 }
 
-export default TableWrapper;
+export default TimeEntryList;

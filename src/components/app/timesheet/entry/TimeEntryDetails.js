@@ -10,7 +10,7 @@ import { validateNumberForForm } from '../../../../utils/Util';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-class FormWrapper extends React.Component {
+class TimeEntryDetails extends React.Component {
 
     state = {
         headEmployees: []
@@ -103,4 +103,4 @@ class FormWrapper extends React.Component {
     }
 }
 
-export default Form.create()(FormWrapper);
+export default Form.create()(TimeEntryDetails);

@@ -3,7 +3,7 @@ import { DatePicker, Checkbox } from 'antd';
 import moment from 'moment';
 import { DATE_FORMAT } from '../../../../utils/Util';
 
-class TableHeader extends React.Component {
+class TimeEntryHeader extends React.Component {
 
     state = {
         showFilter : true,
@@ -50,4 +50,4 @@ class TableHeader extends React.Component {
     }
 }
 
-export default TableHeader;
+export default TimeEntryHeader;

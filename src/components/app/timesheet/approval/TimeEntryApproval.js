@@ -14,7 +14,8 @@ class TimeEntryApproval extends React.Component {
 
     state = {
         showFormModal: false,
-        recordToEdit: null
+        recordToEdit: null,
+        status: 'PENDING'
     }
 
     handleEditAction = (id, record) => {
@@ -44,6 +45,9 @@ class TimeEntryApproval extends React.Component {
 
     handleStatusFilterChange = (value, option) => {
         this.props.dispatch(getTimeEntryApprovals(value));
+        this.setState({
+            status: value
+        });
     }
 
 
@@ -55,6 +59,10 @@ class TimeEntryApproval extends React.Component {
         this.setState({
             showFormModal: false
         });
+    }
+
+    onPageChange = (page, pageSize) => {
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, page, pageSize));
     }
 
     componentWillMount() {
@@ -74,7 +82,10 @@ class TimeEntryApproval extends React.Component {
                             handleStatusChange={this.handleStatusChange}
                             handleStatusFilterChange={this.handleStatusFilterChange}
                             dataSource={this.props.timeEntryApprovals}
-                            loading={this.props.loading} />
+                            loading={this.props.loading}
+                            onPageChange={this.onPageChange}
+                            numberOfRows={this.props.numberOfRows}
+                        />
                     </div>
                     <div className="frm-con">
                         {this.state.showFormModal &&
@@ -93,6 +104,7 @@ class TimeEntryApproval extends React.Component {
 const mapStateToProps = (state) => {
     return {
         timeEntryApprovals: state.timeEntries.timeEntryApprovals,
+        numberOfRows: state.timeEntries.numberOfRows,
         loading: state.timeEntries.approvalsLoading
     }
 }

@@ -34,7 +34,7 @@ export function getTimeEntries(date, page = 1, size = 10) {
         const params = {
             startDate,
             endDate,
-            page: page-1,
+            page: page - 1,
             size
         }
         axios.get(TIME_ENTRIES_API + "/employee", { params })
@@ -123,15 +123,19 @@ export function deleteTimeEntry(id) {
     }
 }
 
-export function getTimeEntryApprovals(status) {
+export function getTimeEntryApprovals(status, page = 1, size = 10) {
     return (dispatch, getState) => {
         dispatch(setTimeEntryApprovalsLoading(true));
         const params = {
-            approval: status === "ALL" ? undefined : status
+            approval: status === "ALL" ? undefined : status,
+            page: page - 1,
+            size
         }
         axios.get(TIME_ENTRIES_API + "/leader", { params })
             .then((response) => {
-                dispatch(setTimeEntryApprovals(response.data.payload));
+                if (response.data.payload.content) {
+                    dispatch(setTimeEntryApprovals(response.data.payload.content, response.data.total));
+                }
                 dispatch(setTimeEntryApprovalsLoading(false));
             }).catch((err) => {
                 if (err.response.status === 500) {
@@ -181,10 +185,11 @@ function setTimeEntriesLoading(loading) {
     }
 }
 
-function setTimeEntryApprovals(timeEntryApprovals) {
+function setTimeEntryApprovals(timeEntryApprovals, numberOfRows) {
     return {
         type: SET_TIME_ENTRY_APPROVALS,
-        timeEntryApprovals
+        timeEntryApprovals,
+        numberOfRows
     }
 }
 

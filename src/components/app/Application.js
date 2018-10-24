@@ -11,7 +11,7 @@ import JobPlanning from './project/job_planning';
 import NotFound from '../error/NotFound';
 import ProjectProgress from './project/progress';
 import TradesAndActivities from './task/TradesAndActivities';
-import TimeEntry from './timesheet/entry/TimeEntry';
+import TimeEntry from './timesheet/entry';
 import TimeEntryApproval from './timesheet/approval/TimeEntryApproval';
 import BudgetVsActual from './reports/budget_vs_actual';
 
