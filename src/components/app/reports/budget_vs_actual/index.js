@@ -36,14 +36,14 @@ class BudgetVsActual extends React.Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(getProjects(()=>{
+        this.props.dispatch(getProjects(() => {
             this.changeProject(this.props.projects[0]);
         }, -1, -1));
     }
 
     render() {
         return (
-            <Layout className="rep" >
+            <Layout className="rep"y>
                 <HeaderContainer onProjectChange={this.onProjectChange}
                     projects={this.props.projects}
                     loading={this.props.projectsLoading}
