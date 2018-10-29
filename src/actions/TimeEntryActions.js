@@ -51,12 +51,13 @@ export function getTimeEntries(date, page = 1, size = 10) {
     }
 }
 
-export function addTimeEntry(projectId, headEmployeeId, hours, taskMasterId, description) {
+export function addTimeEntry(projectId, headEmployeeId, date, hours, taskMasterId, description) {
     return (dispatch, getState) => {
         const data = {
             employeeId: getState().user.id,
             projectId,
             headEmployeeId,
+            date:getDateParam(date.startOf('day')),
             hours,
             taskMasterId,
             description
@@ -75,11 +76,12 @@ export function addTimeEntry(projectId, headEmployeeId, hours, taskMasterId, des
     }
 }
 
-export function updateTimeEntry(id, projectId, headEmployeeId, hours, taskMasterId, description) {
+export function updateTimeEntry(id, projectId, headEmployeeId, date, hours, taskMasterId, description) {
     return (dispatch, getState) => {
         const data = {
             projectId,
             headEmployeeId,
+            date: getDateParam(date.startOf('day')),
             hours,
             taskMasterId,
             description

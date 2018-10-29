@@ -7,7 +7,7 @@ class TimeEntryHeader extends React.Component {
 
     state = {
         showFilter : true,
-        filterValue : moment()
+        filterValue : moment().startOf('day')
     } 
 
     onCheckboxChange = (event) => {

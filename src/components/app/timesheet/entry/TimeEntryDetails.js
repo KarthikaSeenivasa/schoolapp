@@ -1,11 +1,12 @@
 import React from 'react';
-import { Input, Form, Modal } from 'antd';
+import moment from 'moment';
+import { Input, Form, Modal, DatePicker } from 'antd';
 
 import ProjectsSelect from './ProjectsSelect';
 import TaskSelect from './TaskSelect';
 import LeadsSelect from './LeadsSelect';
 
-import { validateNumberForForm } from '../../../../utils/Util';
+import { validateNumberForForm, DATE_FORMAT } from '../../../../utils/Util';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -29,15 +30,19 @@ class TimeEntryDetails extends React.Component {
     componentWillMount() {
         if (this.props.formMode === 1 && this.props.projects.length > 0) {
             this.setHeadEmployees(this.props.projects[0].id);
-        } else if(this.props.formMode === 2 && this.props.recordToEdit.project) {
+        } else if (this.props.formMode === 2 && this.props.recordToEdit.project) {
             this.setHeadEmployees(this.props.recordToEdit.project.id);
-        } 
-        
+        }
+
     }
 
     componentDidMount() {
         if (this.props.formMode !== 1) {
             this.props.form.setFieldsValue(this.props.recordToEdit);
+        } else {
+            this.props.form.setFieldsValue({
+                date: moment().startOf('day')
+            })
         }
     }
 
@@ -47,7 +52,7 @@ class TimeEntryDetails extends React.Component {
 
         const formLayout = {
             labelCol: { span: 7 },
-            wrapperCol: { span: 12, offset : 2 }
+            wrapperCol: { span: 12, offset: 2 }
         }
         return (
             <Modal visible={visible}
@@ -71,16 +76,24 @@ class TimeEntryDetails extends React.Component {
                         loading={this.props.tasksLoading}
                         initialTaskIds={this.props.initialTaskIds}
                     />
+                    <FormItem label="Date" {...formLayout}>
+                        {getFieldDecorator('date', {
+                            rules: [{ required: true, message: "Date is required" }],
+                        })(
+                            <DatePicker
+                                format={DATE_FORMAT}
+                            />
+                        )}
+                    </FormItem>
 
-                    <FormItem {...formLayout}>
+                    <FormItem label="Numer of hours" {...formLayout}>
                         {getFieldDecorator('hours', {
                             rules: [{ validator: validateNumberForForm }],
                         })(
                             <Input
-                                addonBefore="Number of Hours"
                                 size="default"
                                 name="hours"
-                                placeholder="Number of Hours" />
+                                placeholder="Hours" />
                         )}
                     </FormItem>
                     <LeadsSelect getFieldDecorator={getFieldDecorator}

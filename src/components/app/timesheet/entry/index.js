@@ -20,7 +20,7 @@ class TimeEntry extends React.Component {
         showFormModal: false,
         formMode: -1, //1 for Add, 2 for Edit
         recordToEdit: null,
-        date: moment()
+        date: moment().startOf('day')
     }
 
     getInitialProjectId = () => {
@@ -42,10 +42,10 @@ class TimeEntry extends React.Component {
         if (this.state.formMode === 2 && this.state.recordToEdit.taskMaster) {
             taskMaster = this.state.recordToEdit.taskMaster;
             initialTaskIds.unshift(taskMaster.id);
-            do {
+            while (taskMaster.headId) {
                 taskMaster = taskMaster.headId;
                 initialTaskIds.unshift(taskMaster.id);
-            } while (taskMaster.headId);
+            }
 
             return initialTaskIds;
 
@@ -97,12 +97,12 @@ class TimeEntry extends React.Component {
         const form = this.formRef.props.form;
         form.validateFields((err, values) => {
             if (!err) {
-                let { projectId, headEmployeeId, hours, taskMasterId, description } = { ...values };
+                let { projectId, headEmployeeId, date, hours, taskMasterId, description } = { ...values };
                 let taskMasterIdParam = taskMasterId ? taskMasterId[taskMasterId.length - 1] : undefined
                 if (this.state.formMode === 1) {
-                    this.props.dispatch(addTimeEntry(projectId, headEmployeeId, hours, taskMasterIdParam, description));
+                    this.props.dispatch(addTimeEntry(projectId, headEmployeeId, date, hours, taskMasterIdParam, description));
                 } else {
-                    this.props.dispatch(updateTimeEntry(this.state.recordToEdit.id, projectId, headEmployeeId, hours, taskMasterIdParam, description));
+                    this.props.dispatch(updateTimeEntry(this.state.recordToEdit.id, projectId, headEmployeeId, date, hours, taskMasterIdParam, description));
                 }
                 form.resetFields();
                 this.setState({
@@ -133,7 +133,7 @@ class TimeEntry extends React.Component {
     componentWillMount() {
         this.props.dispatch(getProjects(undefined, -1, -1));
         this.props.dispatch(getTasks(true));
-        this.props.dispatch(getTimeEntries(moment()));
+        this.props.dispatch(getTimeEntries(moment().startOf('day')));
     }
 
     handleDateFilterChange = (date) => {
