@@ -63,9 +63,15 @@ class ProjectsList extends React.Component {
             width: 200
         },
         {
-            title: 'Order Receiving Date',
-            dataIndex: 'receivingDate',
-            render: renderDate,
+            title: 'Team Leaders',
+            dataIndex: 'headEmployee',
+            render: (text, record)=>{
+                let leads = [];
+                for(var emp of record.headEmployee) {
+                    leads.push(emp.user.name);
+                }
+                return leads.toString();
+            },
             width: 200
         },
         {
