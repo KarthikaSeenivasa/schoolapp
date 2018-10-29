@@ -19,7 +19,6 @@ export function getBudgetVsActual(projectId) {
 
                 dispatch(setReportsLoading(false));
             }).catch((err) => {
-                debugger;
                 if (err.response.status === 500) {
                     showFailureNotification('Could not fetch budget vs actual reports');
                 }

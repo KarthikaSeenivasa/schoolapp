@@ -23,6 +23,7 @@ class TradesAndActivitiesDetails extends React.Component {
                 okText={formMode == 1 ? 'Add' : 'Edit'}
                 onCancel={onCancel}
                 onOk={onSubmit}
+                destroyOnClose
             >
                 <Form onSubmit={this.handleSubmit} className="tsk-form">
                     <FormItem>

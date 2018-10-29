@@ -62,7 +62,6 @@ class TaskProgress extends React.Component {
 
     handleOk = (date, progressPercentage) => {
         if (this.state.editMode) {
-            debugger;
             this.props.onEditProgress(this.state.recordToEdit.id, date, progressPercentage);
         } else {
             this.props.onAddProgress(this.props.selectedTask.id, date, progressPercentage);
