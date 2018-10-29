@@ -38,7 +38,9 @@ class TimeEntryDetails extends React.Component {
 
     componentDidMount() {
         if (this.props.formMode !== 1) {
-            this.props.form.setFieldsValue(this.props.recordToEdit);
+            let newRecord = { ...this.props.recordToEdit };
+            newRecord.date = moment(this.props.recordToEdit.date);
+            this.props.form.setFieldsValue(newRecord);
         } else {
             this.props.form.setFieldsValue({
                 date: moment().startOf('day')
