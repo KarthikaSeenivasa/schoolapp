@@ -112,6 +112,16 @@ class TimeEntryDetails extends React.Component {
                                 placeholder="Description" />
                         )}
                     </FormItem>
+                    <FormItem label="Remarks"{...formLayout}>
+                        {getFieldDecorator('remarks')(
+                            <TextArea
+                                autosize={{ minRows: 3, maxRows: 5 }}
+                                name="remarks"
+                                placeholder="Remarks"
+                                disabled
+                                />
+                        )}
+                    </FormItem>
                 </Form>
             </Modal >
         );
