@@ -62,6 +62,10 @@ class ProgressDetails extends React.Component {
                 date: this.props.recordToEdit.date,
                 progressPercentage: this.props.recordToEdit.progressPercentage
             })
+        } else {
+            this.setState({
+                date: moment().startOf('day').unix() * 1000
+            })
         }
     }
     render() {
@@ -89,7 +93,7 @@ class ProgressDetails extends React.Component {
                         <span className="lbl" style={{ margin: 'auto 5px' }}>Date:</span>
                         <DatePicker format={DATE_FORMAT}
                             onChange={this.onDateChange}
-                            defaultValue={editMode ? moment(recordToEdit.date) : null} />
+                            defaultValue={moment(this.state.date)} />
                     </div>
                     <div className="progress" style={{ width: '50%' }}>
                         <Input name="progressPercentage"

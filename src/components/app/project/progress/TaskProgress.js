@@ -77,12 +77,14 @@ class TaskProgress extends React.Component {
             {
                 title: 'Entered Date',
                 dataIndex: 'date',
-                render: renderDate
+                render: renderDate,
+                width: 150
             },
             {
                 title: 'Progress',
                 dataIndex: 'progressPercentage',
-                render: this.renderProgress
+                render: this.renderProgress,
+                width: 200
             }
         ];
 
@@ -90,7 +92,8 @@ class TaskProgress extends React.Component {
             columns.push({
                 title: 'Actions',
                 dataIndex: 'id',
-                render: this.renderActions
+                render: this.renderActions,
+                width: 150
             });
         }
 

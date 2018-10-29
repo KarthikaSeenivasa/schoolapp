@@ -28,25 +28,25 @@ class ProjectsList extends React.Component {
             {
                 title: 'Job Name',
                 dataIndex: 'name',
-                width: 200
+                width: 100
             },
             {
                 title: 'Esskay Job Number',
                 dataIndex: 'esskayJN',
-                width: 200
+                width: 100
             },
             {
                 title: 'Progress',
                 dataIndex: 'progress',
                 render: this.renderProgress,
-                width: 200
+                width: 100
             },
             {
                 title: 'Actions',
                 dataIndex: 'id',
                 key: 'id',
                 render: this.renderActions,
-                width: 150
+                width: 100
             }
         ];
 
