@@ -91,9 +91,9 @@ class Application extends React.Component {
                     <Menu.Item key="/app/reports/budget_vs_actual">
                         <Link to="/app/reports/budget_vs_actual">Budget Vs Actual</Link>
                     </Menu.Item>
-                    <Menu.Item key="/app/reports/report2">
+                    {/* <Menu.Item key="/app/reports/report2">
                         <Link to="/app/reports/report2">Report2</Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                 </Menu.SubMenu>
             );
         }
@@ -125,7 +125,7 @@ class Application extends React.Component {
                         <PrivateRoute path="/app/time_entry_approval" component={TimeEntryApproval} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.time_entry_approval)} />
                         <PrivateRoute path={`${this.props.match.url}/client`} component={Client} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.client)} />
                         <PrivateRoute path="/app/reports/budget_vs_actual" component={BudgetVsActual} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.reports)} />
-                        <PrivateRoute path="/app/reports/report2" component={ProjectProgress} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.reports)} />
+                        {/* <PrivateRoute path="/app/reports/report2" component={ProjectProgress} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.reports)} /> */}
                         <Route component={NotFound} />
                     </Switch>
                 </Content>
