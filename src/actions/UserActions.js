@@ -117,13 +117,12 @@ export function handleChangePassword(oldPassword, newPassword) {
 }
 
 
-export function createUser(username, email, name, password, role, isEmployee, employeeNumber, reportingTo) {
+export function createUser(username, email, name, role, isEmployee, employeeNumber, reportingTo) {
     return (dispatch, getState) => {
         const data = {
             username,
             email,
             name,
-            password,
             roles: [role],
             isEmployee,
             employeeNumber,

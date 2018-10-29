@@ -47,8 +47,8 @@ class CreateUserForm extends React.Component {
         event.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                let { username, email, name, password, role, isEmployee, employeeNumber, reportingTo } = { ...values };
-                this.props.dispatch(createUser(username, email, name, password, role, isEmployee, employeeNumber, reportingTo));
+                let { username, email, name, role, isEmployee, employeeNumber, reportingTo } = { ...values };
+                this.props.dispatch(createUser(username, email, name, role, isEmployee, employeeNumber, reportingTo));
                 this.props.form.resetFields();
             }
         });
@@ -111,7 +111,7 @@ class CreateUserForm extends React.Component {
                             placeholder="Email" />
                     )}
                 </FormItem>
-                <FormItem>
+                {/* <FormItem>
                     {getFieldDecorator('password', {
                         rules: [{ required: true, message: 'Please input your password' },
                         { min: 6, max: 100, message: "Password should be of 6 to 100 characters" }
@@ -125,7 +125,7 @@ class CreateUserForm extends React.Component {
                             name="password"
                             placeholder="Password" />
                     )}
-                </FormItem>
+                </FormItem> */}
 
                 <RoleSelect getFieldDecorator={getFieldDecorator} formLayout={formLayout} loading={this.props.loading} roles={this.props.roles} />
 
