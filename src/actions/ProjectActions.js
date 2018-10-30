@@ -18,27 +18,35 @@ export const statusCodes =
     [
         {
             name: 'IFA Progress',
-            value: "IFA_PROGRESS"
+            value: "IFA_PROGRESS",
+            tagColor: "geekblue"
         },
         {
             name: 'Awaiting IFA',
-            value: "AWAITING_RFA"
+            value: "AWAITING_IFA",
+            tagColor: "magenta"
+
         },
         {
             name: 'Resubmission Progress',
-            value: "RESUBMISSION_PROGRESS"
+            value: "RESUBMISSION_PROGRESS",
+            tagColor: "cyan"
         },
         {
             name: 'IFF Progress',
-            value: "IFF_PROGRESS"
+            value: "IFF_PROGRESS",
+            tagColor: "blue"
+
         },
         {
             name: 'IFF Completed',
-            value: "IFF_COMPLETED"
+            value: "IFF_COMPLETED",
+            tagColor: "green"
         },
         {
             name: 'Hold Or Cancelled',
-            value: "HOLD_OR_CANCELLED"
+            value: "HOLD_OR_CANCELLED",
+            tagColor: "red"
         }
     ];
 

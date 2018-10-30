@@ -1,4 +1,5 @@
-import { notification } from 'antd';
+import React from 'react';
+import { notification, Tag } from 'antd';
 import axios from 'axios';
 import { statusCodes } from '../actions/ProjectActions';
 
@@ -57,9 +58,9 @@ export function renderDate(text, record) {
 
 export function renderStatus(text, record) {
     if (text) {
-        for(const statusCode of statusCodes) {
-            if(statusCode.value === text){
-                return statusCode.name;
+        for (const statusCode of statusCodes) {
+            if (statusCode.value === text) {
+                return (<Tag color={statusCode.tagColor}> {statusCode.name} </Tag>);
             }
         }
     }
@@ -88,18 +89,18 @@ export function isEqual(value1, value2) {
     return value1 === value2;
 }
 
-export function compareDates(momentValue, value){
-    if(momentValue){
-        if(value){
+export function compareDates(momentValue, value) {
+    if (momentValue) {
+        if (value) {
             return (getDateParam(momentValue) === value);
         } else {
             return false;
         }
-    } else if(value){
+    } else if (value) {
         return false;
     } else {
         return true;
     }
-    
+
 }
 
