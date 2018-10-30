@@ -115,7 +115,10 @@ class ProjectDetails extends React.Component {
                 <div className="row-flex">
                     <FormItem label="Budget" {...this.partFormLayout}>
                         {getFieldDecorator('budget', {
-                            rules: [{ validator: validateNumberForForm }]
+                            rules: [
+                                { validator: validateNumberForForm },
+                                { required: true, message: "Budget cannot be empty" }
+                            ]
                         })(
                             <Input
                                 size="default"
@@ -136,7 +139,7 @@ class ProjectDetails extends React.Component {
                     </FormItem>
                 </div>
 
-                <IFADatePicker formLayout={this.partFormLayout} disabled={disabled} {...this.props} /> 
+                <IFADatePicker formLayout={this.partFormLayout} disabled={disabled} {...this.props} />
 
                 <div className="row-flex">
                     <FormItem label="Actual IFA Date" {...this.partFormLayout}>
