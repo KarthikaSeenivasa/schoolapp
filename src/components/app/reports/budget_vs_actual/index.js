@@ -49,7 +49,6 @@ class BudgetVsActual extends React.Component {
                 <ReactToPrint
                     trigger={() => {
                         return (
-                            // )
                             <div className="bgt-act">
                                 <Link to="#">
                                     <Icon type="printer" theme="outlined" style={{ height: 30, marginRight: '5px' }} />

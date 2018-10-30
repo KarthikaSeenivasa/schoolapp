@@ -1,0 +1,20 @@
+.pro-con {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border: 1px solid #ccc;
+    width: 50%;
+    border-radius: 5px;
+
+    .usr-pro {
+        display: flex;
+        width: 100%;
+        padding: 30px;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+
+        .lbl {
+            font-weight: 600;
+        }
+    }
+}

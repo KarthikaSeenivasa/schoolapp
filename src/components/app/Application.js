@@ -19,6 +19,7 @@ import PrivateRoute from '../../routes/PrivateRoute';
 
 import { arrayIncludesOneOf } from '../../utils/Util';
 import { allowedRoles } from '../../actions/UserActions';
+import UserProfile from './user_profile';
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -98,6 +99,12 @@ class Application extends React.Component {
             );
         }
 
+        let userProfileMenu = (
+            <Menu.Item key="/app/user_profile">
+                <Link to="/app/user_profile">Profile</Link>
+            </Menu.Item>
+        );
+
         return (
             <Layout className="in-app" hasSider={true}>
                 <Sider>
@@ -107,6 +114,7 @@ class Application extends React.Component {
                         defaultSelectedKeys={[this.getInitialRedirectURL()]}
                         style={{ height: '100%' }}
                     >
+                        {userProfileMenu}
                         {projectMenu}
                         {tradesAndActivitiesMenu}
                         {timeEntryMenu}
@@ -118,6 +126,7 @@ class Application extends React.Component {
                 <Content className="in-app-content">
                     <Switch>
                         <Redirect from="/app" exact to={this.getInitialRedirectURL()} />
+                        <PrivateRoute path="/app/user_profile" component={UserProfile} authenticated={isAuthenticated} authorized={true} />
                         <PrivateRoute path="/app/projects/job_planning" component={JobPlanning} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.projects)} />
                         <PrivateRoute path="/app/projects/progress" component={ProjectProgress} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.projects)} />
                         <PrivateRoute path="/app/trades_and_activities" component={TradesAndActivities} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.trades_and_activities)} />
