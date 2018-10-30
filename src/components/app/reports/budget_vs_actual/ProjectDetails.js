@@ -21,6 +21,9 @@ const ProjectDetails = (props) => {
             <div className="prj-val">
                 Job Name: {props.reports.jobName}
             </div>
+            <div className="prj-val">
+                Job Status: {props.reports.status}
+            </div>
         </div>
     )
 }
