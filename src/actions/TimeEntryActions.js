@@ -30,7 +30,7 @@ export function getTimeEntries(date, page = 1, size = 10) {
     return (dispatch, getState) => {
         dispatch(setTimeEntriesLoading(true));
         let startDate = date ? getDateParam(date) : undefined;
-        let endDate = startDate ? startDate + (24 * 60 * 60 * 1000) : undefined;
+        let endDate = startDate ? startDate + (24 * 60 * 60 * 1000) - 1 : undefined;
         const params = {
             startDate,
             endDate,
@@ -81,7 +81,7 @@ export function updateTimeEntry(id, projectId, headEmployeeId, date, hours, task
         const data = {
             projectId,
             headEmployeeId,
-            date: getDateParam(date.startOf('day')),
+            date: getDateParam(date),
             hours,
             taskMasterId,
             description
