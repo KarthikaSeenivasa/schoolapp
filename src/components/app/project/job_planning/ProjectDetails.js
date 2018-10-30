@@ -44,14 +44,14 @@ class ProjectDetails extends React.Component {
 
         return (
             <Form className="hls-form">
-                <FormItem label="Project Name" {...this.formLayout}>
+                <FormItem label="Job Name" {...this.formLayout}>
                     {getFieldDecorator('name', {
-                        rules: [{ required: true, message: 'Project name cannot be empty' }]
+                        rules: [{ required: true, message: 'Job name cannot be empty' }]
                     })(
                         <Input
                             size="default"
                             name="name"
-                            placeholder="Project Name"
+                            placeholder="Job Name"
                             disabled={disabled}
                         />
                     )}

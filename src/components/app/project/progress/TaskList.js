@@ -78,7 +78,7 @@ class TaskList extends React.Component {
 
         return (
             <Modal visible={visible}
-                title='Project Tasks and Progress'
+                title='Jobs Tasks and Progress'
                 footer={null}
                 onCancel={onCancel}
                 maskClosable={false}

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Table, Divider } from 'antd';
-import { renderDate, renderStatus } from '../../../../utils/Util';
+import {  renderStatus } from '../../../../utils/Util';
 
 class ProjectsList extends React.Component {
 

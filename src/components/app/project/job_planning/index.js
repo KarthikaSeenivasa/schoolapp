@@ -128,7 +128,7 @@ class JobPlanning extends React.Component {
                 <Header className="head">
                     <span>Job Planning</span>
                     <div>
-                        <Button className="btns" onClick={this.handleAddAction}>Add Project</Button>
+                        <Button className="btns" onClick={this.handleAddAction}>Add Job</Button>
                     </div>
                 </Header>
                 <Content className="con">
