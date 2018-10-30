@@ -69,6 +69,7 @@ export function renderStatus(text, record) {
 export function getDateParam(date) {
     if (date !== undefined) {
         if (date !== null) {
+            date = date.startOf('day');
             return date.unix() * 1000;
         }
         return null;
