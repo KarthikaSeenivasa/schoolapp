@@ -20,7 +20,7 @@ class TimeEntry extends React.Component {
         showFormModal: false,
         formMode: -1, //1 for Add, 2 for Edit
         recordToEdit: null,
-        date: moment().startOf('day')
+        date: [moment().startOf('day'), moment().startOf('day')]
     }
 
     getInitialProjectId = () => {
@@ -133,7 +133,7 @@ class TimeEntry extends React.Component {
     componentWillMount() {
         this.props.dispatch(getProjects(undefined, -1, -1));
         this.props.dispatch(getTasks(true));
-        this.props.dispatch(getTimeEntries(moment().startOf('day')));
+        this.props.dispatch(getTimeEntries([moment().startOf('day'), moment().startOf('day')]));
     }
 
     handleDateFilterChange = (date) => {
