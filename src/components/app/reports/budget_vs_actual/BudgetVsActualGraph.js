@@ -5,6 +5,9 @@ import Legend from "chartist-plugin-legend";
 const chartOptions = {
     width: '100%', 
     height: '260px',
+    axisX: {
+        showGrid: false
+    },
     plugins: [
         Legend({
             position: 'bottom'
@@ -38,7 +41,7 @@ const BudgetVsActualGraph = (props) => {
             <ChartistGraph type="Bar"
                 data={props.reports.chartData}
                 options={chartOptions}
-                listener={listener}
+                // listener={listener}
             />
         </div>
     )
