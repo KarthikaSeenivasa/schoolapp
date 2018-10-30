@@ -5,6 +5,7 @@ import moment from 'moment';
 import { DATE_FORMAT } from '../../../../utils/Util';
 
 const { RangePicker } = DatePicker;
+
 class TimeEntryHeader extends React.Component {
 
     state = {

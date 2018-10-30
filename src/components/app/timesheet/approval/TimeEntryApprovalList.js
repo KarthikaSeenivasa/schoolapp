@@ -31,7 +31,11 @@ class TimeEntryApprovalList extends React.Component {
         return (
             <TimeEntryApprovalHeader onStatusChange={(value, option) => {
                 this.props.handleStatusFilterChange(value, option);
-            }} />
+            }}
+                onDatePickerChange={(date) => {
+                    this.props.handleDateFilterChange(date);
+                }}
+            />
         )
     }
 

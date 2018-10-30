@@ -26,7 +26,7 @@ export const statusCodes =
         }
     ];
 
-export function getTimeEntries(date, page = 1, size = 10) {
+export function getTimeEntries(date = [], page = 1, size = 10) {
     return (dispatch, getState) => {
         dispatch(setTimeEntriesLoading(true));
         let startDate = date[0] ? getDateParam(date[0]) : undefined;
@@ -125,13 +125,17 @@ export function deleteTimeEntry(id) {
     }
 }
 
-export function getTimeEntryApprovals(status, page = 1, size = 10) {
+export function getTimeEntryApprovals(status, page = 1, size = 10, date = []) {
     return (dispatch, getState) => {
         dispatch(setTimeEntryApprovalsLoading(true));
+        let startDate = date[0] ? getDateParam(date[0]) : undefined;
+        let endDate = date[1] ? getDateParam(date[1]) : undefined;
         const params = {
             approval: status === "ALL" ? undefined : status,
             page: page - 1,
-            size
+            size,
+            startDate,
+            endDate
         }
         axios.get(TIME_ENTRIES_API + "/leader", { params })
             .then((response) => {
