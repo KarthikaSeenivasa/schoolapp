@@ -105,7 +105,7 @@ class ProjectProcess extends React.Component {
     render() {
         return (
             <Modal visible={this.props.visible}
-                title={(this.props.formMode === 1) ? 'Add New Project' : 'Edit Project Information'}
+                title={(this.props.formMode === 1) ? 'Add New Job' : 'Edit Job Information'}
                 okText={this.state.currentStep === 0 ? "Next" : "Finish"}
                 onCancel={this.props.onCancel}
                 onOk={this.onOk}

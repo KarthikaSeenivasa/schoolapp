@@ -21,10 +21,61 @@ class TimeEntryApprovalDetails extends React.Component {
                 onCancel={onCancel}
                 onOk={onSubmit}
             >
+
                 <Form className="hls-form">
+
+                    <FormItem label="Requested By" {...formLayout}>
+                        {getFieldDecorator('requestedBy', {
+                            initialValue: recordToEdit.employee.user.name,
+                        })(
+                            <Input
+                                size="default"
+                                name="requestedBy"
+                                disabled
+                            />
+                        )}
+                    </FormItem>
+
+                    <FormItem label="Job/Task" {...formLayout}>
+                        {getFieldDecorator('jobAndTask', {
+                            initialValue: recordToEdit.project.name + "/" + recordToEdit.taskMaster.taskName,
+                        })(
+                            <Input
+                                size="default"
+                                name="jobAndTask"
+                                disabled
+                            />
+                        )}
+                    </FormItem>
+
+                    <FormItem label="Numer of hours" {...formLayout}>
+                        {getFieldDecorator('hours', {
+                            initialValue: recordToEdit.hours,
+                        })(
+                            <Input
+                                size="default"
+                                name="hours"
+                                disabled
+                            />
+                        )}
+                    </FormItem>
+
+                    <FormItem label="Description"{...formLayout}>
+                        {getFieldDecorator('description', {
+                            initialValue: recordToEdit.description,
+                        })(
+                            <TextArea
+                                autosize={{ minRows: 3, maxRows: 5 }}
+                                name="description"
+                                placeholder="Description"
+                                disabled
+                            />
+                        )}
+                    </FormItem>
+
                     <FormItem label="Remarks"{...formLayout}>
-                        {getFieldDecorator('remarks',{
-                            initialValue : recordToEdit.remarks
+                        {getFieldDecorator('remarks', {
+                            initialValue: recordToEdit.remarks
                         })(
                             <TextArea
                                 autosize={{ minRows: 3, maxRows: 5 }}

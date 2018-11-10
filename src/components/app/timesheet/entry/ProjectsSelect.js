@@ -20,7 +20,7 @@ const ProjectsSelect = (props) => {
         initialValue = initialProjectId ? initialProjectId : projects[0].id;
     }
     return (
-        <FormItem label="Project Name" {...formLayout}>
+        <FormItem label="Job Name" {...formLayout}>
             {getFieldDecorator('projectId', {
                 initialValue: initialValue,
             })(

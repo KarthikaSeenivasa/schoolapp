@@ -2,6 +2,7 @@
 import React from 'react';
 import TimeEntryHeader from './TimeEntryHeader';
 import { Table, Divider } from 'antd';
+import { renderDate } from '../../../../utils/Util';
 
 class TimeEntryList extends React.Component {
 
@@ -45,13 +46,19 @@ class TimeEntryList extends React.Component {
     render() {
         const columns = [
             {
-                title: 'Project Name',
+                title: 'Job Name',
                 dataIndex: 'project.name',
                 width: 150
             },
             {
                 title: 'Trade & Activity',
                 dataIndex: 'taskMaster.taskName',
+                width: 150
+            },
+            {
+                title: 'Date',
+                dataIndex: 'date',
+                render: renderDate,
                 width: 150
             },
             {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
+import moment from 'moment';
 import './style.scss';
 
 import TimeEntryApprovalList from './TimeEntryApprovalList';
@@ -15,7 +16,8 @@ class TimeEntryApproval extends React.Component {
     state = {
         showFormModal: false,
         recordToEdit: null,
-        status: 'PENDING'
+        status: 'PENDING',
+        date: [moment().startOf('day'), moment().startOf('day')]
     }
 
     handleEditAction = (id, record) => {
@@ -44,12 +46,18 @@ class TimeEntryApproval extends React.Component {
     }
 
     handleStatusFilterChange = (value, option) => {
-        this.props.dispatch(getTimeEntryApprovals(value));
+        this.props.dispatch(getTimeEntryApprovals(value, 1, 10, this.state.date));
         this.setState({
             status: value
         });
     }
 
+    handleDateFilterChange = (date) => {
+        this.setState({
+            date
+        });
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, 1, 10, date));
+    }
 
     saveFormRef = (formRef) => {
         this.formRef = formRef;
@@ -62,11 +70,11 @@ class TimeEntryApproval extends React.Component {
     }
 
     onPageChange = (page, pageSize) => {
-        this.props.dispatch(getTimeEntryApprovals(this.state.status, page, pageSize));
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, page, pageSize, this.state.date));
     }
 
     componentWillMount() {
-        this.props.dispatch(getTimeEntryApprovals("PENDING"));
+        this.props.dispatch(getTimeEntryApprovals("PENDING", 1, 10, [moment().startOf('day'), moment().startOf('day')]));
     }
 
     render() {
@@ -81,6 +89,7 @@ class TimeEntryApproval extends React.Component {
                             handleEdit={this.handleEditAction}
                             handleStatusChange={this.handleStatusChange}
                             handleStatusFilterChange={this.handleStatusFilterChange}
+                            handleDateFilterChange={this.handleDateFilterChange}
                             dataSource={this.props.timeEntryApprovals}
                             loading={this.props.loading}
                             onPageChange={this.onPageChange}

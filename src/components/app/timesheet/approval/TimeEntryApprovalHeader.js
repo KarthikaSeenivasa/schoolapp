@@ -1,10 +1,34 @@
 import React from 'react';
+import { DatePicker, Checkbox } from 'antd';
+import moment from 'moment';
+
 import StatusSelect from './StatusSelect';
+import { DATE_FORMAT } from '../../../../utils/Util';
+
+const { RangePicker } = DatePicker;
 
 class TimeEntryApprovalHeader extends React.Component {
 
     state = {
-        filterValue: 'PENDING'
+        filterValue: 'PENDING',
+        showDateFilter: true,
+        date: [moment().startOf('day'), moment().startOf('day')]
+    }
+
+    onCheckboxChange = (event) => {
+        this.props.onDatePickerChange(event.target.checked ? this.state.filterValue : undefined);
+
+        this.setState({
+            showFilter: event.target.checked
+        });
+    }
+
+    onDatePickerChange = (date, dateString) => {
+        this.setState({
+            date
+        });
+
+        this.props.onDatePickerChange(date);
     }
 
     onStatusSelectChange = (value, option) => {
@@ -18,13 +42,13 @@ class TimeEntryApprovalHeader extends React.Component {
     getHeaderText = () => {
         switch (this.state.filterValue) {
             case 'ALL':
-                return 'All the time entries are listed';
+                return 'All Entries';
             case 'APPROVED':
-                return 'The listed time entries are approved';
+                return 'Approved Entries';
             case 'PENDING':
-                return 'The listed time entries are pending for approval';
+                return 'Pending for approval';
             case 'DECLINED':
-                return 'The listed time entries are declined'
+                return 'Declined Entries'
             default:
                 return '';
         }
@@ -37,6 +61,22 @@ class TimeEntryApprovalHeader extends React.Component {
                 <span className="hdr-txt" style={{ fontStyle: 'italic', marginLeft: '50px' }}>
                     {headerText}
                 </span>
+
+                <div className="rge-con">
+                    <span style={{ marginRight: '10px' }}>
+                        <Checkbox checked={this.state.showDateFilter}
+                            onChange={this.onCheckboxChange}>
+                            Filter By Range
+                        </Checkbox>
+                    </span>
+                    <RangePicker format={DATE_FORMAT}
+                        defaultValue={this.state.date}
+                        disabled={!this.state.showDateFilter}
+                        allowClear={false}
+                        onChange={this.onDatePickerChange}
+                    />
+                </div>
+
                 <div className="sts-con" style={{ marginRight: '50px' }}>
                     <span style={{ marginRight: '10px' }}>
                         Approval Status:

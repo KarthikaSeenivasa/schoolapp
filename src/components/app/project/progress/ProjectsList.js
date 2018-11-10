@@ -15,7 +15,9 @@ class ProjectsList extends React.Component {
 
     renderProgress = (text, record) => {
         return (
-            <Progress percent={record.progress} />
+            <div style={{ width: 150 }}>
+                <Progress percent={record.progress} size="small" />
+            </div>
         )
     }
 
@@ -28,18 +30,18 @@ class ProjectsList extends React.Component {
             {
                 title: 'Job Name',
                 dataIndex: 'name',
-                width: 100
+                width: 200
             },
             {
                 title: 'Esskay Job Number',
                 dataIndex: 'esskayJN',
-                width: 100
+                width: 150
             },
             {
                 title: 'Progress',
                 dataIndex: 'progress',
                 render: this.renderProgress,
-                width: 100
+                width: 150
             },
             {
                 title: 'Actions',

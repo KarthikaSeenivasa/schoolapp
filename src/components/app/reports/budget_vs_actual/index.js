@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Layout, Spin, Divider } from 'antd';
+import { Layout, Spin, Divider, Icon } from 'antd';
+import { Link } from 'react-router-dom';
+import ReactToPrint from "react-to-print";
 
 import HeaderContainer from './HeaderContainer';
 
@@ -43,22 +45,37 @@ class BudgetVsActual extends React.Component {
 
     render() {
         return (
-            <Layout className="rep"y>
-                <HeaderContainer onProjectChange={this.onProjectChange}
-                    projects={this.props.projects}
-                    loading={this.props.projectsLoading}
+            <div>
+                <ReactToPrint
+                    trigger={() => {
+                        return (
+                            <div className="bgt-act">
+                                <Link to="#">
+                                    <Icon type="printer" theme="outlined" style={{ height: 30, marginRight: '5px' }} />
+                                    Print the report
+                                </Link>
+                            </div>
+                        )
+                    }}
+                    content={() => this.componentRef}
                 />
-                <Content className="con">
-                    <Spin spinning={this.props.loading}>
-                        <div className="cht-con">
-                            <BudgetVsActualGraph reports={this.props.reports} />
-                            <Divider type="vertical" style={{ height: '100%' }} />
-                            <ProjectDetails reports={this.props.reports} />
-                        </div>
-                        <BudgetVsActualTable dataSource={this.props.reports ? this.props.reports.rows : []} />
-                    </Spin>
-                </Content>
-            </Layout >
+                <Layout className="rep" ref={el => (this.componentRef = el)}>
+                    <HeaderContainer onProjectChange={this.onProjectChange}
+                        projects={this.props.projects}
+                        loading={this.props.projectsLoading}
+                    />
+                    <Content className="con">
+                        <Spin spinning={this.props.loading}>
+                            <div className="cht-con">
+                                <BudgetVsActualGraph reports={this.props.reports} />
+                                <Divider type="vertical" style={{ height: '100%' }} />
+                                <ProjectDetails reports={this.props.reports} />
+                            </div>
+                            <BudgetVsActualTable dataSource={this.props.reports ? this.props.reports.rows : []} />
+                        </Spin>
+                    </Content>
+                </Layout >
+            </div>
         )
     }
 }

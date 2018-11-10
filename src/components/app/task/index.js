@@ -109,14 +109,18 @@ class TradesAndActivities extends React.Component {
                             {taskTreeContainer}
                         </div>
                     </Spin>
-                    <TradesAndActivitiesDetails wrappedComponentRef={this.saveFormRef}
-                        visible={this.state.showFormModal}
-                        onCancel={this.handleCancel}
-                        onSubmit={this.handleFormSubmit}
-                        formMode={this.state.formMode}
-                        recordToEdit={this.state.recordToEdit}
-                        tasks={this.props.taskList}
-                    />
+                    {
+                        this.state.showFormModal &&
+                        <TradesAndActivitiesDetails wrappedComponentRef={this.saveFormRef}
+                            visible={this.state.showFormModal}
+                            onCancel={this.handleCancel}
+                            onSubmit={this.handleFormSubmit}
+                            formMode={this.state.formMode}
+                            recordToEdit={this.state.recordToEdit}
+                            tasks={this.props.taskList}
+                        />
+                    }
+
                 </Content>
             </Layout>
         );

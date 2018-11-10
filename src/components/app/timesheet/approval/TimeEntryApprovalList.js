@@ -4,6 +4,7 @@ import { Table } from 'antd';
 
 import TimeEntryApprovalHeader from './TimeEntryApprovalHeader';
 import StatusSelect from './StatusSelect';
+import { renderDate } from '../../../../utils/Util';
 
 class TimeEntryApprovalList extends React.Component {
 
@@ -31,7 +32,11 @@ class TimeEntryApprovalList extends React.Component {
         return (
             <TimeEntryApprovalHeader onStatusChange={(value, option) => {
                 this.props.handleStatusFilterChange(value, option);
-            }} />
+            }}
+                onDatePickerChange={(date) => {
+                    this.props.handleDateFilterChange(date);
+                }}
+            />
         )
     }
 
@@ -42,17 +47,23 @@ class TimeEntryApprovalList extends React.Component {
     render() {
         const columns = [
             {
-                title: 'Project Name',
+                title: 'Job Name',
                 dataIndex: 'project.name',
                 width: 150
             },
             {
-                title: 'Task',
+                title: 'Trade & Activity',
                 dataIndex: 'taskMaster.taskName',
                 width: 150
             },
             {
-                title: 'Number of Hours',
+                title: 'Date',
+                dataIndex: 'date',
+                render: renderDate,
+                width: 150
+            },
+            {
+                title: ' Number of Hours',
                 dataIndex: 'hours',
                 width: 150
             },

@@ -1,3 +1,8 @@
+
+.bgt-act {
+    display: flex;
+    flex-direction: row-reverse;
+}
 .rep {
     position: relative;
     height: 100%;
@@ -42,9 +47,12 @@
                 width: 30%;
                 flex-direction: column;
                 justify-content: space-evenly;
+                height:280px;
+                position: relative;
+                top: 10px;
 
                 .prj-val {
-                    margin: 10px;
+                    margin: 5px;
                     padding: 5px;
                     border-radius: 5px;
                     border: 1px solid #ccc;

@@ -28,7 +28,7 @@ const LeadsSelect = (props) => {
                 <Select size="default"
                     name="headEmployeeIds"
                     mode="multiple"
-                    placeholder="Team leads of the project"
+                    placeholder="Team leads of the job"
                     notFoundContent={loading ?
                         <div style={{ textAlign: 'center' }}><Spin size="small" /></div>
                         :
