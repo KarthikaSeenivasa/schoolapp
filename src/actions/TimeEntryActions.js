@@ -29,8 +29,10 @@ export const statusCodes =
 export function getTimeEntries(date = [], page = 1, size = 10) {
     return (dispatch, getState) => {
         dispatch(setTimeEntriesLoading(true));
+
         let startDate = date[0] ? getDateParam(date[0]) : undefined;
         let endDate = date[1] ? getDateParam(date[1]) : undefined;
+
         const params = {
             startDate,
             endDate,
@@ -81,7 +83,7 @@ export function updateTimeEntry(id, projectId, headEmployeeId, date, hours, task
         const data = {
             projectId,
             headEmployeeId,
-            date: getDateParam(date.startOf('day')),
+            date: getDateParam(date),
             hours,
             taskMasterId,
             description
