@@ -10,11 +10,6 @@ class BudgetVsActualTable extends React.Component {
             width: 100
         },
         {
-            title: 'Budget Weightage',
-            dataIndex: 'budgetWeightage',
-            width: 70
-        },
-        {
             title: 'Budget Man Hours',
             dataIndex: 'budget',
             width: 70
