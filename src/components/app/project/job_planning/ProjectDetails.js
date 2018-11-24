@@ -8,6 +8,7 @@ import LeadsSelect from './LeadsSelect';
 import StatusSelect from './StatusSelect';
 import ContactsPicker from './ContactsPicker';
 import IFADatePicker from './IFADatePicker';
+import TextArea from '../../../../../node_modules/antd/lib/input/TextArea';
 
 const FormItem = Form.Item;
 
@@ -103,8 +104,8 @@ class ProjectDetails extends React.Component {
 
                 <FormItem label="Current Status Description" {...this.formLayout}>
                     {getFieldDecorator('statusDescription')(
-                        <Input
-                            size="default"
+                        <TextArea
+                            autosize={{ minRows: 3, maxRows: 3 }}
                             name="statusDescription"
                             placeholder="Status Description"
                             disabled={disabled}

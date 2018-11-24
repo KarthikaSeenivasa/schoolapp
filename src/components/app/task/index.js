@@ -13,6 +13,13 @@ const { confirm } = Modal;
 
 class TradesAndActivities extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.allowEdit = props.userRoles.includes('ROLE_MANAGEMENT') ||
+            props.userRoles.includes('ROLE_ADMIN') ||
+            props.userRoles.includes('ROLE_COORDINATOR');
+    }
+
     state = {
         showFormModal: false,
         formMode: -1, //1 for Add, 2 for Edit
@@ -101,7 +108,10 @@ class TradesAndActivities extends React.Component {
             <Layout className="tsk-mtr">
                 <Header className="hdr">
                     <span style={{ marginLeft: '10px' }}>Trades And Activities</span>
-                    <Button onClick={this.handleAdd} style={{ margin: '1px 10px 1px 0px', height: '25px' }}>Add Trade</Button>
+                    {
+                        this.allowEdit && 
+                        <Button onClick={this.handleAdd} style={{ margin: '1px 10px 1px 0px', height: '25px' }}>Add Trade</Button>
+                    }
                 </Header>
                 <Content className="con">
                     <Spin spinning={this.props.loading}>
@@ -149,7 +159,8 @@ const mapStateToProps = (state) => {
     return {
         tasks: state.tasks.tasks,
         taskList: taskList,
-        loading: state.tasks.loading
+        loading: state.tasks.loading,
+        userRoles: state.user.userRoles
     }
 }
 export default connect(mapStateToProps)(TradesAndActivities);

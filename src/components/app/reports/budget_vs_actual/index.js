@@ -74,7 +74,7 @@ class BudgetVsActual extends React.Component {
                             <BudgetVsActualTable dataSource={this.props.reports ? this.props.reports.rows : []} />
                         </Spin>
                     </Content>
-                </Layout >
+                </Layout>
             </div>
         )
     }
