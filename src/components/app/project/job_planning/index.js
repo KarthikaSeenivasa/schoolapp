@@ -127,9 +127,12 @@ class JobPlanning extends React.Component {
             <Layout className="proj" >
                 <Header className="head">
                     <span>Job Planning</span>
-                    <div>
-                        <Button className="btns" onClick={this.handleAddAction}>Add Job</Button>
-                    </div>
+                    {
+                        this.allowEdit &&
+                        <div>
+                            <Button className="btns" onClick={this.handleAddAction}>Add Job</Button>
+                        </div>
+                    }
                 </Header>
                 <Content className="con">
                     <div className="tab-con">
