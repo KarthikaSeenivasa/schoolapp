@@ -117,7 +117,7 @@ export function handleChangePassword(oldPassword, newPassword) {
 }
 
 
-export function createUser(username, email, name, role, isEmployee, employeeNumber, reportingTo) {
+export function createUser(username, email, name, role, isEmployee, employeeNumber, reportingTo, callback) {
     return (dispatch, getState) => {
         const data = {
             username,
@@ -131,6 +131,9 @@ export function createUser(username, email, name, role, isEmployee, employeeNumb
         axios.post(SIGN_UP_API, data)
             .then((response) => {
                 showSuccessNotification("Created the user successfully");
+                if(callback){
+                    callback();
+                }
             }).catch((err) => {
                 showFailureNotification("Unable to create the user");
             });
@@ -170,9 +173,9 @@ export function checkEmailAvailability(rule, email, callback) {
         });
 }
 
-export function getAllRoles() {
+export function getAllRoles(hardRefresh = false) {
     return (dispatch, getState) => {
-        if (getState().user.roles.length > 0) {
+        if (getState().user.roles.length > 0 && !hardRefresh) {
             return;
         }
         dispatch(setRolesLoading(true));
