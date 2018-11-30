@@ -35,7 +35,7 @@ class BudgetVsActualTable extends React.Component {
             width: 70
         },
         {
-            title: '% Progress Plan Weightage',
+            title: 'Progress in %',
             dataIndex: 'progress',
             width: 70
         },
