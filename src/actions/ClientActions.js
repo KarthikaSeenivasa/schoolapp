@@ -7,7 +7,7 @@ export const SET_CLIENT_ACTION_LOADING = "SET_CLIENT_ACTION_LOADING";
 export const SET_CONTACTS = "SET_CONTACTS";
 export const SET_CONTACTS_LOADING = "SET_CONTACTS_LOADING";
 
-const DEV_SERVER = "http://kira:8080";
+const DEV_SERVER = "";
 
 const CLIENTS_API = DEV_SERVER + "/api/client";
 const CONTACT_API = DEV_SERVER + "/api/contact"

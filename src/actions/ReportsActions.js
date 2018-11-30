@@ -5,7 +5,7 @@ export const SET_REPORTS = "SET_REPORTS";
 export const SET_REPORT_LOADING = "SET_REPORT_LOADING";
 export const GET_BUDGET_VS_ACTUAL = "GET_BUDGET_VS_ACTUAL"
 
-const DEV_SERVER = "http://kira:8080";
+const DEV_SERVER = "";
 const REPORTS_API = DEV_SERVER + "/api/report/budget-actual";
 
 export function getBudgetVsActual(projectId) {

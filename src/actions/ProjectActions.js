@@ -9,7 +9,7 @@ export const SET_SET_PROJECTS_SPECIFIC_TASKS_LOADING = "SET_SET_PROJECTS_SPECIFI
 export const SET_PROGRESS = "SET_PROGRESS";
 export const SET_PROGRESS_LOADING = "SET_PROGRESS_LOADING";
 
-const DEV_SERVER = "http://kira:8080";
+const DEV_SERVER = "";
 const PROJECTS_API = DEV_SERVER + "/api/project";
 const PROJECTS_SPECIFIC_TASKS_API = DEV_SERVER + "/api/projectSpecificTask";
 const PROGRESS_API = DEV_SERVER + "/api/progress";

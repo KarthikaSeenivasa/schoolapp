@@ -7,7 +7,7 @@ export const SET_TIME_ENTRIES_LOADING = "SET_TIME_ENTRIES_LOADING";
 export const SET_TIME_ENTRY_APPROVALS = "SET_TIME_ENTRY_APPROVALS";
 export const SET_TIME_ENTRY_APPROVALS_LOADING = "SET_TIME_ENTRY_APPROVALS_LOADING";
 
-const DEV_SERVER = "http://kira:8080";
+const DEV_SERVER = "";
 const TIME_ENTRIES_API = DEV_SERVER + "/api/timeSheetRecord";
 
 export const statusCodes =

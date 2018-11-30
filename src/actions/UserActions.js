@@ -7,7 +7,7 @@ export const SET_USER_LOADING = "SET_USER_LOADING";
 export const SET_ROLES = "SET_ROLES";
 export const SET_ROLES_LOADING = "SET_ROLES_LOADING";
 
-const DEV_SERVER = "http://kira:8080";
+const DEV_SERVER = "";
 
 const SIGN_IN_API = DEV_SERVER + "/api/auth/signin";
 

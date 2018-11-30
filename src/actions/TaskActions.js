@@ -6,7 +6,7 @@ export const SET_TASKS = "SET_TASKS";
 export const SET_TASKS_LOADING = "SET_TASKS_LOADING";
 export const SET_TREE_SELECT_DATA = "SET_TREE_SELECT_DATA";
 
-const DEV_SERVER = "http://kira:8080";
+const DEV_SERVER = "";
 
 const TASKS_API = DEV_SERVER + "/api/taskMaster";
 
