@@ -22,8 +22,8 @@ export const statusCodes =
             tagColor: "geekblue"
         },
         {
-            name: 'Awaiting IFA',
-            value: "AWAITING_IFA",
+            name: 'Awaiting RFA',
+            value: "AWAITING_RFA",
             tagColor: "magenta"
 
         },
