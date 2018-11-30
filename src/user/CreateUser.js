@@ -140,9 +140,7 @@ class CreateUserForm extends React.Component {
                         this.state.isEmployee && (
 
                             <FormItem>
-                                {getFieldDecorator('employeeNumber', {
-                                    rules: [{ validator: validateNumberForForm }]
-                                })(
+                                {getFieldDecorator('employeeNumber')(
                                     <Input
                                         addonBefore="Employee Number"
                                         size="small"
