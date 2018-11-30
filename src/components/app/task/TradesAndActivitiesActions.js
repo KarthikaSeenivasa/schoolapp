@@ -21,7 +21,7 @@ class TradesAndActivitiesActions extends React.Component {
                     {task.taskName}
                 </span>
                 {
-                    this.state.isMouseOver &&
+                    this.state.isMouseOver && this.props.allowEdit &&
                     <span className="node-actions">
                         <Button type="primary" onClick={()=>{this.props.onEdit(task)}} style={{ marginRight: '3px', height: '20px', lineHeight: '1px' }}>Edit</Button>
                         <Button type="primary" onClick={()=>{this.props.onDelete(task)}} style={{ marginRight: '3px', height: '20px', lineHeight: '1px' }}>Delete</Button>

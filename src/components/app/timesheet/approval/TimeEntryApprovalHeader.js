@@ -16,10 +16,10 @@ class TimeEntryApprovalHeader extends React.Component {
     }
 
     onCheckboxChange = (event) => {
-        this.props.onDatePickerChange(event.target.checked ? this.state.filterValue : undefined);
+        this.props.onDatePickerChange(event.target.checked ? this.state.date : undefined);
 
         this.setState({
-            showFilter: event.target.checked
+            showDateFilter: event.target.checked
         });
     }
 

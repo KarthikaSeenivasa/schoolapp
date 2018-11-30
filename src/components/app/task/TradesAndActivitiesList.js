@@ -9,7 +9,7 @@ class TradesAndActivitiesList extends React.Component {
 
     renderTreeNodes = (tasks, onDeleteHandler, onEditHandler) => {
         return tasks.map((task) => {
-            let nodeData = (<TradesAndActivitiesActions task={task} onDelete={onDeleteHandler} onEdit={onEditHandler} />);
+            let nodeData = (<TradesAndActivitiesActions task={task} onDelete={onDeleteHandler} onEdit={onEditHandler} allowEdit={this.props.allowEdit} />);
             if (task.subtasks) {
                 return (
                     <TreeNode title={nodeData} key={task.id} dataRef={task} selectable={false}>
