@@ -103,7 +103,8 @@ class TradesAndActivities extends React.Component {
             ? <div style={{ textAlign: 'center' }}>No Tasks</div> :
             <TradesAndActivitiesList tasks={this.props.tasks}
                 onDelete={this.handleDeleteAction}
-                onEdit={this.handleEditAction} />;
+                onEdit={this.handleEditAction}
+                allowEdit={this.allowEdit} />;
         return (
             <Layout className="tsk-mtr">
                 <Header className="hdr">
