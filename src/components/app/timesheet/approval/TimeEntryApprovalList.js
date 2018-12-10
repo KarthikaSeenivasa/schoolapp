@@ -70,6 +70,9 @@ class TimeEntryApprovalList extends React.Component {
             {
                 title: 'Requested By',
                 dataIndex: 'employee.user.name',
+                render: (text, record)=>{
+                    return record.employee.user.name + '(' + record.employee.user.username + ')';
+                },
                 width: 150
             },
             {

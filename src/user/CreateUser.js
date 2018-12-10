@@ -47,8 +47,8 @@ class CreateUserForm extends React.Component {
         event.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                let { username, email, name, role, isEmployee, employeeNumber, reportingTo } = { ...values };
-                this.props.dispatch(createUser(username, email, name, role, isEmployee, employeeNumber, reportingTo, ()=>this.props.dispatch(getAllRoles(true))));
+                let { username, email, name, role, isEmployee, employeeNumber, reportingTo, workplace } = { ...values };
+                this.props.dispatch(createUser(username, email, name, role, isEmployee, employeeNumber, reportingTo, workplace, ()=>this.props.dispatch(getAllRoles(true))));
                 this.props.form.resetFields(); 
             }
         });
