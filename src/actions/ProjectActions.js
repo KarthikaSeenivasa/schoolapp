@@ -65,7 +65,7 @@ export function getProjects(callback, page = 1, size = 10) {
         axios.get(PROJECTS_API + resource, { params })
             .then((response) => {
                 if(response.data.payload.content){
-                    dispatch(setProjects(response.data.payload.content));
+                    dispatch(setProjects(response.data.payload.content, response.data.payload.totalElements));
                 }
                 dispatch(setProjectsLoading(false));
                 if (callback) {
@@ -102,8 +102,8 @@ export function addProject(name, esskayJN, clientJN, clientId, contactId, headEm
             .then((response) => {
                 let projects = getState().projects.projects;
                 projects.push(response.data.payload);
-
-                dispatch(setProjects(projects));
+                let numberOfRows = getState().projects.numberOfRows + 1;
+                dispatch(setProjects(projects, numberOfRows));
 
                 if (callback) {
                     callback(response.data.payload);
@@ -149,7 +149,7 @@ export function updateProject(id, name, esskayJN, clientJN, clientId, contactId,
                     projects[index] = { ...response.data.payload };
                 }
 
-                dispatch(setProjects(projects));
+                dispatch(setProjects(projects, getState().projects.numberOfRows));
 
                 dispatch(setProjectActionLoading(false));
 
@@ -176,7 +176,8 @@ export function deleteProject(id) {
                 if (index !== -1) {
                     projects.splice(index, 1);
                 }
-                dispatch(setProjects(projects));
+                let numberOfRows = getState().projects.numberOfRows - 1;
+                dispatch(setProjects(projects, numberOfRows));
 
                 showSuccessNotification('Deleted the project successfully');
             }).catch((err) => {
@@ -270,10 +271,11 @@ export function updateProjectTaskProgress(id, projectSpecificTaskId, date, progr
     }
 }
 
-function setProjects(projects) {
+function setProjects(projects, numberOfRows) {
     return {
         type: SET_PROJECTS,
-        projects
+        projects,
+        numberOfRows
     }
 }
 
