@@ -117,7 +117,7 @@ export function handleChangePassword(oldPassword, newPassword) {
 }
 
 
-export function createUser(username, email, name, role, isEmployee, employeeNumber, reportingTo, callback) {
+export function createUser(username, email, name, role, isEmployee, employeeNumber, reportingTo, workplace, callback) {
     return (dispatch, getState) => {
         const data = {
             username,
@@ -126,7 +126,8 @@ export function createUser(username, email, name, role, isEmployee, employeeNumb
             roles: [role],
             isEmployee,
             employeeNumber,
-            reportingTo
+            reportingTo,
+            workplace
         }
         axios.post(SIGN_UP_API, data)
             .then((response) => {
