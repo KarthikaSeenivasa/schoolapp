@@ -87,14 +87,14 @@ class TaskProgress extends React.Component {
             }
         ];
 
-        if (this.props.allowEdit) {
+        // if (this.props.allowEdit) {
             columns.push({
                 title: 'Actions',
                 dataIndex: 'id',
                 render: this.renderActions,
                 width: 150
             });
-        }
+        // }
 
         return (
             <Modal visible={this.props.visible}
