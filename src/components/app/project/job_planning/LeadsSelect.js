@@ -12,7 +12,7 @@ const LeadsSelect = (props) => {
         options = leads.map((lead) => {
             return (
                 <Option value={lead.id} key={lead.id} search={lead.name}>
-                    <span style={{ textTransform: 'capitalize' }}>{lead.name}</span>
+                    <span style={{ textTransform: 'capitalize' }}>{lead.name + '(' + lead.username + ')' }</span>
                 </Option>)
         });
 
