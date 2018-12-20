@@ -5,6 +5,7 @@ import { Table } from 'antd';
 import TimeEntryApprovalHeader from './TimeEntryApprovalHeader';
 import StatusSelect from './StatusSelect';
 import { renderDate } from '../../../../utils/Util';
+import { throws } from 'assert';
 
 class TimeEntryApprovalList extends React.Component {
 
@@ -31,11 +32,21 @@ class TimeEntryApprovalList extends React.Component {
     renderTitle = (currentPageData) => {
         return (
             <TimeEntryApprovalHeader onStatusChange={(value, option) => {
-                this.props.handleStatusFilterChange(value, option);
-            }}
+                    this.props.handleStatusFilterChange(value, option);
+                }}
+
                 onDatePickerChange={(date) => {
                     this.props.handleDateFilterChange(date);
                 }}
+
+                leads={this.props.leads}
+                loading={this.props.leadsLoading}
+
+                onLeadSelectChange = {(lead)=>{
+                    this.props.handleLeadFilterChange(lead);
+                }}
+
+                showLead={this.props.showLead}
             />
         )
     }

@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import StatusSelect from './StatusSelect';
 import { DATE_FORMAT } from '../../../../utils/Util';
+import LeadSelect from './LeadSelect';
 
 const { RangePicker } = DatePicker;
 
@@ -39,28 +40,17 @@ class TimeEntryApprovalHeader extends React.Component {
         this.props.onStatusChange(value, option);
     }
 
-    getHeaderText = () => {
-        switch (this.state.filterValue) {
-            case 'ALL':
-                return 'All Entries';
-            case 'APPROVED':
-                return 'Approved Entries';
-            case 'PENDING':
-                return 'Pending for approval';
-            case 'DECLINED':
-                return 'Declined Entries'
-            default:
-                return '';
-        }
-    }
-
     render() {
-        let headerText = this.getHeaderText();
+
         return (
             <div className="tab-hdr">
-                <span className="hdr-txt" style={{ fontStyle: 'italic', marginLeft: '50px' }}>
-                    {headerText}
-                </span>
+                {
+                    this.props.showLead && 
+                    <LeadSelect leads={this.props.leads}
+                        loading={this.props.loading}
+                        onChange={this.props.onLeadSelectChange}
+                    />
+                }
 
                 <div className="rge-con">
                     <span style={{ marginRight: '10px' }}>

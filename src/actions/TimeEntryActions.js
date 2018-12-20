@@ -59,7 +59,7 @@ export function addTimeEntry(projectId, headEmployeeId, date, hours, taskMasterI
             employeeId: getState().user.id,
             projectId,
             headEmployeeId,
-            date:getDateParam(date.startOf('day')),
+            date: getDateParam(date.startOf('day')),
             hours,
             taskMasterId,
             description
@@ -127,7 +127,7 @@ export function deleteTimeEntry(id) {
     }
 }
 
-export function getTimeEntryApprovals(status, page = 1, size = 10, date = []) {
+export function getTimeEntryApprovals(status, page = 1, size = 10, date = [], userId = "all") {
     return (dispatch, getState) => {
         dispatch(setTimeEntryApprovalsLoading(true));
         let startDate = date[0] ? getDateParam(date[0]) : undefined;
@@ -137,7 +137,8 @@ export function getTimeEntryApprovals(status, page = 1, size = 10, date = []) {
             page: page - 1,
             size,
             startDate,
-            endDate
+            endDate,
+            userId: userId === "all" ? undefined : userId
         }
         axios.get(TIME_ENTRIES_API + "/leader", { params })
             .then((response) => {
