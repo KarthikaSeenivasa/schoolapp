@@ -267,6 +267,9 @@ export function updateProjectTaskProgress(id, projectSpecificTaskId, date, progr
                 if (err.response.status === 500) {
                     showFailureNotification('Failed to edit the progress entry');
                 }
+                if(err.response.status === 403){
+                    showFailureNotification('Contact Management to edit the entry');
+                }
             })
     }
 }
