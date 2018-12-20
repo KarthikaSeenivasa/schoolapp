@@ -8,16 +8,25 @@ import TimeEntryApprovalList from './TimeEntryApprovalList';
 import TimeEntryApprovalDetails from './TimeEntryApprovalDetails';
 
 import { getTimeEntryApprovals, updateTimeEntryApproval } from '../../../../actions/TimeEntryActions';
+import { getAllRoles } from '../../../../actions/UserActions';
 
 const { Header, Content } = Layout;
 
 class TimeEntryApproval extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.showLead = props.userRoles.includes('ROLE_MANAGEMENT') ||
+        props.userRoles.includes('ROLE_ADMIN') ||
+        props.userRoles.includes('ROLE_COORDINATOR');
+    }
+
     state = {
         showFormModal: false,
         recordToEdit: null,
         status: 'PENDING',
-        date: [moment().startOf('day'), moment().startOf('day')]
+        date: [moment().startOf('day'), moment().startOf('day')],
+        userId: "all"
     }
 
     handleEditAction = (id, record) => {
@@ -46,7 +55,7 @@ class TimeEntryApproval extends React.Component {
     }
 
     handleStatusFilterChange = (value, option) => {
-        this.props.dispatch(getTimeEntryApprovals(value, 1, 10, this.state.date));
+        this.props.dispatch(getTimeEntryApprovals(value, 1, 10, this.state.date, this.state.userId));
         this.setState({
             status: value
         });
@@ -56,9 +65,15 @@ class TimeEntryApproval extends React.Component {
         this.setState({
             date
         });
-        this.props.dispatch(getTimeEntryApprovals(this.state.status, 1, 10, date));
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, 1, 10, date, this.state.userId));
     }
 
+    handleLeadFilterChange = (lead) => {
+        this.setState({
+            userId: lead
+        })
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, 1, 10, this.state.date, lead));
+    }
     saveFormRef = (formRef) => {
         this.formRef = formRef;
     }
@@ -70,11 +85,12 @@ class TimeEntryApproval extends React.Component {
     }
 
     onPageChange = (page, pageSize) => {
-        this.props.dispatch(getTimeEntryApprovals(this.state.status, page, pageSize, this.state.date));
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, page, pageSize, this.state.date, this.state.userId));
     }
 
     componentWillMount() {
-        this.props.dispatch(getTimeEntryApprovals("PENDING", 1, 10, [moment().startOf('day'), moment().startOf('day')]));
+        this.props.dispatch(getAllRoles());
+        this.props.dispatch(getTimeEntryApprovals("PENDING", 1, 10, [moment().startOf('day'), moment().startOf('day')], this.state.userId));
     }
 
     render() {
@@ -93,7 +109,11 @@ class TimeEntryApproval extends React.Component {
                             dataSource={this.props.timeEntryApprovals}
                             loading={this.props.loading}
                             onPageChange={this.onPageChange}
+                            leads={this.props.leads}
+                            leadsLoading={this.props.leadsLoading}
                             numberOfRows={this.props.numberOfRows}
+                            handleLeadFilterChange={this.handleLeadFilterChange}
+                            showLead={this.showLead}
                         />
                     </div>
                     <div className="frm-con">
@@ -111,10 +131,21 @@ class TimeEntryApproval extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
+    let leads = [];
+    if (state.user.roles.length > 0) {
+        for (let role of state.user.roles) {
+            if (role.name === "ROLE_LEADER" || role.name === "ROLE_MANAGEMENT") {
+                leads = leads.concat(role.users);
+            }
+        }
+    }
     return {
         timeEntryApprovals: state.timeEntries.timeEntryApprovals,
         numberOfRows: state.timeEntries.numberOfRows,
-        loading: state.timeEntries.approvalsLoading
+        loading: state.timeEntries.approvalsLoading,
+        leads: leads,
+        leadsLoading: state.user.rolesLoading,
+        userRoles: state.user.userRoles
     }
 }
 export default connect(mapStateToProps)(TimeEntryApproval);
