@@ -131,7 +131,7 @@ class TimeEntry extends React.Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(getProjects(undefined, -1, -1));
+        this.props.dispatch(getProjects(undefined, -1, -1, true));
         this.props.dispatch(getTasks(true));
         this.props.dispatch(getTimeEntries([moment().startOf('day'), moment().startOf('day')]));
     }

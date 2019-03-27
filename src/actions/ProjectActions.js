@@ -50,12 +50,12 @@ export const statusCodes =
         }
     ];
 
-export function getProjects(callback, page = 1, size = 10) {
+export function getProjects(callback, page = 1, size = 10, overrideLeaderLimitation = false) {
     return (dispatch, getState) => {
         dispatch(setProjectsLoading(true));
         let resource = "/all";
         let roles = getState().user.userRoles;
-        if (roles.includes('ROLE_LEADER')) {
+        if (roles.includes('ROLE_LEADER') && !overrideLeaderLimitation) {
             resource = "/employee";
         }
         let params = {
