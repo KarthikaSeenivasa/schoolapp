@@ -27,7 +27,7 @@ const Content = Layout.Content;
 class Application extends React.Component {
 
     render() {
-        let { isAuthenticated, userRoles, userLoading } = this.props.user;
+        let { isAuthenticated, userRoles, userLoading, name } = this.props.user;
 
         if (userLoading) {
             return (
@@ -101,7 +101,7 @@ class Application extends React.Component {
 
         let userProfileMenu = (
             <Menu.Item key="/app/user_profile">
-                <Link to="/app/user_profile">Profile</Link>
+                <Link to="/app/user_profile">{name}</Link>
             </Menu.Item>
         );
 
