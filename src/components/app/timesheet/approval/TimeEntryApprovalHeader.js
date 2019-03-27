@@ -5,6 +5,7 @@ import moment from 'moment';
 import StatusSelect from './StatusSelect';
 import { DATE_FORMAT } from '../../../../utils/Util';
 import LeadSelect from './LeadSelect';
+import UserSelect from './UserSelect';
 
 const { RangePicker } = DatePicker;
 
@@ -41,17 +42,25 @@ class TimeEntryApprovalHeader extends React.Component {
     }
 
     render() {
-
         return (
             <div className="tab-hdr">
                 {
-                    this.props.showLead && 
-                    <LeadSelect leads={this.props.leads}
-                        loading={this.props.loading}
-                        onChange={this.props.onLeadSelectChange}
-                    />
+                    this.props.showLead &&
+                    <span> 
+                        <span style={{marginRight: 10}}>Approver:</span>
+                        <LeadSelect leads={this.props.leads}
+                            loading={this.props.loading}
+                            onChange={this.props.onLeadSelectChange}
+                        />
+                    </span>
                 }
-
+                <div className="">
+                    <span style={{marginRight: 10}}>Requested By:</span>
+                    <UserSelect users={this.props.users}
+                                loading={this.props.loading}
+                                onChange={this.props.onUserSelectChange}
+                    />
+                </div>
                 <div className="rge-con">
                     <span style={{ marginRight: '10px' }}>
                         <Checkbox checked={this.state.showDateFilter}

@@ -127,7 +127,7 @@ export function deleteTimeEntry(id) {
     }
 }
 
-export function getTimeEntryApprovals(status, page = 1, size = 10, date = [], userId = "all") {
+export function getTimeEntryApprovals(status, page = 1, size = 10, date = [], leadId = "all", requestedBy = "all") {
     return (dispatch, getState) => {
         dispatch(setTimeEntryApprovalsLoading(true));
         let startDate = date[0] ? getDateParam(date[0]) : undefined;
@@ -138,7 +138,8 @@ export function getTimeEntryApprovals(status, page = 1, size = 10, date = [], us
             size,
             startDate,
             endDate,
-            userId: userId === "all" ? undefined : userId
+            userId: leadId === "all" ? undefined : leadId,
+            requestedBy: requestedBy === "all" ? undefined: requestedBy
         }
         axios.get(TIME_ENTRIES_API + "/leader", { params })
             .then((response) => {

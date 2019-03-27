@@ -7,12 +7,12 @@ const LeadSelect = (props) => {
     const { loading, leads } = props;
     let options = [<Option value="all" key="all" search="All">All</Option>];
     if (leads.length > 0) {
-        options = leads.map((lead) => {
+        options = options.concat(leads.map((lead) => {
             return (
                 <Option value={lead.id} key={lead.id} search={lead.name}>
                     <span style={{ textTransform: 'capitalize' }}>{lead.name + '(' + lead.username + ')'}</span>
                 </Option>)
-        });
+        }));
     } 
 
     return (
@@ -24,7 +24,8 @@ const LeadSelect = (props) => {
                 <div style={{ textAlign: 'center' }}><Spin size="small" /></div>
                 :
                 'Not found'}
-            filterOption={true}
+            filterOption
+            showSearch
             optionFilterProp="search"
             defaultValue="all"
             style={{minWidth: 150}}

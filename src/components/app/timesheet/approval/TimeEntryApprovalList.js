@@ -47,6 +47,11 @@ class TimeEntryApprovalList extends React.Component {
                 }}
 
                 showLead={this.props.showLead}
+
+                users={this.props.users}
+                onUserSelectChange = {(user)=>{
+                    this.props.handleUserFilterChange(user);
+                }}
             />
         )
     }

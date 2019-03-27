@@ -26,6 +26,7 @@ class TimeEntryApproval extends React.Component {
         recordToEdit: null,
         status: 'PENDING',
         date: [moment().startOf('day'), moment().startOf('day')],
+        leadId: "all",
         userId: "all"
     }
 
@@ -55,7 +56,7 @@ class TimeEntryApproval extends React.Component {
     }
 
     handleStatusFilterChange = (value, option) => {
-        this.props.dispatch(getTimeEntryApprovals(value, 1, 10, this.state.date, this.state.userId));
+        this.props.dispatch(getTimeEntryApprovals(value, 1, 10, this.state.date, this.state.leadId, this.state.userId));
         this.setState({
             status: value
         });
@@ -65,15 +66,23 @@ class TimeEntryApproval extends React.Component {
         this.setState({
             date
         });
-        this.props.dispatch(getTimeEntryApprovals(this.state.status, 1, 10, date, this.state.userId));
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, 1, 10, date, this.state.leadId, this.state.userId));
     }
 
     handleLeadFilterChange = (lead) => {
         this.setState({
-            userId: lead
+            leadId: lead
         })
-        this.props.dispatch(getTimeEntryApprovals(this.state.status, 1, 10, this.state.date, lead));
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, 1, 10, this.state.date, lead, this.state.userId));
     }
+
+    handleUserFilterChange = (user) => {
+        this.setState({
+            userId: user
+        });
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, 1, 10, this.state.date, this.state.leadId, user));
+    }
+
     saveFormRef = (formRef) => {
         this.formRef = formRef;
     }
@@ -85,12 +94,12 @@ class TimeEntryApproval extends React.Component {
     }
 
     onPageChange = (page, pageSize) => {
-        this.props.dispatch(getTimeEntryApprovals(this.state.status, page, pageSize, this.state.date, this.state.userId));
+        this.props.dispatch(getTimeEntryApprovals(this.state.status, page, pageSize, this.state.date, this.state.leadId, this.state.userId));
     }
 
     componentWillMount() {
         this.props.dispatch(getAllRoles());
-        this.props.dispatch(getTimeEntryApprovals("PENDING", 1, 10, [moment().startOf('day'), moment().startOf('day')], this.state.userId));
+        this.props.dispatch(getTimeEntryApprovals("PENDING", 1, 10, [moment().startOf('day'), moment().startOf('day')], this.state.leadId, this.state.userId));
     }
 
     render() {
@@ -114,6 +123,8 @@ class TimeEntryApproval extends React.Component {
                             numberOfRows={this.props.numberOfRows}
                             handleLeadFilterChange={this.handleLeadFilterChange}
                             showLead={this.showLead}
+                            users={this.props.users}
+                            handleUserFilterChange={this.handleUserFilterChange}
                         />
                     </div>
                     <div className="frm-con">
@@ -132,8 +143,10 @@ class TimeEntryApproval extends React.Component {
 }
 const mapStateToProps = (state) => {
     let leads = [];
+    let users = [];
     if (state.user.roles.length > 0) {
         for (let role of state.user.roles) {
+            users = users.concat(role.users);
             if (role.name === "ROLE_LEADER" || role.name === "ROLE_MANAGEMENT") {
                 leads = leads.concat(role.users);
             }
@@ -145,7 +158,8 @@ const mapStateToProps = (state) => {
         loading: state.timeEntries.approvalsLoading,
         leads: leads,
         leadsLoading: state.user.rolesLoading,
-        userRoles: state.user.userRoles
+        userRoles: state.user.userRoles,
+        users: users
     }
 }
 export default connect(mapStateToProps)(TimeEntryApproval);
