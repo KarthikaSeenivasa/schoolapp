@@ -14,15 +14,18 @@ export const statusCodes =
     [
         {
             name: 'Approved',
-            value: "APPROVED"
+            value: "APPROVED",
+			tagColor: "green"
         },
         {
             name: 'Pending',
-            value: "PENDING"
+            value: "PENDING",
+			tagColor: "blue"
         },
         {
             name: 'Declined',
-            value: "DECLINED"
+            value: "DECLINED",
+			tagColor: "red"
         }
     ];
 

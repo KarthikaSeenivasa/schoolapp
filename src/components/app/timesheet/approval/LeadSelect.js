@@ -5,12 +5,12 @@ const Option = Select.Option;
 
 const LeadSelect = (props) => {
     const { loading, leads } = props;
-    let options = [<Option value="all" key="all" search="All">All</Option>];
+    let options = [<Option value="all" key="Me" search="all">Me</Option>];
     if (leads.length > 0) {
         options = options.concat(leads.map((lead) => {
             return (
                 <Option value={lead.id} key={lead.id} search={lead.name}>
-                    <span style={{ textTransform: 'capitalize' }}>{lead.name + '(' + lead.username + ')'}</span>
+                    <span style={{ textTransform: 'capitalize' }}>{lead.name + ' (' + lead.username + ')'}</span>
                 </Option>)
         }));
     } 
