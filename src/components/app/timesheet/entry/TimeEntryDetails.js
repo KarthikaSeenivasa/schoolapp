@@ -22,6 +22,9 @@ class TimeEntryDetails extends React.Component {
             for (let project of this.props.projects) {
                 if (id === project.id) {
                     this.setState({ headEmployees: project.headEmployee });
+                    this.props.form.setFieldsValue({
+                        headEmployeeId: project.headEmployee[0].user.id
+                    });
                 }
             }
         }
