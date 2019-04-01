@@ -25,7 +25,8 @@ class JobPlanning extends React.Component {
     state = {
         showFormModal: false,
         formMode: -1, //1 for Add, 2 for Edit, 3 for view
-        recordToEdit: null
+        recordToEdit: null,
+        leadId: "all" 
     }
 
     showDeleteConfirm = (id) => {
@@ -85,7 +86,7 @@ class JobPlanning extends React.Component {
     }
 
     onPageChange = (page, pageSize) => {
-        this.props.dispatch(getProjects(undefined, page, pageSize));
+        this.props.dispatch(getProjects(undefined, page, pageSize, false, this.state.leadId));
     }
 
     getInitialClientId = () => {
@@ -122,6 +123,13 @@ class JobPlanning extends React.Component {
         return undefined;
     }
 
+    handleLeadFilterChange = (lead) => {
+        this.setState({
+            leadId: lead
+        });
+        this.props.dispatch(getProjects(undefined, 1, 10, false, lead));
+    }
+
     render() {
         return (
             <Layout className="proj" >
@@ -144,6 +152,9 @@ class JobPlanning extends React.Component {
                             allowEdit={this.allowEdit}
                             onPageChange={this.onPageChange}
                             numberOfRows={this.props.numberOfRows}
+                            leads={this.props.leads}
+                            leadsLoading={this.props.leadsLoading}
+                            handleLeadFilterChange={this.handleLeadFilterChange}
                         />
                     </div>
                     {
@@ -167,11 +178,21 @@ class JobPlanning extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
+    let leads = [];
+    if (state.user.roles.length > 0) {
+        for (let role of state.user.roles) {
+            if (role.name === "ROLE_LEADER" || role.name === "ROLE_MANAGEMENT") {
+                leads = leads.concat(role.users);
+            }
+        }
+    }
     return {
         projects: state.projects.projects,
         numberOfRows: state.projects.numberOfRows,
         loading: state.projects.loading,
-        userRoles: state.user.userRoles
+        userRoles: state.user.userRoles,
+        leads: leads,
+        leadsLoading: state.user.rolesLoading
     }
 }
 export default connect(mapStateToProps)(JobPlanning);

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Table, Divider } from 'antd';
 import {  renderStatus } from '../../../../utils/Util';
+import ProjectsListHeader from './ProjectsListHeader';
 
 class ProjectsList extends React.Component {
 
@@ -50,6 +51,16 @@ class ProjectsList extends React.Component {
             </span>
         );
     }
+
+    renderTitle = () => (
+        <ProjectsListHeader showLead={this.props.allowEdit}
+                            leads={this.props.leads}
+                            loading={this.props.leadsLoading}                            
+                            onLeadSelectChange = {(lead)=>{
+                                this.props.handleLeadFilterChange(lead);
+                            }}     
+        />
+    );
 
     columns = [
         {
@@ -100,6 +111,7 @@ class ProjectsList extends React.Component {
                 loading={this.props.loading}
                 size="small"
                 rowKey="id"
+                title={this.renderTitle}
                 onPageChange={this.onPageChange}
             />
         )
