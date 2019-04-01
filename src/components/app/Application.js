@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import './style.scss';
 
 import { Layout, Menu, Spin } from 'antd';
+import { Icon } from 'antd';
 
 import Client from './client';
 import JobPlanning from './project/job_planning';
@@ -41,12 +42,12 @@ class Application extends React.Component {
         let projectMenu = null;
         if (arrayIncludesOneOf(userRoles, allowedRoles.projects)) {
             projectMenu = (
-                <Menu.SubMenu key="/app/projects" title={<span>Jobs</span>}>
+                <Menu.SubMenu key="/app/projects" title={<span><Icon type="rocket" />Jobs</span>}>
                     <Menu.Item key="/app/projects/job_planning">
-                        <Link to="/app/projects/job_planning">Planning</Link>
+                        <Link to="/app/projects/job_planning"><Icon type="pushpin" theme="twoTone" />Planning</Link>
                     </Menu.Item>
                     <Menu.Item key="/app/projects/progress">
-                        <Link to="/app/projects/progress">Progress</Link>
+                        <Link to="/app/projects/progress"><Icon type="line-chart" />Progress</Link>
                     </Menu.Item>
                 </Menu.SubMenu>
             );
@@ -56,14 +57,14 @@ class Application extends React.Component {
         if (arrayIncludesOneOf(userRoles, allowedRoles.trades_and_activities)) {
             tradesAndActivitiesMenu = (
                 <Menu.Item key="/app/trades_and_activities">
-                    <Link to="/app/trades_and_activities">Trades & Activities</Link>
+                    <Link to="/app/trades_and_activities"><Icon type="appstore" theme="twoTone" />Trades & Activities</Link>
                 </Menu.Item>
             );
         }
 
         let timeEntryMenu = (
             <Menu.Item key="/app/time_entry">
-                <Link to="/app/time_entry">Time Entry</Link>
+                <Link to="/app/time_entry"><Icon type="hourglass" theme="twoTone" />Time Entry</Link>
             </Menu.Item>
         );
 
@@ -71,7 +72,7 @@ class Application extends React.Component {
         if (arrayIncludesOneOf(userRoles, allowedRoles.time_entry_approval)) {
             timeEntryApprovalMenu = (
                 <Menu.Item key="/app/time_entry_approval">
-                    <Link to="/app/time_entry_approval">Time Entry Approval</Link>
+                    <Link to="/app/time_entry_approval"><Icon type="check-circle" theme="filled" />Approval</Link>
                 </Menu.Item>
             );
         }
@@ -80,7 +81,7 @@ class Application extends React.Component {
         if (arrayIncludesOneOf(userRoles, allowedRoles.client)) {
             clientMenu = (
                 <Menu.Item key="/app/client">
-                    <Link to="/app/client">Client</Link>
+                    <Link to="/app/client"><Icon type="contacts" theme="twoTone" />Client</Link>
                 </Menu.Item>
             );
         }
@@ -88,9 +89,9 @@ class Application extends React.Component {
         let reportsMenu = null;
         if (arrayIncludesOneOf(userRoles, allowedRoles.projects)) {
             reportsMenu = (
-                <Menu.SubMenu key="/app/reports" title={<span>Reports</span>}>
+                <Menu.SubMenu key="/app/reports" title={<span><Icon type="pie-chart" theme="twoTone" />Reports</span>}>
                     <Menu.Item key="/app/reports/budget_vs_actual">
-                        <Link to="/app/reports/budget_vs_actual">Budget Vs Actual</Link>
+                        <Link to="/app/reports/budget_vs_actual"><Icon type="bar-chart" />Budget Vs Actual</Link>
                     </Menu.Item>
                     {/* <Menu.Item key="/app/reports/report2">
                         <Link to="/app/reports/report2">Report2</Link>
@@ -101,7 +102,7 @@ class Application extends React.Component {
 
         let userProfileMenu = (
             <Menu.Item key="/app/user_profile">
-                <Link to="/app/user_profile">{name}</Link>
+                <Link to="/app/user_profile"><Icon type="user" />{name}</Link>
             </Menu.Item>
         );
 
