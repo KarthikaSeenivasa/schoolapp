@@ -50,7 +50,7 @@ export const statusCodes =
         }
     ];
 
-export function getProjects(callback, page = 1, size = 10, overrideLeaderLimitation = false, leadId = 'all') {
+export function getProjects(callback, page = 1, size = 10, overrideLeaderLimitation = false, leadId = 'all', jobNumber = '%') {
     return (dispatch, getState) => {
         dispatch(setProjectsLoading(true));
         let resource = "/all";
@@ -61,7 +61,8 @@ export function getProjects(callback, page = 1, size = 10, overrideLeaderLimitat
         let params = {
             page: page === -1 ? undefined : page - 1,
             size,
-            lead: leadId === 'all' ? undefined: leadId
+            lead: leadId === 'all' ? undefined: leadId,
+            jobNumber: jobNumber
         }
         axios.get(PROJECTS_API + resource, { params })
             .then((response) => {

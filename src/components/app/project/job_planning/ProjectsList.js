@@ -58,7 +58,10 @@ class ProjectsList extends React.Component {
                             loading={this.props.leadsLoading}                            
                             onLeadSelectChange = {(lead)=>{
                                 this.props.handleLeadFilterChange(lead);
-                            }}     
+                            }}
+                            onJobNumberSearch = {(jobNumber) => {
+                                this.props.handleJobNumberSearch(jobNumber);
+                            }}
         />
     );
 

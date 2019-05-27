@@ -1,21 +1,26 @@
 import React from "react";
-import { Select, Spin } from 'antd';
+import { Select, Spin, Input } from 'antd';
 
 const Option = Select.Option;
+const Search = Input.Search;
 
 export default class ProjectsListHeader extends React.Component {
   render() {
     return (
       <div className="tab-hdr">
-        {this.props.showLead && (
+        {
+          this.props.showLead && (
           <span>
-            <span style={{ marginRight: 10 }}>Team Leader:</span>
+            <span style={{ marginRight: '10px' }}>Team Leader:</span>
             <LeadSelect leads={this.props.leads}
                         loading={this.props.loading}
                         onChange={this.props.onLeadSelectChange}
             />
           </span>
         )}
+        <JobNumberSearch 
+          onSearch={this.props.onJobNumberSearch}
+        />
       </div>
     );
   }
@@ -51,4 +56,17 @@ const LeadSelect = (props) => {
             {options}
         </Select>
     )
+}
+
+const JobNumberSearch = (props) => {
+  return(
+    <span>
+      <span style={{ marginLeft: '100px', marginRight: '10px' }}>Job Number:</span>
+        <Search
+          placeholder="Search by Job number"
+          onSearch={(jobNumber) => {props.onSearch(jobNumber)}}
+          style={{ width: 200 }}
+        />
+    </span>
+  )
 }

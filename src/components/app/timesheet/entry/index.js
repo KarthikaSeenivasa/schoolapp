@@ -32,7 +32,7 @@ class TimeEntry extends React.Component {
 
     getInitialLeadId = () => {
         if (this.state.formMode === 2 && this.state.recordToEdit.headEmployee) {
-            return this.state.recordToEdit.headEmployee.id;
+            return this.state.recordToEdit.headEmployee.user.id;
         }
         return undefined;
     }

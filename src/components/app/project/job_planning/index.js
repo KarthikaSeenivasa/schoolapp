@@ -26,7 +26,8 @@ class JobPlanning extends React.Component {
         showFormModal: false,
         formMode: -1, //1 for Add, 2 for Edit, 3 for view
         recordToEdit: null,
-        leadId: "all" 
+        leadId: "all",
+        jobNumber: null 
     }
 
     showDeleteConfirm = (id) => {
@@ -86,7 +87,7 @@ class JobPlanning extends React.Component {
     }
 
     onPageChange = (page, pageSize) => {
-        this.props.dispatch(getProjects(undefined, page, pageSize, false, this.state.leadId));
+        this.props.dispatch(getProjects(undefined, page, pageSize, false, this.state.leadId, this.state.jobNumber));
     }
 
     getInitialClientId = () => {
@@ -127,7 +128,14 @@ class JobPlanning extends React.Component {
         this.setState({
             leadId: lead
         });
-        this.props.dispatch(getProjects(undefined, 1, 10, false, lead));
+        this.props.dispatch(getProjects(undefined, 1, 10, false, lead, this.state.jobNumber));
+    }
+
+    handleJobNumberSearch = (jobNumber) => {
+        this.setState({
+            jobNumber : jobNumber
+        });
+        this.props.dispatch(getProjects(undefined, 1, 10, false, this.state.leadId, jobNumber));
     }
 
     render() {
@@ -155,6 +163,7 @@ class JobPlanning extends React.Component {
                             leads={this.props.leads}
                             leadsLoading={this.props.leadsLoading}
                             handleLeadFilterChange={this.handleLeadFilterChange}
+                            handleJobNumberSearch={this.handleJobNumberSearch}
                         />
                     </div>
                     {
