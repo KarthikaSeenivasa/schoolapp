@@ -14,7 +14,8 @@ class ProjectProgress extends React.Component {
 
     state = {
         showModal: false,
-        recordToEdit: null
+        recordToEdit: null,
+        jobNumber: null
     }
 
     handleEditAction = (id, record) => {
@@ -48,7 +49,14 @@ class ProjectProgress extends React.Component {
     }
 
     onPageChange = (page, pageSize) => {
-        this.props.dispatch(getProjects(undefined, page, pageSize));
+        this.props.dispatch(getProjects(undefined, page, pageSize, false, -1, this.state.jobNumber));
+    }
+
+    handleJobNumberSearch = (jobNumber) => {
+        this.setState({
+            jobNumber : jobNumber
+        });
+        this.props.dispatch(getProjects(undefined, 1, 10, false, -1, jobNumber));
     }
 
     render() {
@@ -64,6 +72,7 @@ class ProjectProgress extends React.Component {
                             loading={this.props.loading}
                             onPageChange={this.onPageChange}
                             numberOfRows={this.props.numberOfRows}
+                            handleJobNumberSearch={this.handleJobNumberSearch}
                         />
                     </div>
                     {this.state.showModal &&

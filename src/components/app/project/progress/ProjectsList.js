@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Table, Progress } from 'antd';
+import ProjectsListHeader from './ProjectsListHeader';
 
 class ProjectsList extends React.Component {
 
@@ -24,6 +25,13 @@ class ProjectsList extends React.Component {
     onPageChange = (page, pageSize) => {
         this.props.onPageChange(page, pageSize);
     }
+
+    renderTitle = () => (
+        <ProjectsListHeader onJobNumberSearch = {(jobNumber) => {
+                                this.props.handleJobNumberSearch(jobNumber);
+                            }}
+        />
+    );
 
     render() {
         const columns = [
@@ -64,6 +72,7 @@ class ProjectsList extends React.Component {
                 loading={this.props.loading}
                 size="small"
                 rowKey="id"
+                title = {this.renderTitle}
                 onPageChange={this.onPageChange}
             />
         )
