@@ -86,6 +86,14 @@ export function validateNumberForForm(rule, value, callback) {
     isNaN(value) ? callback('This field should be a number') : callback();
 }
 
+export function validateAlphaNumericForForm(rule, value, callback) {
+    if (!value) {
+        callback();
+        return;
+    }
+    /[^A-Z0-9]/.test(value) ? callback('This field should contain numbers and capital letters only') : callback();
+}
+
 export function isEqual(value1, value2) {
     return value1 === value2;
 }

@@ -20,6 +20,7 @@ class JobPlanning extends React.Component {
         this.allowEdit = props.userRoles.includes('ROLE_MANAGEMENT') ||
             props.userRoles.includes('ROLE_ADMIN') ||
             props.userRoles.includes('ROLE_COORDINATOR');
+        this.allowDelete = props.userRoles.includes('ROLE_ADMIN');
     }
 
     state = {
@@ -158,6 +159,7 @@ class JobPlanning extends React.Component {
                             dataSource={this.props.projects}
                             loading={this.props.loading}
                             allowEdit={this.allowEdit}
+                            allowDelete={this.allowDelete}
                             onPageChange={this.onPageChange}
                             numberOfRows={this.props.numberOfRows}
                             leads={this.props.leads}

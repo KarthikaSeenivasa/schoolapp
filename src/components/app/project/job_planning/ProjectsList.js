@@ -9,7 +9,7 @@ class ProjectsList extends React.Component {
     constructor(props) {
         super(props);
 
-        if (props.allowEdit) {
+        if (props.allowDelete) {
             this.columns.push({
                 title: 'Actions',
                 dataIndex: 'id',
@@ -17,7 +17,17 @@ class ProjectsList extends React.Component {
                 render: this.renderActions,
                 width: 150
             });
-        } else {
+        }
+        else if (props.allowEdit) {
+            this.columns.push({
+                title: 'Actions',
+                dataIndex: 'id',
+                key: 'id',
+                render: this.renderEditOnly,
+                width: 150
+            });
+        } 
+        else {
             this.columns.push({
                 title: 'Actions',
                 dataIndex: 'id',
@@ -26,6 +36,16 @@ class ProjectsList extends React.Component {
                 width: 150
             });
         }
+    }
+
+    renderEditOnly = (text, record) => {
+        return (
+            <span>
+                <a onClick={() => {
+                    this.props.handleEdit(text, record);
+                }}>Edit</a>
+            </span>
+        );
     }
 
     renderActions = (text, record) => {

@@ -8,6 +8,7 @@ export const SET_ROLES = "SET_ROLES";
 export const SET_ROLES_LOADING = "SET_ROLES_LOADING";
 
 const DEV_SERVER = "";
+// const DEV_SERVER = "http://localhost";
 
 const SIGN_IN_API = DEV_SERVER + "/api/auth/signin";
 

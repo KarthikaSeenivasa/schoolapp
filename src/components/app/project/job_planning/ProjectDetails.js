@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Input, Form, DatePicker } from 'antd';
 
-import { DATE_FORMAT, validateNumberForForm } from '../../../../utils/Util';
+import { DATE_FORMAT, validateNumberForForm, validateAlphaNumericForForm } from '../../../../utils/Util';
 
 import LeadsSelect from './LeadsSelect';
 import StatusSelect from './StatusSelect';
@@ -61,7 +61,10 @@ class ProjectDetails extends React.Component {
                 <div className="row-flex">
                     <FormItem label="Esskay Job Number" {...this.partFormLayout}>
                         {getFieldDecorator('esskayJN', {
-                            rules: [{ required: true, message: 'Esskay job number name cannot be empty' }]
+                            rules: [
+                                {validator: validateAlphaNumericForForm},
+                                { required: true, message: 'Esskay job number name cannot be empty' }
+                        ]
                         })(
                             <Input
                                 size="default"
