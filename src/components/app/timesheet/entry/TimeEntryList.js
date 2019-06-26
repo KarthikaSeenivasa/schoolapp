@@ -7,7 +7,7 @@ import { renderDate } from '../../../../utils/Util';
 class TimeEntryList extends React.Component {
 
     renderActions = (text, record) => {
-        if (record.approval === "APPROVED") {
+        if (record.approval === "APPROVED" || record.approval === "DECLINED") {
             return (
                 <span>---</span>
             )

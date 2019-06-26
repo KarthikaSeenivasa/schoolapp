@@ -15,12 +15,14 @@ import TradesAndActivities from './task';
 import TimeEntry from './timesheet/entry';
 import TimeEntryApproval from './timesheet/approval';
 import BudgetVsActual from './reports/budget_vs_actual';
+import JobReports from './reports/job_reports';
 
 import PrivateRoute from '../../routes/PrivateRoute';
 
 import { arrayIncludesOneOf } from '../../utils/Util';
 import { allowedRoles } from '../../actions/UserActions';
 import UserProfile from './user_profile';
+import TimeSheetReports from './reports/timesheet_reports';
 
 const Sider = Layout.Sider;
 const Content = Layout.Content;
@@ -93,6 +95,12 @@ class Application extends React.Component {
                     <Menu.Item key="/app/reports/budget_vs_actual">
                         <Link to="/app/reports/budget_vs_actual"><Icon type="bar-chart" />Budget Vs Actual</Link>
                     </Menu.Item>
+                    <Menu.Item key="/app/reports/job_reports">
+                        <Link to="/app/reports/job_reports"><Icon type="schedule" theme="filled" />Job Reports</Link>
+                    </Menu.Item>
+                    <Menu.Item key="/app/reports/timesheet_reports">
+                        <Link to="/app/reports/timesheet_reports"><Icon type="schedule" theme="filled" />Timesheet reports</Link>
+                    </Menu.Item>
                     {/* <Menu.Item key="/app/reports/report2">
                         <Link to="/app/reports/report2">Report2</Link>
                     </Menu.Item> */}
@@ -135,6 +143,8 @@ class Application extends React.Component {
                         <PrivateRoute path="/app/time_entry_approval" component={TimeEntryApproval} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.time_entry_approval)} />
                         <PrivateRoute path={`${this.props.match.url}/client`} component={Client} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.client)} />
                         <PrivateRoute path="/app/reports/budget_vs_actual" component={BudgetVsActual} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.reports)} />
+                        <PrivateRoute path="/app/reports/job_reports" component={JobReports} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.reports)} />
+                        <PrivateRoute path="/app/reports/timesheet_reports" component={TimeSheetReports} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.reports)} />
                         {/* <PrivateRoute path="/app/reports/report2" component={ProjectProgress} authenticated={isAuthenticated} authorized={arrayIncludesOneOf(userRoles, allowedRoles.reports)} /> */}
                         <Route component={NotFound} />
                     </Switch>
