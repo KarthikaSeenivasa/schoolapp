@@ -59,12 +59,12 @@ class TimeEntryList extends React.Component {
                 title: 'Date',
                 dataIndex: 'date',
                 render: renderDate,
-                width: 150
+                width: 75
             },
             {
-                title: 'Number of Hours',
+                title: 'No. of Hours',
                 dataIndex: 'hours',
-                width: 150
+                width: 100
             },
             {
                 title: 'Approver',
@@ -74,14 +74,19 @@ class TimeEntryList extends React.Component {
             {
                 title: "Approval Status",
                 dataIndex: "approval",
-                width: 150
+                width: 100
+            },
+            {
+                title: "Declined hours",
+                dataIndex: "declinedHours",
+                width: 75
             },
             {
                 title: 'Actions',
                 dataIndex: 'id',
                 key: 'id',
                 render: this.renderActions,
-                width: 150
+                width: 100
             }
         ];
 

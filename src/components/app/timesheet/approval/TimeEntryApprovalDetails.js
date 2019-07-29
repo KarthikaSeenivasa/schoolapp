@@ -73,6 +73,17 @@ class TimeEntryApprovalDetails extends React.Component {
                         )}
                     </FormItem>
 
+                    <FormItem label="Decline hours" {...formLayout}>
+                        {getFieldDecorator('declined', {
+                            initialValue: recordToEdit.declinedHours,
+                        })(
+                            <Input
+                                size="default"
+                                name="declined"
+                            />
+                        )}
+                    </FormItem>
+
                     <FormItem label="Remarks"{...formLayout}>
                         {getFieldDecorator('remarks', {
                             initialValue: recordToEdit.remarks

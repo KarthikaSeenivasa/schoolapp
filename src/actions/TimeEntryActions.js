@@ -22,12 +22,12 @@ export const statusCodes =
             name: 'Pending',
             value: "PENDING",
 			tagColor: "blue"
-        },
-        {
-            name: 'Declined',
-            value: "DECLINED",
-			tagColor: "red"
         }
+        // {
+        //     name: 'Declined',
+        //     value: "DECLINED",
+		// 	tagColor: "red"
+        // }
     ];
 
 export function getTimeEntries(date = [], page = 1, size = 10) {
@@ -159,10 +159,11 @@ export function getTimeEntryApprovals(status, page = 1, size = 10, date = [], le
     }
 }
 
-export function updateTimeEntryApproval(id, approval, remarks) {
+export function updateTimeEntryApproval(id, approval, remarks, declinedHours) {
     return (dispatch, getState) => {
         const data = {
             approval,
+            declinedHours,
             remarks
         };
         axios.put(TIME_ENTRIES_API + "/approval/" + id, data)

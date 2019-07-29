@@ -42,7 +42,8 @@ class TimeEntryApproval extends React.Component {
         form.validateFields((err, values) => {
             if (!err) {
                 let { remarks } = { ...values };
-                this.props.dispatch(updateTimeEntryApproval(this.state.recordToEdit.id, undefined, remarks));
+                let { declined } = { ...values };
+                this.props.dispatch(updateTimeEntryApproval(this.state.recordToEdit.id, undefined, remarks, declined));
                 form.resetFields();
                 this.setState({
                     showFormModal: false
