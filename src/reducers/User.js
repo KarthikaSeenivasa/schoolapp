@@ -1,4 +1,4 @@
-import { SET_IS_AUTHENTICATED, SET_USER_DETAILS, SET_ROLES, SET_ROLES_LOADING, SET_USER_LOADING } from '../actions/UserActions';
+import { SET_IS_AUTHENTICATED, SET_USER_DETAILS, SET_EDITED_USER_DETAILS, SET_ROLES, SET_ROLES_LOADING, SET_USER_LOADING } from '../actions/UserActions';
 
 const INITIAL_STATE = {
     isAuthenticated: false,
@@ -29,6 +29,25 @@ export default function reducer(state = INITIAL_STATE, action) {
                 email: action.email,
                 name: action.name,
                 isLead: action.isLead
+            }
+            case SET_EDITED_USER_DETAILS:
+            return {
+                ...state,
+                userId:action.id,
+                edituserRoles: action.userRoles,
+                editusername: action.username,
+                editemail: action.email,
+                editname: action.name,
+                isLead: action.isLead,
+                editUserRecord:{
+                userId:action.id,
+                edituserRoles: action.userRoles,
+                editusername: action.username,
+                editemail: action.email,
+                editname: action.name,
+                isLead: action.isLead
+                }
+
             }
         case SET_ROLES:
             return {

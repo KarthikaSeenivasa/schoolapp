@@ -7,8 +7,8 @@ export const SET_TIME_ENTRIES_LOADING = "SET_TIME_ENTRIES_LOADING";
 export const SET_TIME_ENTRY_APPROVALS = "SET_TIME_ENTRY_APPROVALS";
 export const SET_TIME_ENTRY_APPROVALS_LOADING = "SET_TIME_ENTRY_APPROVALS_LOADING";
 
-const DEV_SERVER = "";
-// const DEV_SERVER = "http://localhost";
+const PROD_SERVER = "";
+const DEV_SERVER = process.env.NODE_ENV == "production" ? PROD_SERVER : "http://localhost";
 const TIME_ENTRIES_API = DEV_SERVER + "/api/timeSheetRecord";
 
 export const statusCodes =
@@ -22,12 +22,12 @@ export const statusCodes =
             name: 'Pending',
             value: "PENDING",
 			tagColor: "blue"
+        },
+        {
+            name: 'Declined',
+            value: "DECLINED",
+			tagColor: "red"
         }
-        // {
-        //     name: 'Declined',
-        //     value: "DECLINED",
-		// 	tagColor: "red"
-        // }
     ];
 
 export function getTimeEntries(date = [], page = 1, size = 10) {

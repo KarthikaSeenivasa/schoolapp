@@ -5,11 +5,14 @@ const Option = Select.Option;
 
 const UserSelect = (props) => {
     const { loading, users } = props;
-    let options = [<Option value="all" key="all" search="All">All</Option>];
-    if (users.length > 0) {
-        options = options.concat(users.map((user) => {
+    let options = [];
+    if(props.fromComp != 'resetPassword'){
+     options = [<Option value="all" key="all" search="All">All</Option>];
+    }
+    if (users && users.length > 0) {
+        options = options.concat(users.map((user, index) => {
             return (
-                <Option value={user.id} key={user.id} search={user.name}>
+                <Option value={user.id} key={index} search={user.name}>
                     <span style={{ textTransform: 'capitalize' }}>{user.name + '(' + user.username + ')'}</span>
                 </Option>)
         }));

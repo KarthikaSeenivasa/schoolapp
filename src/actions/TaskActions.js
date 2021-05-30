@@ -6,8 +6,8 @@ export const SET_TASKS = "SET_TASKS";
 export const SET_TASKS_LOADING = "SET_TASKS_LOADING";
 export const SET_TREE_SELECT_DATA = "SET_TREE_SELECT_DATA";
 
-const DEV_SERVER = "";
-// const DEV_SERVER = "http://localhost";
+const PROD_SERVER = "";
+const DEV_SERVER = process.env.NODE_ENV == "production" ? PROD_SERVER : "http://localhost";
 
 const TASKS_API = DEV_SERVER + "/api/taskMaster";
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Select } from 'antd';
+import { Form, Select, Spin } from 'antd';
 
 const { Option } = Select;
 const FormItem = Form.Item;

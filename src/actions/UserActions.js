@@ -3,22 +3,33 @@ import { ACCESS_TOKEN, showSuccessNotification, showFailureNotification } from '
 
 export const SET_IS_AUTHENTICATED = "SET_IS_AUTHENTICATED";
 export const SET_USER_DETAILS = "SET_USER_DETAILS";
+export const SET_EDITED_USER_DETAILS = "SET_EDITED_USER_DETAILS";
 export const SET_USER_LOADING = "SET_USER_LOADING";
 export const SET_ROLES = "SET_ROLES";
 export const SET_ROLES_LOADING = "SET_ROLES_LOADING";
 
-const DEV_SERVER = "";
-// const DEV_SERVER = "http://localhost";
+const PROD_SERVER = "";
+const DEV_SERVER = process.env.NODE_ENV == "production" ? PROD_SERVER : "http://localhost";
 
 const SIGN_IN_API = DEV_SERVER + "/api/auth/signin";
 
 const SIGN_UP_API = DEV_SERVER + "/api/auth/signup";
 
+const EDIT_USER_API = DEV_SERVER + "/api/user/editUser";
+const GET_USER_API = DEV_SERVER + "/api/user/getUser";
+const DELETE_USER_API = DEV_SERVER + "/api/user/removeUser";
+
 const CHANGE_PASSWORD_API = DEV_SERVER + "/api/auth/change-password";
+
+const NEW_PASSWORD_API = DEV_SERVER + "/api/auth/new-password";
 
 const CHECK_USERNAME_AVAILABILITY_API = DEV_SERVER + "/api/user/checkUsernameAvailability";
 
 const CHECK_EMAIL_AVAILABILITY_API = DEV_SERVER + "/api/user/checkEmailAvailability";
+
+const CHECK_USERNAME_AVAILABILITY_UPDATE_API = DEV_SERVER + "/api/user/checkUsernameAvailabilityUpdate";
+
+const CHECK_EMAIL_AVAILABILITY_UPDATE_API = DEV_SERVER + "/api/user/checkEmailAvailabilityUpdate";
 
 const PROFILE_API = DEV_SERVER + "/api/user/profile";
 
@@ -117,6 +128,30 @@ export function handleChangePassword(oldPassword, newPassword) {
     }
 }
 
+export function handleResetPassword(userId, newPassword) {
+
+    return (dispatch, getState) => {
+        const params = {
+            userId: userId,            
+            password: newPassword
+        }
+
+        axios.put(NEW_PASSWORD_API, params).then((response) => {
+            if(response.data.success){
+                showSuccessNotification('Changed password successfully');
+            } else {
+                showFailureNotification(response.data.message);
+            }
+
+        }).catch((err) => {
+            if (err.response.status === 401) {
+                showFailureNotification('username is wrong');
+            }
+
+        });
+    }
+}
+
 
 export function createUser(username, email, name, role, isEmployee, employeeNumber, reportingTo, workplace, callback) {
     return (dispatch, getState) => {
@@ -142,6 +177,104 @@ export function createUser(username, email, name, role, isEmployee, employeeNumb
     }
 }
 
+export function editUser(userId, username, email, name, role, isEmployee, employeeNumber, reportingTo, workplace, callback) {
+    return (dispatch, getState) => {
+        const data = {
+            username,
+            email,
+            name,
+            roles: [role],
+            isEmployee,
+            employeeNumber,
+            reportingTo,
+            workplace
+        }
+        axios.put(EDIT_USER_API+'/'+userId, data)
+            .then((response) => {
+                showSuccessNotification("Updated the user details successfully");
+                if(callback){
+                    callback();
+                }
+            }).catch((err) => {
+                showFailureNotification("Unable to update the user details");
+            });
+    }
+}
+
+export function deleteUser(id, callback) {    
+    axios.delete(DELETE_USER_API+'/'+id)
+        .then((response) => {
+            showSuccessNotification("user is deleted successfully");
+            callback();
+
+        }).catch((err) => {
+            showFailureNotification("Unable to delete user");
+            callback(['Unable to delete user']);
+        });
+}
+
+export function checkUsernameAvailabilityUpdate(id, username, callback) {
+    const params = {
+        username,
+        id: JSON.parse(localStorage.getItem('edituserId'))
+    };
+    axios.get(CHECK_USERNAME_AVAILABILITY_UPDATE_API, { params })
+        .then((response) => {
+            if (response.data.available) {
+                callback(['User name already exists']);
+                return;
+            }
+            callback();
+
+        }).catch((err) => {
+            callback(['Unable to check if the user name is available']);
+        });
+}
+
+export function checkEmailAvailabilityUpdate(id, email, callback) {
+    const params = {
+        email,
+        id:JSON.parse(localStorage.getItem('edituserId'))
+    };
+    axios.get(CHECK_EMAIL_AVAILABILITY_UPDATE_API, { params })
+        .then((response) => {
+            if (response.data.available) {
+                callback(['Email already exists']);
+                return;
+            }
+            callback();
+        }).catch((err) => {
+            callback(['Unable to check if the email is available']);
+        });
+}
+
+export function getUserById(userId){
+    return (dispatch, getState) => {
+        dispatch(setUserLoading(true));
+        const params = {
+            id: userId
+        };
+        axios.get(GET_USER_API, { params })
+            .then((response) => {
+                let { id, username, email, name } = response.data;
+                let userRoles = response.data.roles;
+                let isLead = false;
+                if (userRoles.includes('ROLE_LEADER') || userRoles.includes('ROLE_MANAGEMENT')) {
+                    isLead = true;
+                }
+               // dispatch(setEditedUserDetails(id, username, email, name, userRoles, isLead));
+                //showSuccessNotification("Welcome " + name);
+               //dispatch(setUserLoading(false));
+                return response.data;
+            }).catch((err) => {
+                if(err.response.status === 401) {
+                   // dispatch(handleLogout());
+                    return;
+                }
+                showFailureNotification('Unable to fetch user details');
+            });
+    }
+}
 export function checkUsernameAvailability(rule, username, callback) {
     const params = {
         username
@@ -230,6 +363,17 @@ function setUserDetails(id, username, email, name, userRoles, isLead) {
         name,
         userRoles,
         isLead
+    }
+}
+
+function setEditedUserDetails(id, username, email, name, userRoles, isLead) {
+    return {
+        type: SET_EDITED_USER_DETAILS,id,
+        username,
+        email,
+        name,
+        userRoles,
+        isLead 
     }
 }
 

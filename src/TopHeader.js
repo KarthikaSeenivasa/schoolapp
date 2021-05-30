@@ -55,6 +55,12 @@ class TopHeader extends React.Component {
                 this.menuItems.unshift(
                     <Menu.Item key="/create_user">
                         <Link to="/create_user">Create User</Link>
+                    </Menu.Item>,
+                    <Menu.Item key="/edit_user">
+                    <Link to="/edit_user">Edit User</Link>
+                </Menu.Item>,
+                    <Menu.Item key="/reset-password">
+                        <Link to="/reset-password">Reset Password</Link>
                     </Menu.Item>
                 );
             }

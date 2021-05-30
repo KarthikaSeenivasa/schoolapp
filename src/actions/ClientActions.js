@@ -7,8 +7,8 @@ export const SET_CLIENT_ACTION_LOADING = "SET_CLIENT_ACTION_LOADING";
 export const SET_CONTACTS = "SET_CONTACTS";
 export const SET_CONTACTS_LOADING = "SET_CONTACTS_LOADING";
 
-const DEV_SERVER = "";
-// const DEV_SERVER = "http://localhost";
+const PROD_SERVER = "";
+const DEV_SERVER = process.env.NODE_ENV == "production" ? PROD_SERVER : "http://localhost";
 
 const CLIENTS_API = DEV_SERVER + "/api/client";
 const CONTACT_API = DEV_SERVER + "/api/contact"

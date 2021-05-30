@@ -5,8 +5,8 @@ export const SET_REPORTS = "SET_REPORTS";
 export const SET_REPORT_LOADING = "SET_REPORT_LOADING";
 export const GET_BUDGET_VS_ACTUAL = "GET_BUDGET_VS_ACTUAL"
 
-const DEV_SERVER = "";
-// const DEV_SERVER = "http://localhost";
+const PROD_SERVER = "";
+const DEV_SERVER = process.env.NODE_ENV == "production" ? PROD_SERVER : "http://localhost";
 const REPORTS_API = DEV_SERVER + "/api/report/budget-actual";
 
 export function getBudgetVsActual(projectId) {

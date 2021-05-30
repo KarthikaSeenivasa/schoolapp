@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import "babel-polyfill";
+import "@babel/polyfill";
 
 import registerServiceWorker from './registerServiceWorker';
 
