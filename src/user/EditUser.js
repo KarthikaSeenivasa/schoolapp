@@ -187,9 +187,6 @@ class EditUserForm extends React.Component {
                 <FormItem>
                     <Button disabled= {!this.state.userId} type="primary" htmlType="submit" size="large" ref={inputRef} className="login-form-button">Save User Details</Button>
                 </FormItem>
-                <FormItem>
-                    <Button disabled= {!this.state.userId} type="secondary" size="large" onClick={this.deleteuser} ref={inputRef} className="login-form-button">Delete User</Button>
-                </FormItem>
             </Form>
         );
     }
