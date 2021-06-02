@@ -205,11 +205,13 @@ export function deleteUser(id, callback) {
     axios.delete(DELETE_USER_API+'/'+id)
         .then((response) => {
             showSuccessNotification("user is deleted successfully");
-            callback();
+            if(callback){
+                callback();
+            }
 
         }).catch((err) => {
             showFailureNotification("Unable to delete user");
-            callback(['Unable to delete user']);
+            //callback(['Unable to delete user']);
         });
 }
 

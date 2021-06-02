@@ -71,7 +71,8 @@ class EditUserForm extends React.Component {
                 editusername:username,
                 editemail:email,
                 editname:name,
-                isEmployeeUser:true
+                isEmployeeUser:true,
+                userRoles:userRoles
             }
             this.state.editUserRecord=formvalues;
             this.props.form.setFieldsValue(formvalues);
@@ -100,13 +101,14 @@ class EditUserForm extends React.Component {
                 this.props.dispatch(editUser(this.state.userId,editusername, editemail, editname, role, isEmployeeUser, editemployeeNumber, reportingTo, workplace
                     //, ()=>this.props.dispatch(getAllRoles(true))
                     ));
-                this.props.form.resetFields(); 
+               location.reload();
             }
         });
     }
     deleteuser=()=>{
         this.props.dispatch(deleteUser(this.state.userId));
-        this.props.form.resetFields();
+       // this.props.form.resetFields();
+       location.reload();
     }
     onCheck = (e) => {
         this.setState({
@@ -180,7 +182,7 @@ class EditUserForm extends React.Component {
                     )}
                 </FormItem>
 
-                <RoleSelect ref={inputRef} getFieldDecorator={getFieldDecorator} formLayout={formLayout} loading={this.props.loading} roles={this.props.roles} />
+                <RoleSelect ref={inputRef} userRole={this.state.editUserRecord?.userRoles} getFieldDecorator={getFieldDecorator} formLayout={formLayout} loading={this.props.loading} roles={this.props.roles} />
                
                 <FormItem>
                     <Button disabled= {!this.state.userId} type="primary" htmlType="submit" size="large" ref={inputRef} className="login-form-button">Save User Details</Button>
@@ -194,7 +196,7 @@ class EditUserForm extends React.Component {
 }
 
 const RoleSelect = (props) => {
-    const { getFieldDecorator, loading, roles, formLayout } = props;
+    const { getFieldDecorator, loading, roles, formLayout, userRole } = props;
     let initialValue = null, options = null;
 
     if (roles.length > 0) {
@@ -204,8 +206,8 @@ const RoleSelect = (props) => {
                     <span style={{ textTransform: 'capitalize' }}>{role.displayName}</span>
                 </Option>)
         });
-
-        initialValue = roles[0].id;
+        let role = userRole ? roles.find(r=>r.name==userRole[0]) : roles[0];
+        initialValue = role.id    //roles[0].id;
     }
     return (
         <FormItem label="Role:" {...formLayout}>
@@ -219,41 +221,6 @@ const RoleSelect = (props) => {
                         :
                         null}
                 >
-                    {options}
-                </Select>
-            )
-            }
-        </FormItem >
-    );
-}
-
-const ReportingToSelect = (props) => {
-    const { getFieldDecorator, loading, users, formLayout } = props;
-    let initialValue = null, options = [(<Option value={null} key="-1" search="---" >---</Option>)];
-    if (users.length > 0) {
-        options = options.concat(users.map((user) => {
-            return (
-                <Option value={user.id} key={user.id} search={user.name} >
-                    <span style={{ textTransform: 'capitalize' }}>{user.name}</span>
-                </Option>)
-        }));
-
-        initialValue = users[0].id;
-    }
-    return (
-        <FormItem label="Reporting to" {...formLayout}>
-            {getFieldDecorator('reportingTo', {
-                initialValue: initialValue
-            })(
-                <Select name="reportingTo"
-                    showSearch
-                    optionFilterProp="search"
-                    filterOption={true}
-                    ref={inputRef}
-                    notFoundContent={loading ?
-                        <div style={{ textAlign: 'center' }}><Spin size="small" /></div>
-                        :
-                        'Not Found'}>
                     {options}
                 </Select>
             )
